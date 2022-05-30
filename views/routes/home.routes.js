@@ -207,13 +207,11 @@ router
     result = await result.json()
     if (!result.ok)
       return res.status(400).json({
-        message: 'problem updating the coffeeshop ☹️☹️☹️',
+        message: 'problem deleting  the coffeeshop ☹️☹️☹️',
         error: result,
       })
 
-    let coffeeshop = result.coffeeshop
-
-    res.redirect(`/coffeeShops/${coffeeshop._id}`)
+    res.redirect(`/colcade`)
   })
 
 router
