@@ -1,0 +1,22 @@
+<%- include('../templates/header', {title: 'Edit Coffee Shop', stylesheet: ""}) %>
+<%- include('../templates/navbar', {nav: 'nav'}) %>
+<!-- New coffee shop form -->
+<div class="container container--center">
+  <div class="card card--form">
+    <h2 class="card__title">Edit Coffee Shop</h2>
+    <div class="card__body">
+      <form action="/coffeeshops/<%=coffeeShop._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+        <input type="text" name="coffeeshop[name]" value="<%=coffeeShop.name%>" autofocus required>
+        <input type="text" name="coffeeshop[price]" value="<%=coffeeShop.price%>" required>
+        <textarea name="coffeeshop[description]" cols="40" rows="5" required><%=coffeeShop.description%></textarea>
+        <input type="file" name="coffeeshop[images]" multiple>
+        <button class="button">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="/js/loaduser.js"></script>
+</body>
+
+</html>

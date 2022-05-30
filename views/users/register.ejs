@@ -1,0 +1,21 @@
+<%- include('../partials/header', {title: 'Registration Page' , stylesheet: '' }) %>
+<%- include('../partials/navbar', {nav: 'nav'}) %>
+<!-- Register Form -->
+<div class="container container--center">
+  <div class="card card--form">
+    <h2 class="card__title">Sign Up</h2>
+    <div class="card__body">
+      <form action="/register" method="POST">
+        <input type="text" name="email" placeholder="Enter email" autofocus required>
+        <input type="text" name="username" placeholder="Enter username" required>
+        <input type="password" name="password" placeholder="Enter password" required>
+        <button class="button">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="/javascripts/loaduser.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<%- include('../templates/header', {title: 'New Coffee Shop', stylesheet: ""}) %>
+<%- include('../templates/navbar', {nav: 'nav'}) %>
+<!-- New coffee shop form -->
+<div class="container container--center">
+  <div class="card card--form">
+    <h2 class="card__title">Create a new Coffee Shop</h2>
+    <div class="card__body">
+      <form action="/coffeeshops/new" method="POST" enctype="multipart/form-data">
+        <input type="text" name="coffeeshop[name]" placeholder="Name" autofocus required>
+        <input type="text" name="coffeeshop[price]" placeholder="Price" required>
+        <textarea name="coffeeshop[description]" placeholder="Description" cols="40" rows="5" required></textarea>
+        <input type="file" name="coffeeshop[images]" multiple>
+        <button class="button">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script src="/javascripts/loaduser.js"></script>
+</body>
+
+</html>

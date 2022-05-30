@@ -1,0 +1,15 @@
+# testing base "get coffeeshops" api route
+GET http://localhost:3000/api/v1/coffeeshops?page=1 
+
+###
+# Find by id
+GET http://localhost:3000/api/v1/coffeeshops/617381037d15e748f46aa578
+
+### 
+# Update route
+PUT http://localhost:3000/api/v1/coffeeshops/628dac17c3d4f9ef14025b7d/update
+{}
+###
+# testing "search coffeeshops" api route
+# name search
+GET http://localhost:3000/api/v1/coffeeshops/search?type=name&name=nevre

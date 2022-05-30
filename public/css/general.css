@@ -1,0 +1,804 @@
+/*******************************************************************  GENERAL STYLES SECTION START  *******************************************************************/
+/* color palette and general fonts */
+:root {
+  box-sizing: border-box;
+  font-size: calc(1vw + 0.6em);
+  font-family: "Montserrat", sans-serif;
+  --main-color: #557d79ff;
+  --main-200: #7bc9c1;
+  --secondary-color: #dae0e6;
+  --accent-primary: #999;
+  --accent-secondary: #2d2e2f;
+  --light-text: #fff;
+  --grey-text: #bfbfbf;
+  --dark-text: #000;
+  --danger: #e75b68;
+  --rating: #ffea37;
+  font-weight: 300;
+}
+
+*,
+::before,
+::after {
+  box-sizing: inherit;
+}
+
+::-moz-placeholder {
+  color: var(--grey-text);
+}
+
+:-ms-input-placeholder {
+  color: var(--grey-text);
+}
+
+::placeholder {
+  color: var(--grey-text);
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+form {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* setting some general properties */
+html,
+body {
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  line-height: 1.6;
+  background-color: var(--main-color);
+}
+
+/* overriding default user agent styles of some tags */
+ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--dark-text);
+}
+
+form {
+  padding: 0;
+}
+
+footer {
+  width: 100%;
+  background-color: #aaa;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 300;
+  padding: 1rem 3rem 3rem 3rem;
+  bottom: 0px;
+  margin-top: 2rem;
+}
+
+/*******************************************************************  UTILIITIES *******************************************************************/
+.inline {
+  display: inline !important;
+}
+
+.active {
+  display: block !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.grid {
+  display: flex !important;
+}
+.grid .grid-col {
+  flex: 1;
+  padding: 0 0.2em;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex--center {
+  display: flex;
+  align-items: center;
+}
+
+.flex--column {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.bold {
+  font-weight: 600 !important;
+}
+
+.justify-end {
+  margin-left: auto !important;
+}
+
+.margin-0 {
+  margin: 0 !important;
+}
+
+.margin-top {
+  margin-top: 1em !important;
+}
+
+.margin-right {
+  margin-right: 1em !important;
+}
+
+.padding-block {
+  padding: 0 1em !important;
+}
+
+.padding-0 {
+  padding: 0 !important;
+}
+
+.grow-2 {
+  flex: 2;
+}
+
+.grow-1 {
+  flex: 1;
+}
+
+.order-1 {
+  order: -1;
+}
+
+.basis-80 {
+  flex-basis: 80%;
+}
+
+.navFont {
+  font-family: "Sansita Swashed", cursive !important;
+}
+
+.height--100 {
+  height: 100% !important;
+}
+
+.height--80 {
+  height: 90% !important;
+}
+
+.width--100 {
+  width: 100% !important;
+}
+
+.transparent {
+  background: none !important;
+}
+
+.fill--white {
+  fill: #fff;
+}
+
+/*******************************************************************  NAVBAR SECTION START  *******************************************************************/
+/* Define the main Navigation block */
+.nav {
+  height: 2.5rem;
+  width: 100%;
+  line-height: 1.6;
+  background-color: var(--secondary-color);
+  margin-bottom: 2rem;
+}
+
+/* Remove bullets, margin and padding */
+.nav ul {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* Define the block styling for the links */
+.nav__el {
+  padding: 0 1em;
+  color: var(--dark-text);
+}
+
+/* This is optional, however if you want to display the active link differently apply a background to it */
+.nav__el.active {
+  background-color: var(--main-color);
+}
+
+.nav__user {
+  display: flex;
+  align-items: center;
+  padding: 0.1em 0.4em;
+  position: relative;
+}
+
+.dropdown--content {
+  display: none;
+  border-radius: 0 0 1em 1em;
+  border: solid var(--main-200);
+  position: absolute;
+  bottom: -3rem;
+  width: 100%;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  background: var(--secondary-color);
+  z-index: 20;
+}
+
+.dropdown--content > * {
+  padding: 1em;
+}
+
+.dropdown--logout {
+  padding: 0;
+}
+
+.submit {
+  text-align: center;
+  cursor: pointer;
+}
+
+.nav__user:hover .dropdown--content {
+  display: block;
+}
+
+/* miscellaneous */
+.border {
+  border: 1.5px solid var(--main-color);
+  border-radius: 0.2em;
+}
+
+.picture {
+  display: flex;
+  width: 2rem;
+}
+
+.footer {
+  font-size: 16px;
+  text-align: center;
+}
+
+.footer a {
+  color: blue;
+}
+
+.white {
+  color: #fff;
+}
+
+/*******************************************************************  SEARCHBAR SECTION START  *******************************************************************/
+.searchbar {
+  display: flex;
+  background-color: var(--secondary-color);
+  cursor: text;
+  border-radius: 1em;
+  position: relative;
+  z-index: 10;
+  height: 2rem;
+}
+
+/* -----searchbar__input styles----- */
+.searchbar__input {
+  flex: 1;
+}
+
+/* styling the X button that appears when you type in the search input box */
+.searchbar__input__text::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 1em;
+  width: 1em;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23000" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>');
+  background-size: contain;
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.searchbar__input__text:focus::-webkit-search-cancel-button {
+  pointer-events: all;
+}
+
+.searchbar__input__text {
+  flex: 1;
+  margin: 0;
+  width: 100%;
+  height: 2rem;
+  background-color: var(--secondary-color);
+  border-color: transparent;
+  font-size: 0.8rem;
+  line-height: 2.75em;
+  margin: auto 0;
+  overflow: hidden;
+  text-align: initial;
+  text-overflow: ellipsis;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  white-space: nowrap;
+}
+
+/* -----search-icon styles---- */
+.searchbar__wrapper {
+  padding: 0 1.5em;
+}
+
+.searchbar__wrapper__icon {
+  opacity: 0.3;
+  bottom: 0;
+  left: 1em;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  width: 1em;
+}
+
+.searchbar--transparent {
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 1em;
+  color: var(--light-text);
+}
+
+.searchbar--transparent .searchbar__input__text {
+  background-color: transparent;
+  color: var(--light-text);
+  border: none;
+  flex: 1;
+}
+
+.searchbar--transparent .searchbar__input__text:focus {
+  outline-color: var(--light-text);
+  outline-width: 1px;
+}
+
+.searchbar--transparent .searchbar__input__text::-webkit-search-cancel-button {
+  opacity: 1;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23fff" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>') no-repeat;
+  /* color: var(--text-color); */
+}
+
+.searchbar--transparent .searchbar__wrapper__icon {
+  opacity: 1;
+}
+
+.searchbar--transparent .searchbar__input__text {
+  color: var(--light-text);
+}
+
+/*******************************************************************  CARD SECTION START  *******************************************************************/
+/* Default card used for masonry layout */
+.card {
+  position: relative;
+  border-radius: 2.5em 2.5em 2.5em 2.5em;
+  max-width: 16rem;
+  background-color: var(--secondary-color);
+  margin-top: 0.5em;
+  /* transition: all 0.5s ease; */
+}
+
+.card__title {
+  margin: 1em 1em 0;
+  text-align: center;
+}
+
+.card__body > * + * {
+  margin-top: 0.4em;
+}
+
+.card__body {
+  padding: 0.5em 2em 1.5em;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); */
+  transition: none;
+}
+
+/* Modifier card of set size used in non-masonry flex layout */
+.card--layout {
+  display: inline-flex;
+  flex-flow: row wrap;
+  position: static;
+}
+
+.card--layout > .card__image > a > img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 16em;
+}
+
+/* modifier for the large layout  */
+.card--large > .card__image > a > img {
+  height: 24em;
+}
+
+/* modifier for the small layout  */
+.card--small > .card__image > a > img {
+  height: 16em;
+}
+
+/* Form Card */
+.card--form {
+  display: inline-block;
+  position: static;
+  /* height: 50vh; */
+}
+
+.card--form .card__body {
+  padding: 0.5em 1.5em 2em;
+}
+
+.card--form form {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.card--form form > * {
+  border: none;
+  max-width: 100%;
+  padding: 1em;
+  border-radius: 1em;
+  flex: 1 0 100%;
+  font-family: inherit;
+}
+
+.card--form * + * {
+  margin-top: 0.5em;
+}
+
+/* Showpage modifier */
+.card--showpage {
+  margin: 0;
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
+  height: 80vh;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.card--showpage img {
+  position: absolute;
+  height: 100%;
+  max-width: none;
+  transition: all 0.5s ease;
+  z-index: 10;
+  /* object-fit: cover; */
+}
+
+.card--showpage .card__title {
+  position: absolute;
+  bottom: 2em;
+  color: var(--light-text);
+  font-size: 1.5em;
+  font-weight: 800;
+  z-index: 20;
+}
+
+.card--showpage::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+  z-index: 10;
+}
+
+/* V2 */
+.card--v2.card {
+  overflow: hidden;
+}
+
+.card__image__top {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  top: -4rem;
+  left: 0;
+  width: 100%;
+  height: 4rem;
+  padding: 0 2rem;
+  transition: transform 0.5s, background-color 1s 0.5s;
+}
+.card__image__top h3 {
+  white-space: wrap;
+  line-height: 1;
+  text-align: center;
+}
+
+.card__image__top a {
+  color: #fff;
+  font-size: 0.75em;
+}
+
+.card__image__bottom {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  bottom: -4em;
+  left: 0;
+  max-width: 100%;
+  height: 4rem;
+  color: #fff;
+  transition: transform 0.5s, background-color 1s 0.5s;
+}
+
+.card__image__bottom p {
+  padding-left: 2rem;
+  font-size: 0.75em;
+}
+
+/* override shadow effect */
+.card--v2.card:hover {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+
+.card--v2.card:hover .card__image__top {
+  opacity: 1;
+  transform: translateY(3.9rem);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.card--v2.card:hover .card__image__bottom {
+  opacity: 1;
+  transform: translateY(-3.9rem);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/*******************************************************************  CONTAINER SECTION START  *******************************************************************/
+.card--item {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  font-size: 1rem;
+  background: var(--secondary-color);
+}
+
+/*******************************************************************  CONTAINER SECTION START  *******************************************************************/
+.container {
+  margin-inline: auto;
+  width: min(60%, 60em);
+}
+
+.container--narrow {
+  max-width: 30em;
+}
+
+.container--100 {
+  margin: 0;
+  width: 100%;
+  position: relative;
+  padding: 0;
+}
+
+.container--layout {
+  position: static;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  -moz-column-gap: 0.75rem;
+       column-gap: 0.75rem;
+}
+
+.container--center {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.container--flex {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  margin: 0;
+  width: 100%;
+  gap: 0.5em;
+}
+
+/*******************************************************************  BUTTONS SECTION START  *******************************************************************/
+.button {
+  display: inline-block;
+  border-radius: 1em;
+  padding: 1em;
+  font-size: initial;
+  font-weight: initial;
+  font-family: inherit;
+  background-color: var(--main-200);
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.button--form {
+  background: none;
+  font-size: 1em;
+}
+
+.button--flex {
+  flex: 1 1 100%;
+}
+
+.button--container {
+  padding: 0;
+  margin: 1;
+}
+
+.button--delete {
+  background-color: var(--danger);
+}
+
+.button--svg {
+  position: absolute;
+  width: 2em;
+  stroke: #fff;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.button--svg:hover {
+  transform: scale(1.2);
+}
+
+.button--right {
+  right: 1em;
+}
+
+.button--left {
+  left: 1em;
+}
+
+.button--transparent {
+  background: none;
+}
+
+.button--small {
+  padding-block: 0.85em;
+}
+
+:invalid .button {
+  background-color: var(--grey-text);
+}
+
+/*******************************************************************  CAROUSEL SECTION START  *******************************************************************/
+.carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.carousel--linked {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.carousel__image {
+  display: none;
+}
+
+.carousel__top {
+  display: none;
+}
+
+.carousel__bottom {
+  display: none;
+}
+
+.carousel__text {
+  display: none;
+}
+
+/*******************************************************************  COMMENT SECTION START  *******************************************************************/
+.comment {
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 0.85rem;
+  color: var(--light-text);
+}
+
+.comment__picture {
+  width: 3em;
+  font-size: 1rem;
+}
+
+.comment__main {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-basis: 80%;
+}
+
+.comment__aside {
+  display: flex;
+  margin-top: 0.25em;
+}
+
+.comment__aside__rating {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.comment__main__title {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.comment__main__body {
+  flex-basis: 100%;
+}
+
+/* Label module */
+.label {
+  background: none;
+  width: 3.5em;
+  padding: 0;
+  border: none;
+  font: 1em;
+  color: var(--light-text);
+}
+
+/* Input module */
+.input {
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 0.5em 0.5em 0.25em;
+  padding-left: 0;
+  color: var(--light-text);
+  font-family: inherit;
+  font-size: 0.85em;
+}
+
+.input:focus {
+  outline: none;
+}
+
+/* SVGs */
+.line {
+  width: 100%;
+  height: 2px;
+  padding: 0;
+  stroke: var(--grey-text);
+}
+
+.focus {
+  stroke: var(--dark-text);
+  transition: all 0.3s;
+  stroke-dasharray: 0, 20;
+  stroke-dashoffset: -20;
+}
+
+.input:focus ~ .line .focus {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 0;
+}
+
+.stars {
+  fill: var(--rating);
+}
+
+.stars--parent {
+  width: 6em;
+  height: 1.5em;
+}
+
+.stars--outer {
+  fill: var(--dark-text);
+}/*# sourceMappingURL=general.css.map */

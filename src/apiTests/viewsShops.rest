@@ -1,0 +1,9 @@
+# testing base post route
+POST http://localhost:3000/
+content-type: application/json
+
+{
+    "email": "christian@christian.com",
+    "username": "christian",
+    "password": "christian"
+}

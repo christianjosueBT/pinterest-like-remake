@@ -1,0 +1,21 @@
+<%- include('../templates/header', {title: 'Login Page', stylesheet: ''}) %>
+<%- include('../templates/navbar', {nav: 'nav'}) %>
+<!-- Login Form -->
+<div class="container container--center">
+  <div class="card card--form">
+    <h2 class="card__title">Login</h2>
+    <div class="card__body">
+      <form action="/users/login" method="POST">
+        <input type="text" name="query" placeholder="Enter username or email" autofocus required>
+        <input type="password" name="password" placeholder="Enter password" required>
+        <button class="button">Submit</button>
+      </form>
+      <p class="footer">Need an account? <a href="/register">Sign up</a></p>
+    </div>
+  </div>
+</div>
+
+<script src="/js/loaduser.js"></script>
+</body>
+
+</html>
