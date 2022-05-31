@@ -1,6 +1,7 @@
 // import res from 'express/lib/response';
 import csDAO from '../dao/coffeeshopsDAO.js'
 import UsersDAO from '../dao/usersDAO.js'
+import { ObjectId } from 'bson'
 
 export default class coffeeShopsController {
   static async getCoffeeShops(req, res, next) {
@@ -233,7 +234,51 @@ export default class coffeeShopsController {
   }
 
   static async delete(req, res, next) {
-    
+    let id,
+      errors = {}
+    try {
+      id = req.params.id
+    } catch (e) {
+      console.error(`no params id, ${e}`)
+    }
+
+    // the stored session cookie contains the session _id along with some other stuff (idk why)
+    // so we need to extract the session _id from the session cookie
+    let sessionUserId = req.get('user')
+    let user = await UsersDAO.findById(sessionUserId)
+    if (!user) errors.author = 'The author of this shop does not exist.'
+
+    if (Object.keys(errors).length > 0) {
+      res.status(400).json(errors)
+      return
+    }
+
+    let deleteResult = await csDAO.delete(id, user._id)
+
+    if (!deleteResult.ok) errors.delete = 'Problem deleting the coffee shop'
+
+    if (Object.keys(errors).length > 0) {
+      res.status(400).json(errors)
+      return
+    }
+
+    const updateObj = { $pull: { coffeeShops: ObjectId(id) } }
+
+    let updateUser = await UsersDAO.update(user._id, updateObj)
+
+    if (!updateUser.ok)
+      errors.author = 'Problem updating the author of the deleted coffee shop'
+
+    if (Object.keys(errors).length > 0) {
+      res.status(400).json(errors)
+      return
+    }
+
+    // sending successful status and response
+    res.status(200).json({
+      message: 'successfully delete coffeeshop',
+      ok: true,
+    })
   }
 }
 
