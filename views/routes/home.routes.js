@@ -208,7 +208,7 @@ router
     if (!result.ok)
       return res.status(400).json({
         message: 'problem deleting  the coffeeshop ☹️☹️☹️',
-        error: result,
+        error: result.message,
       })
 
     res.redirect(`/colcade`)

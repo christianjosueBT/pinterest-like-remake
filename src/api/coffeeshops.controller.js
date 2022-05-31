@@ -246,7 +246,7 @@ export default class coffeeShopsController {
     // so we need to extract the session _id from the session cookie
     let sessionUserId = req.get('user')
     let user = await UsersDAO.findById(sessionUserId)
-    if (!user) errors.author = 'The author of this shop does not exist.'
+    if (!user) errors.author = 'The author of this coffee shop does not exist'
 
     if (Object.keys(errors).length > 0) {
       res.status(400).json(errors)
@@ -255,7 +255,7 @@ export default class coffeeShopsController {
 
     let deleteResult = await csDAO.delete(id, user._id)
 
-    if (!deleteResult.ok) errors.delete = 'Problem deleting the coffee shop'
+    if (!deleteResult.ok) errors.delete = 'Problem deleting coffee shop'
 
     if (Object.keys(errors).length > 0) {
       res.status(400).json(errors)

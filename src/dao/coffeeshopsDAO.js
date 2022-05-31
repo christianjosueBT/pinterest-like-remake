@@ -74,7 +74,8 @@ export default class coffeeShopsDAO {
       const shopsList = await displayCursor.toArray()
       // mongodb collection method that returns the number of items in the collection
       // that match the query
-      const totalNumShops = await coffeeShops.countDocuments(query)
+      const totalNumShops =
+        shopsList.length > 0 ? await coffeeShops.countDocuments(query) : 0
       return { shopsList, totalNumShops }
     } catch (e) {
       console.error(
@@ -145,79 +146,75 @@ export default class coffeeShopsDAO {
         return { ok: true }
       else return { ok: false }
     } catch (e) {
-      console.error(`error updating coffee shop, ${e}`)
+      console.error(`error updating coffee shop, ${e.message}`)
       return { error: e, ok: false }
     }
   }
 
   static async findById({ id = null, populate = [] } = {}) {
     if (typeof id === 'string') id = ObjectId(id)
-    try {
-      let lookup = {}
-      // {
-      //   $lookup: {
-      //     from: 'reviews',
-      //     localField: 'reviews',
-      //     foreignField: '_id',
-      //     pipeline: [
-      //       {
-      //         $lookup: {
-      //           from: 'users',
-      //           localField: 'author',
-      //           foreignField: '_id',
-      //           as: 'author',
-      //         },
-      //       },
-      //     ],
-      //     as: 'reviews',
-      //   },
-      // },
-      const pipeline = [
-        {
-          $match: {
-            _id: id,
-          },
+    let lookup = {}
+    const pipeline = [
+      {
+        $match: {
+          _id: id,
         },
-      ]
+      },
+    ]
 
-      if (populate.length > 0) {
-        if (populate[0] === 'reviews')
-          lookup = {
-            $lookup: {
-              from: 'reviews',
-              localField: 'reviews',
-              foreignField: '_id',
-              as: 'reviews',
-            },
-          }
-        else if (populate[0] === 'author')
-          lookup = {
-            $lookup: {
-              from: 'users',
-              localField: 'author',
-              foreignField: '_id',
-              as: 'author',
-            },
-          }
-        if (populate.length > 1) {
-          if (populate[1] === 'author')
-            lookup.$lookup.pipeline = [
-              {
-                $lookup: {
-                  from: 'users',
-                  localField: 'author',
-                  foreignField: '_id',
-                  as: 'author',
-                },
-              },
-            ]
+    if (populate.length > 0) {
+      if (populate[0] === 'reviews')
+        lookup = {
+          $lookup: {
+            from: 'reviews',
+            localField: 'reviews',
+            foreignField: '_id',
+            as: 'reviews',
+          },
         }
+      else if (populate[0] === 'author')
+        lookup = {
+          $lookup: {
+            from: 'users',
+            localField: 'author',
+            foreignField: '_id',
+            as: 'author',
+          },
+        }
+      if (populate.length > 1) {
+        if (populate[1] === 'author')
+          lookup.$lookup.pipeline = [
+            {
+              $lookup: {
+                from: 'users',
+                localField: 'author',
+                foreignField: '_id',
+                as: 'author',
+              },
+            },
+          ]
       }
-      if (Object.keys(lookup).length > 0) pipeline.push(lookup)
+    }
+    if (Object.keys(lookup).length > 0) pipeline.push(lookup)
+
+    try {
       return await coffeeShops.aggregate(pipeline).next()
     } catch (e) {
       console.error(`Something went wrong in DAO findById: ${e}`)
       throw e
+    }
+  }
+
+  static async delete(id, userId) {
+    if (typeof id === 'string') id = ObjectId(id)
+    if (typeof userId === 'string') userId = ObjectId(userId)
+    try {
+      let deleteResult = await coffeeShops.deleteOne({ _id: id })
+      console.log('coffee shop delete result: \n', deleteResult)
+      return deleteResult.deletedCount > 0 ? { ok: true } : { ok: false }
+    } catch (e) {
+      console.error(`error deleting coffee shop, ${e.message}`)
+      return { error: e.message, ok: false }
     }
   }
 }
