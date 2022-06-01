@@ -28,9 +28,13 @@
   <%if(user && String(user._id) === String(coffeeShop.author)) {%>
   <div class="container container--flex">
     <a class="button" href="/coffeeshops/<%=coffeeShop._id%>/edit">Edit</a>
-    <form action="/coffeeShops/<%=coffeeShop._id%>?_method=DELETE" method="POST">
-      <button class="button button--delete height--100">Delete</button>
-    </form>
+    <button class="button button--delete openModal" data-modal="modal-1">Delete</button>
+    <dialog id="modal-1">
+      <h2>Are you absolutely sure?</h2>
+      <p>
+        This action cannot be undone. This will permanently delete the coffee shop, all 
+      </p>
+    </dialog>
   </div>
   <%}%>
 </div>

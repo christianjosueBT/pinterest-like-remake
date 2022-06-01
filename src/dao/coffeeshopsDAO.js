@@ -210,7 +210,6 @@ export default class coffeeShopsDAO {
     if (typeof userId === 'string') userId = ObjectId(userId)
     try {
       let deleteResult = await coffeeShops.deleteOne({ _id: id })
-      console.log('coffee shop delete result: \n', deleteResult)
       return deleteResult.deletedCount > 0 ? { ok: true } : { ok: false }
     } catch (e) {
       console.error(`error deleting coffee shop, ${e.message}`)
