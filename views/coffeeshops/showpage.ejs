@@ -30,20 +30,24 @@
     <a class="button" href="/coffeeshops/<%=coffeeShop._id%>/edit">Edit</a>
     <button class="button button--delete openModal" data-modal="modal-1">Delete</button>
     <dialog id="modal-1">
+      <button class="closeModal" type="button"></button>
       <h2>Are you absolutely sure?</h2>
       <p>
-        This action cannot be undone. This will permanently delete the coffee shop, all 
+        This action cannot be undone. This will permanently delete the coffee shop, and all related information
       </p>
+      <form action="/coffeeshops/<%=coffeeShop._id%>?_method=DELETE" method="PUT">
+        <button class="button button--delete">I understand, delete this coffee shop</button>
+      </form>
     </dialog>
   </div>
   <%}%>
 </div>
 
 <!-- REVIEW SECTION -->
-<div class="container margin-top">
+<div class=" container margin-top">
 
-  <!-- Slightly different message depending on if there are reviews or not -->
-  <%if(coffeeShop.reviews.length === 0) {%>
+        <!-- Slightly different message depending on if there are reviews or not -->
+        <%if(coffeeShop.reviews.length === 0) {%>
   <h3>Be the first to review this cafe!</h3>
   <%} else {%>
   <h3>Reviews</h3>
