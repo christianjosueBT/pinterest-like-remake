@@ -1,4 +1,3 @@
-// hello!
 import { Uri, port } from '../config.js'
 
 import server from './server.js'
