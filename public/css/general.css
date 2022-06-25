@@ -4,7 +4,7 @@
   box-sizing: border-box;
   font-size: calc(1vw + 0.6em);
   font-family: "Montserrat", sans-serif;
-  --main-color: #557d79ff;
+  --main-color: #595244;
   --main-200: #7bc9c1;
   --secondary-color: #dae0e6;
   --accent-primary: #999;
@@ -252,6 +252,21 @@ dialog .closeModal:hover {
   align-items: center;
   padding: 0.1em 0.4em;
   position: relative;
+}
+.nav__user .user,
+.nav__user .login {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 0.4em;
+}
+.nav__user .user::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
 }
 
 .dropdown--content {

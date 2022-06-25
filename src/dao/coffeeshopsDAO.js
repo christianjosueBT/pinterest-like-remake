@@ -1,13 +1,16 @@
 import { db } from '../../config.js'
 import { ObjectId } from 'bson'
-let coffeeShops
+import usersDAO from './usersDAO.js'
+
+let coffeeShops, reviews
 const DEFAULT_SORT = { name: 1 }
 
 export default class coffeeShopsDAO {
   static async injectDB(conn) {
-    if (coffeeShops) return
+    if (coffeeShops || reviews) return
     try {
       coffeeShops = await conn.db(db).collection('coffeeshops')
+      reviews = await conn.db(db).collection('reviews')
     } catch (e) {
       console.error(
         `Unable to establish a collection handle in coffeeshopsDAO: ${e}`
@@ -209,10 +212,26 @@ export default class coffeeShopsDAO {
     if (typeof id === 'string') id = ObjectId(id)
     if (typeof userId === 'string') userId = ObjectId(userId)
     try {
-      let deleteResult = await coffeeShops.deleteOne({ _id: id })
+      let deleteResult = await coffeeShops.deleteOne({
+        _id: id,
+        author: userId,
+      })
       return deleteResult.deletedCount > 0 ? { ok: true } : { ok: false }
     } catch (e) {
       console.error(`error deleting coffee shop, ${e.message}`)
+      return { error: e.message, ok: false }
+    }
+  }
+
+  static async deleteReview(id, userId) {
+    if (typeof id === 'string') id = ObjectId(id)
+    if (typeof userId === 'string') userId = ObjectId(userId)
+
+    try {
+      let deleteResult = await reviews.deleteOne({ _id: id, author: userId })
+      return deleteResult.deletedCount > 0 ? { ok: true } : { ok: false }
+    } catch (e) {
+      console.error(`error deleting review, ${e.message}`)
       return { error: e.message, ok: false }
     }
   }

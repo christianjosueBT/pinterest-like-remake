@@ -1,6 +1,6 @@
 // import res from 'express/lib/response';
 import csDAO from '../dao/coffeeshopsDAO.js'
-import UsersDAO from '../dao/usersDAO.js'
+import usersDAO from '../dao/usersDAO.js'
 import { ObjectId } from 'bson'
 
 export default class coffeeShopsController {
@@ -245,36 +245,52 @@ export default class coffeeShopsController {
     // the stored session cookie contains the session _id along with some other stuff (idk why)
     // so we need to extract the session _id from the session cookie
     let sessionUserId = req.get('user')
-    let user = await UsersDAO.findById(sessionUserId)
+    // we then use this _id to retrieve the user and check it exists
+    let user = await usersDAO.findById(sessionUserId)
     if (!user) errors.author = 'The author of this coffee shop does not exist'
-
     if (Object.keys(errors).length > 0) {
       res.status(400).json(errors)
       return
     }
 
-    let deleteResult = await csDAO.delete(id, user._id)
+    // we now want to iterate over the reviews of this coffeeshop
+    // we will fetch all authors and delete pull the review associated with this coffeeshop from their profiles
+    // we will also delete the review from the review collection as well
+    let reviews = await csDAO.findById({ id, populate: ['reviews'] })
+    reviews = reviews.reviews
+    for (const review of reviews) {
+      let reviewId = review._id
+      const updateDocument = {
+        $pull: { reviews: ObjectId(reviewId) },
+      }
 
-    if (!deleteResult.ok) errors.delete = 'Problem deleting coffee shop'
-
-    if (Object.keys(errors).length > 0) {
-      res.status(400).json(errors)
-      return
+      try {
+        let author = usersDAO.update(review.author, updateDocument)
+        csDAO.deleteReview(reviewId, author)
+      } catch (e) {
+        console.error('error deleting review', e)
+      }
     }
 
+    // we now want to delete this coffee shop from the author's page
     const updateObj = { $pull: { coffeeShops: ObjectId(id) } }
-
-    let updateUser = await UsersDAO.update(user._id, updateObj)
-
+    let updateUser = await usersDAO.update(user._id, updateObj)
     if (!updateUser.ok)
       errors.author = 'Problem updating the author of the deleted coffee shop'
-
     if (Object.keys(errors).length > 0) {
       res.status(400).json(errors)
       return
     }
 
-    // sending successful status and response
+    // finally we want to delete the actual coffee shop
+    let deleteResult = await csDAO.delete(id, user._id)
+    if (!deleteResult.ok) errors.delete = 'Problem deleting coffee shop'
+    if (Object.keys(errors).length > 0) {
+      res.status(400).json(errors)
+      return
+    }
+
+    // sending sucscessful status and response
     res.status(200).json({
       message: 'successfully delete coffeeshop',
       ok: true,

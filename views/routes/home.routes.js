@@ -205,6 +205,9 @@ router
     )
 
     result = await result.json()
+
+    console.log('result:', result)
+
     if (!result.ok)
       return res.status(400).json({
         message: 'problem deleting  the coffeeshop ☹️☹️☹️',

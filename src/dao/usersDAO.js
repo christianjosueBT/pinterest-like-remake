@@ -1,16 +1,16 @@
-import { db } from '../../config.js';
-import { ObjectId } from 'bson';
+import { db } from '../../config.js'
+import { ObjectId } from 'bson'
 
-let users, sessions;
+let users, sessions
 
 export default class UsersDAO {
   static async injectDB(conn) {
-    if (users || sessions) return;
+    if (users || sessions) return
     try {
-      users = await conn.db(db).collection('users');
-      sessions = await conn.db(db).collection('sessions');
+      users = await conn.db(db).collection('users')
+      sessions = await conn.db(db).collection('sessions')
     } catch (e) {
-      console.error(`Unable to establish collection handles in userDAO: ${e}`);
+      console.error(`Unable to establish collection handles in userDAO: ${e}`)
     }
   }
 
@@ -20,7 +20,7 @@ export default class UsersDAO {
    * @returns {Object | null} Returns either a single user or nothing
    */
   static async getUser(type, query) {
-    return await users.findOne({ [type]: query });
+    return await users.findOne({ [type]: query })
   }
 
   /**
@@ -29,16 +29,16 @@ export default class UsersDAO {
    * @returns {Object | null} Returns either a single user or nothing
    */
   static async getSession(id) {
-    return await sessions.findOne({ _id: id });
+    return await sessions.findOne({ _id: id })
   }
 
   /**
    * Finds a user in the `users` collection using the provided id
-   * @param {string} email - User id
+   * @param {string} id - User id
    * @returns {Object | null} Returns either a single user or nothing
    */
   static async findById(id) {
-    if (typeof id === 'string') id = ObjectId(id);
+    if (typeof id === 'string') id = ObjectId(id)
     try {
       const pipeline = [
         {
@@ -46,12 +46,12 @@ export default class UsersDAO {
             _id: id,
           },
         },
-      ];
+      ]
 
-      return await users.aggregate(pipeline).next();
+      return await users.aggregate(pipeline).next()
     } catch (e) {
-      console.error(`Something went wrong in DAO findById: ${e}`);
-      throw e;
+      console.error(`Something went wrong in DAO findById: ${e}`)
+      throw e
     }
   }
 
@@ -62,14 +62,14 @@ export default class UsersDAO {
    */
   static async addUser(userInfo) {
     try {
-      await users.insertOne(userInfo);
-      return { success: true };
+      await users.insertOne(userInfo)
+      return { success: true }
     } catch (e) {
       if (String(e).startsWith('MongoError: E11000 duplicate key error')) {
-        return { error: 'A user with the given email already exists.' };
+        return { error: 'A user with the given email already exists.' }
       }
-      console.error(`Error occurred while adding new user, ${e}.`);
-      return { error: e };
+      console.error(`Error occurred while adding new user, ${e}.`)
+      return { error: e }
     }
   }
 
@@ -80,11 +80,11 @@ export default class UsersDAO {
    */
   static async logoutUser() {
     try {
-      await refreshTokens.deleteOne({ token: refreshObj.token });
-      return { success: true };
+      await refreshTokens.deleteOne({ token: refreshObj.token })
+      return { success: true }
     } catch (e) {
-      console.error(`Error occurred while logging out user, ${e}`);
-      return { error: e };
+      console.error(`Error occurred while logging out user, ${e}`)
+      return { error: e }
     }
   }
 
@@ -95,31 +95,31 @@ export default class UsersDAO {
    */
   static async deleteUser(email) {
     try {
-      await users.deleteOne({ email });
-      await refreshTokens.deleteOne({ token: refreshObj.token });
+      await users.deleteOne({ email })
+      await refreshTokens.deleteOne({ token: refreshObj.token })
       if (
         !(await this.getUser(email)) &&
         !(await this.getRefreshToken(refreshObj))
       ) {
-        return { success: true };
+        return { success: true }
       } else {
-        console.error(`Deletion unsuccessful`);
-        return { error: `Deletion unsuccessful` };
+        console.error(`Deletion unsuccessful`)
+        return { error: `Deletion unsuccessful` }
       }
     } catch (e) {
-      console.error(`Error occurred while deleting user, ${e}`);
-      return { error: e, ok: false };
+      console.error(`Error occurred while deleting user, ${e}`)
+      return { error: e, ok: false }
     }
   }
 
   static async update(id, updateObj) {
     try {
-      let user = await users.updateOne({ _id: id }, updateObj);
-      if (user.modifiedCount > 0) return { ok: true };
-      else return { ok: false };
+      let user = await users.updateOne({ _id: id }, updateObj)
+      if (user.modifiedCount > 0) return { ok: true }
+      else return { ok: false }
     } catch (e) {
-      console.error(`error updating user, ${e}`);
-      return { error: e, ok: false };
+      console.error(`error updating user, ${e}`)
+      return { error: e, ok: false }
     }
   }
 }
