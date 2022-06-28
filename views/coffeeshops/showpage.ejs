@@ -24,7 +24,7 @@
 
 <!-- DESCRIPTION -->
 <div class="container margin-top">
-  <p class="white"><%=coffeeShop.description%></p>
+  <p class="font-small"><%=coffeeShop.description%></p>
   <%if(user && String(user._id) === String(coffeeShop.author)) {%>
   <div class="container container--flex">
     <a class="button" href="/coffeeshops/<%=coffeeShop._id%>/edit">Edit</a>

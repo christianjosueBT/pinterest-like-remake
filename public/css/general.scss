@@ -4,17 +4,19 @@
   box-sizing: border-box;
   font-size: calc(1vw + 0.6em);
   font-family: 'Montserrat', sans-serif;
-  --main-color: #595244;
-  --main-200: #7bc9c1;
-  --secondary-color: #dae0e6;
+  --main-1: #cdb4db;
+  --main-2: #ffc8dd;
+  --main-3: #ffafcc;
+  --secondary-1: #dae0e6;
+  --secondary-2: #a2d2ff;
   --accent-primary: #999;
   --accent-secondary: #2d2e2f;
   --light-text: #fff;
-  --grey-text: #bfbfbf;
+  --grey-text: #606060;
   --dark-text: #000;
   --danger: #e75b68;
   --rating: #ffea37;
-  font-weight: 300;
+  font-weight: 400;
 }
 *,
 ::before,
@@ -44,7 +46,7 @@ body {
   height: 100%;
   width: 100%;
   line-height: 1.6;
-  background-color: var(--main-color);
+  background-color: var(--main-1);
 }
 /* overriding default user agent styles of some tags */
 ul {
@@ -61,10 +63,8 @@ form {
 footer {
   // position: absolute;
   width: 100%;
-  background-color: #aaa;
-  color: #333;
-  font-size: 1rem;
-  font-weight: 300;
+  background-color: transparent;
+  color: transparent;
   padding: 1rem 3rem 3rem 3rem;
   bottom: 0px;
   margin-top: 2rem;
@@ -73,7 +73,7 @@ footer {
 dialog {
   // position: relative;
   border-radius: 1rem;
-  background-color: var(--secondary-color);
+  background-color: var(--main-2);
 
   h2 {
     text-align: center;
@@ -173,6 +173,9 @@ dialog {
 .navFont {
   font-family: 'Sansita Swashed', cursive !important;
 }
+.font-small {
+  font-size: 0.75rem;
+}
 .height--100 {
   height: 100% !important;
 }
@@ -188,6 +191,9 @@ dialog {
 .fill--white {
   fill: #fff;
 }
+.placeholder-light::placeholder {
+  color: var(--light-text);
+}
 
 /*******************************************************************  NAVBAR SECTION START  *******************************************************************/
 
@@ -196,7 +202,7 @@ dialog {
   height: 2.5rem;
   width: 100%;
   line-height: 1.6;
-  background-color: var(--secondary-color);
+  background-color: var(--main-1);
   margin-bottom: 2rem;
 }
 /* Remove bullets, margin and padding */
@@ -212,20 +218,21 @@ dialog {
 }
 /* This is optional, however if you want to display the active link differently apply a background to it */
 .nav__el.active {
-  background-color: var(--main-color);
+  background-color: var(--main-2);
 }
 .nav__user {
   display: flex;
   align-items: center;
   padding: 0.1em 0.4em;
   position: relative;
+  gap: 0.1em;
 
   .user,
   .login {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    gap: 0.4em;
+    gap: 0.3em;
   }
 
   .user::after {
@@ -240,21 +247,18 @@ dialog {
 
 .dropdown--content {
   display: none;
-  border-radius: 0 0 1em 1em;
-  border: solid var(--main-200);
+  align-items: flex-start;
+  border-radius: 1em 1em;
   position: absolute;
   bottom: -3rem;
   width: 100%;
   height: min-content;
-  background: var(--secondary-color);
+  background: var(--secondary-1);
   z-index: 20;
 }
 
 .dropdown--content > * {
-  padding: 1em;
-}
-.dropdown--logout {
-  padding: 0;
+  padding-left: 1em;
 }
 .submit {
   text-align: center;
@@ -262,38 +266,36 @@ dialog {
 }
 
 .nav__user:hover .dropdown--content {
-  display: block;
+  display: flex;
+  flex-flow: column wrap;
 }
 
 /* miscellaneous */
 .border {
-  border: 1.5px solid var(--main-color);
+  border: 1.5px solid var(--main-2);
   border-radius: 0.2em;
 }
 .picture {
   display: flex;
   width: 2rem;
+  border: 2px solid var(--secondary-2);
+  border-radius: 1em;
 }
 .footer {
-  font-size: 16px;
   text-align: center;
 }
-.footer a {
-  color: blue;
-}
 .white {
-  color: #fff;
+  color: var(--light-text);
 }
 
 /*******************************************************************  SEARCHBAR SECTION START  *******************************************************************/
 .searchbar {
   display: flex;
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-1);
   cursor: text;
   border-radius: 1em;
   position: relative;
   z-index: 10;
-  height: 2rem;
 }
 /* -----searchbar__input styles----- */
 .searchbar__input {
@@ -317,9 +319,8 @@ dialog {
   margin: 0;
   width: 100%;
   height: 2rem;
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-1);
   border-color: transparent;
-  font-size: 0.8rem;
   line-height: 2.75em;
   margin: auto 0;
   overflow: hidden;
@@ -343,7 +344,7 @@ dialog {
 }
 .searchbar--transparent {
   background-color: transparent;
-  border: 2px solid #fff;
+  border: 2px solid var(--light-text);
   border-radius: 1em;
   color: var(--light-text);
 }
@@ -361,7 +362,7 @@ dialog {
   opacity: 1;
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23fff" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>')
     no-repeat;
-  /* color: var(--text-color); */
+  color: var(--light-text);
 }
 .searchbar--transparent .searchbar__wrapper__icon {
   opacity: 1;
@@ -377,7 +378,7 @@ dialog {
   position: relative;
   border-radius: 2.5em 2.5em 2.5em 2.5em;
   max-width: 16rem;
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-1);
   margin-top: 0.5em;
   /* transition: all 0.5s ease; */
 }
@@ -502,7 +503,7 @@ dialog {
   }
 }
 .card__image__top a {
-  color: #fff;
+  color: var(--light-text);
   font-size: 0.75em;
 }
 .card__image__bottom {
@@ -513,7 +514,7 @@ dialog {
   left: 0;
   max-width: 100%;
   height: 4rem;
-  color: #fff;
+  color: var(--light-text);
   -webkit-transition: transform 0.5s, background-color 1s 0.5s;
   transition: transform 0.5s, background-color 1s 0.5s;
 }
@@ -541,8 +542,7 @@ dialog {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  font-size: 1rem;
-  background: var(--secondary-color);
+  background: var(--secondary-1);
 }
 /*******************************************************************  CONTAINER SECTION START  *******************************************************************/
 .container {
@@ -586,16 +586,14 @@ dialog {
   border-radius: 1em;
   padding: 1em;
   font-size: initial;
-  font-weight: initial;
   font-family: inherit;
-  background-color: var(--main-200);
+  background-color: var(--secondary-2);
   border: none;
   cursor: pointer;
-  color: #fff;
+  color: var(--dark-text);
 }
 .button--form {
   background: none;
-  font-size: 1em;
 }
 .button--flex {
   flex: 1 1 100%;
@@ -662,12 +660,15 @@ dialog {
 .comment {
   display: flex;
   flex-flow: row wrap;
-  font-size: 0.85rem;
-  color: var(--light-text);
+  color: var(--dark-text);
 }
 .comment__picture {
   width: 3em;
-  font-size: 1rem;
+
+  img {
+    border: 2px solid var(--secondary-2);
+    border-radius: 2em;
+  }
 }
 .comment__main {
   display: flex;
@@ -689,6 +690,7 @@ dialog {
 }
 .comment__main__body {
   flex-basis: 100%;
+  font-size: 0.75rem;
 }
 
 /* Label module */
@@ -708,9 +710,8 @@ dialog {
   width: 100%;
   padding: 0.5em 0.5em 0.25em;
   padding-left: 0;
-  color: var(--light-text);
+  color: var(--dark-text);
   font-family: inherit;
-  font-size: 0.85em;
 }
 .input:focus {
   outline: none;
@@ -721,7 +722,7 @@ dialog {
   width: 100%;
   height: 2px;
   padding: 0;
-  stroke: var(--grey-text);
+  stroke: var(--accent-primary);
 }
 .focus {
   stroke: var(--dark-text);
