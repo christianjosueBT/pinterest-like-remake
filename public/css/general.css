@@ -129,14 +129,6 @@ dialog .closeModal:hover {
   display: none !important;
 }
 
-.grid {
-  display: flex !important;
-}
-.grid .grid-col {
-  flex: 1;
-  padding: 0 0.2em;
-}
-
 .flex {
   display: flex;
 }
@@ -440,7 +432,7 @@ dialog .closeModal:hover {
   max-width: 16rem;
   background-color: var(--secondary-1);
   margin-top: 0.5em;
-  /* transition: all 0.5s ease; */
+  transition: all 0.5s ease;
 }
 
 .card__title {

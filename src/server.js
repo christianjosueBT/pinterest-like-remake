@@ -1,4 +1,3 @@
-// hi
 import { Uri, secret, db } from '../config.js'
 
 // my ip address: 10.0.0.154

@@ -1,26 +1,33 @@
 // global variables
-const controller = new AbortController();
-const heights = [];
-const images = document.querySelectorAll('.carousel__image');
-const footer = document.querySelector('footer');
-const container100 = document.querySelector('.container--100');
-const grid = document.querySelector('.grid');
-const searchbar__input = document.querySelector('.searchbar__input');
-let blocks = document.querySelectorAll('.card');
-let margin = 0;
-let windowWidth = 0;
+const controller = new AbortController()
+const heights = []
+const images = document.querySelectorAll('.carousel__image')
+const footer = document.querySelector('footer')
+const container100 = document.querySelector('.container--100')
+const grid = document.querySelector('.grid')
+const searchbar__input = document.querySelector('.searchbar__input')
+let blocks = document.querySelectorAll('.card')
+let margin = 0
+let windowWidth = 0
 let colWidth =
   parseInt(
     window.getComputedStyle(document.body).getPropertyValue('font-size')
-  ) * 17;
-let cardsSpace = 0;
-let colCount = 0;
-let whiteSpace = 0;
-let min = 0;
-let index = 0;
-let page = 0;
-let user = {};
-let colcade;
+  ) * 17
+let cardsSpace = 0
+let colCount = 0
+let whiteSpace = 0
+let min = 0
+let index = 0
+let page = 0
+let user = {}
+
+// ********************************************************************
+// simple masonry
+// ********************************************************************
+let simpleM = new SimpleMasonry({
+  masonryBox: '.row',
+  masonryColumn: '.grid',
+})
 
 // ********************************************************************
 // intersection observer
@@ -30,11 +37,11 @@ let options = {
   root: null,
   rootMargins: '0px',
   threshold: 0.5,
-};
+}
 // handles what happens when an intersection happens
 function handleIntersect(entries) {
   if (entries[0].isIntersecting) {
-    getData();
+    getData()
   }
 }
 
@@ -45,8 +52,8 @@ function handleIntersect(entries) {
  * @returns {response} Returns either a response json object or an error
  */
 const postFormDataAsJson = async ({ url, formData }) => {
-  const plainFormData = Object.fromEntries(formData.entries());
-  const formDataJsonString = JSON.stringify(plainFormData);
+  const plainFormData = Object.fromEntries(formData.entries())
+  const formDataJsonString = JSON.stringify(plainFormData)
 
   const fetchOptions = {
     // method: 'POST',
@@ -57,20 +64,20 @@ const postFormDataAsJson = async ({ url, formData }) => {
       Accept: 'application/json',
     },
     body: formDataJsonString,
-  };
-
-  const response = await fetch(url, fetchOptions);
-
-  if (!response.ok) {
-    const errorMessage = await response.text();
-    if (JSON.parse(errorMessage).error.name === 'TokenExpiredError') {
-      await fetchToken(false);
-      return postFormDataAsJson({ url, formData });
-    } else throw new Error(errorMessage);
   }
 
-  return response.json();
-};
+  const response = await fetch(url, fetchOptions)
+
+  if (!response.ok) {
+    const errorMessage = await response.text()
+    if (JSON.parse(errorMessage).error.name === 'TokenExpiredError') {
+      await fetchToken(false)
+      return postFormDataAsJson({ url, formData })
+    } else throw new Error(errorMessage)
+  }
+
+  return response.json()
+}
 
 /**
  * Handles form submits. Prevents default form submission, allowing
@@ -79,20 +86,20 @@ const postFormDataAsJson = async ({ url, formData }) => {
  * @returns {void} Does not return anything
  */
 const handleFormSubmit = async event => {
-  event.preventDefault();
-  const form = event.currentTarget;
-  const url = form.action;
+  event.preventDefault()
+  const form = event.currentTarget
+  const url = form.action
 
   if (!form.checkValidity()) {
-    return;
+    return
   }
 
-  form.classList.add('was-validated');
+  form.classList.add('was-validated')
   try {
-    let formData = new FormData(form);
-    let responseData = await postFormDataAsJson({ url, formData });
+    let formData = new FormData(form)
+    let responseData = await postFormDataAsJson({ url, formData })
     if (responseData.ok) {
-      return window.location.reload();
+      return window.location.reload()
     }
   } catch (e) {
     // if (e.message) {
@@ -102,36 +109,35 @@ const handleFormSubmit = async event => {
     //   console.log('2', e);
     //   alert(e.message, 'danger');
     // }
-    console.log('error in handleFormSubmit', e);
-    form.classList.remove('was-validated');
+    console.log('error in handleFormSubmit', e)
+    form.classList.remove('was-validated')
   }
-  return;
-};
+  return
+}
 
 // if footer comes into view, get more cards
 async function getData() {
-  page++;
+  page++
   colWidth =
     parseInt(
       window.getComputedStyle(document.body).getPropertyValue('font-size')
-    ) * 17;
+    ) * 17
   let str = window.location.href.includes('?')
     ? `${window.location.href}&page=${page}`
-    : `/colcade?page=${page}`;
+    : `/colcade?page=${page}`
 
   try {
-    let res = await fetch(str);
-    let data = await res.json();
-    let items = [];
+    let res = await fetch(str)
+    let data = await res.json()
+    let items = []
 
     for (let i = 0; i < data.length; i++) {
-      items.push(await createCard(data[i]));
+      items.push(await createCard(data[i]))
     }
-    colcade.prepend(items);
   } catch (e) {
-    console.log('error in getData()', e);
+    console.log('error in getData()', e)
   }
-  return;
+  return
 }
 
 // ********************************************************************
@@ -286,41 +292,41 @@ function loadImages(images) {
   colWidth =
     parseInt(
       window.getComputedStyle(document.body).getPropertyValue('font-size')
-    ) * 17;
-  const pixelRatio = window.devicePixelRatio || 1.0;
+    ) * 17
+  const pixelRatio = window.devicePixelRatio || 1.0
 
   let str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
     colWidth * pixelRatio
-  )}/coffeeShops`;
+  )}/coffeeShops`
   for (let i = 0; i < images.length; i++) {
-    images[i].src = `${str}/${images[i].dataset.src}`;
+    images[i].src = `${str}/${images[i].dataset.src}`
   }
 }
 // sets the images sources for a card, accounts for device pixel ratio and size of the rendered element to deliver images optimized for data size
 async function setImages(card__image, images, colWidth, id) {
-  const pixelRatio = window.devicePixelRatio || 1.0;
+  const pixelRatio = window.devicePixelRatio || 1.0
   let str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
     colWidth * pixelRatio
-  )}/coffeeShops`;
+  )}/coffeeShops`
 
-  const sources = [];
+  const sources = []
 
   for (let i = 0; i < images.length; i++) {
-    const src = [`${str}/${images[i].filename}`, images[i].filename];
-    sources.push(src);
+    const src = [`${str}/${images[i].filename}`, images[i].filename]
+    sources.push(src)
   }
   Promise.all(sources.map(loadImage)).then(imgs => {
     for (let i = 0; i < imgs.length; i++) {
-      if (i === 0) imgs[i].className = 'active carousel__image';
-      else imgs[i].className = 'carousel__image';
-      let a = document.createElement('a');
-      a.setAttribute('href', `/coffeeShops/${id}`);
-      a.appendChild(imgs[i]);
-      card__image.appendChild(a);
+      if (i === 0) imgs[i].className = 'active carousel__image'
+      else imgs[i].className = 'carousel__image'
+      let a = document.createElement('a')
+      a.setAttribute('href', `/coffeeShops/${id}`)
+      a.appendChild(imgs[i])
+      card__image.appendChild(a)
     }
-    changePicture(card__image, imgs);
-    return;
-  });
+    changePicture(card__image, imgs)
+    return
+  })
 }
 // // changes the already loaded images sources to new ones that display the chosen aspect ratio
 // function changeImages(card, colWidth) {
@@ -350,133 +356,133 @@ async function setImages(card__image, images, colWidth, id) {
 // }
 // // creates all elements a card needs, then puts them together and adds them to the page
 async function createCard(data) {
-  let className = 'card card--v2';
+  let className = 'card card--v2'
 
-  let card = document.createElement('div');
-  let card__image = document.createElement('div');
-  let card__image__top = document.createElement('div');
-  let card__image__bottom = document.createElement('div');
-  let h3 = document.createElement('h3');
-  let h3__a = document.createElement('a');
-  let p = document.createElement('p');
-  let svgLeft = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  let useLeft = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-  let svgRight = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  let useRight = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+  let card = document.createElement('div')
+  let card__image = document.createElement('div')
+  let card__image__top = document.createElement('div')
+  let card__image__bottom = document.createElement('div')
+  let h3 = document.createElement('h3')
+  let h3__a = document.createElement('a')
+  let p = document.createElement('p')
+  let svgLeft = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  let useLeft = document.createElementNS('http://www.w3.org/2000/svg', 'use')
+  let svgRight = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  let useRight = document.createElementNS('http://www.w3.org/2000/svg', 'use')
 
-  useLeft.setAttribute('href', '#svg--left');
-  useRight.setAttribute('href', '#svg--right');
-  svgLeft.setAttribute('class', 'button--svg button--left hide');
-  svgRight.setAttribute('class', 'button--svg button--right hide');
-  svgLeft.appendChild(useLeft);
-  svgRight.appendChild(useRight);
+  useLeft.setAttribute('href', '#svg--left')
+  useRight.setAttribute('href', '#svg--right')
+  svgLeft.setAttribute('class', 'button--svg button--left hide')
+  svgRight.setAttribute('class', 'button--svg button--right hide')
+  svgLeft.appendChild(useLeft)
+  svgRight.appendChild(useRight)
 
-  card.className = className;
-  card__image.className = 'card__image carousel';
-  card__image__top.className = 'card__image__top';
-  card__image__bottom.className = 'card__image__bottom';
+  card.className = className
+  card__image.className = 'card__image carousel'
+  card__image__top.className = 'card__image__top'
+  card__image__bottom.className = 'card__image__bottom'
 
-  h3__a.textContent = data.name.split(/\s+/).slice(0, 4).join(' ');
-  h3__a.setAttribute('href', `/coffeeShops/${data._id}`);
-  p.textContent = `${data.description.slice(0, 50)}...`;
+  h3__a.textContent = data.name.split(/\s+/).slice(0, 4).join(' ')
+  h3__a.setAttribute('href', `/coffeeShops/${data._id}`)
+  p.textContent = `${data.description.slice(0, 50)}...`
 
-  h3.appendChild(h3__a);
+  h3.appendChild(h3__a)
 
-  card__image__top.appendChild(h3);
-  card__image__bottom.appendChild(p);
-  card__image.appendChild(card__image__top);
-  card__image.appendChild(card__image__bottom);
-  card__image.appendChild(svgLeft);
-  card__image.appendChild(svgRight);
+  card__image__top.appendChild(h3)
+  card__image__bottom.appendChild(p)
+  card__image.appendChild(card__image__top)
+  card__image.appendChild(card__image__bottom)
+  card__image.appendChild(svgLeft)
+  card__image.appendChild(svgRight)
 
-  card.appendChild(card__image);
+  card.appendChild(card__image)
   // grid.appendChild(card);
 
-  await setImages(card__image, data.images, colWidth, data._id);
+  await setImages(card__image, data.images, colWidth, data._id)
   if (data.images.length > 1) {
-    display([svgLeft, svgRight]);
+    display([svgLeft, svgRight])
   }
-  return card;
+  return card
 }
 // loads the images using promises
 const loadImage = src =>
   new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = src[0];
-    img.dataset.src = src[1];
-  });
+    const img = new Image()
+    img.onload = () => resolve(img)
+    img.onerror = reject
+    img.src = src[0]
+    img.dataset.src = src[1]
+  })
 // checks if element passed to it is "active" or not. Returns a boolean value
-const active = element => element.classList.contains('active');
+const active = element => element.classList.contains('active')
 // changes which image is "active" to the left
 function changeIndexLeft(images) {
-  let index = 0;
+  let index = 0
   for (let i = 0; i < images.length; i++) {
-    if (active(images[i])) index = i;
+    if (active(images[i])) index = i
   }
   for (let i = 0; i < images.length; i++) {
     if (index === 0 && i === index) {
-      images[i].classList.toggle('active');
-      images[images.length - 1].classList.toggle('active');
+      images[i].classList.toggle('active')
+      images[images.length - 1].classList.toggle('active')
     } else if (i === index && index !== 0) {
-      images[i].classList.toggle('active');
-      images[i - 1].classList.toggle('active');
+      images[i].classList.toggle('active')
+      images[i - 1].classList.toggle('active')
     }
   }
 }
 // changes which image is "active" to the right
 function changeIndexRight(images) {
   // coffeeShops.forEach((img, i) => img.style.display = obj.num === i ? 'block' : 'none');
-  let index = 0;
+  let index = 0
   for (let i = 0; i < images.length; i++) {
-    if (active(images[i])) index = i;
+    if (active(images[i])) index = i
   }
   for (let i = 0; i < images.length; i++) {
     if (index === images.length - 1 && i === index) {
-      images[i].classList.toggle('active');
-      images[0].classList.toggle('active');
+      images[i].classList.toggle('active')
+      images[0].classList.toggle('active')
     } else if (i === index && index !== images.length - 1) {
-      images[i].classList.toggle('active');
-      images[i + 1].classList.toggle('active');
+      images[i].classList.toggle('active')
+      images[i + 1].classList.toggle('active')
     }
   }
 }
 // displays hidden left and right buttons
 function display(nodelist) {
   for (let i = 0; i < nodelist.length; i++) {
-    nodelist[i].classList.remove('hide');
+    nodelist[i].classList.remove('hide')
   }
 }
 // finds all carousel_images and calls the changeIndex functions where and if appropriate
 function carousel() {
-  const carousels = document.querySelectorAll('.carousel');
+  const carousels = document.querySelectorAll('.carousel')
   for (let i = 0; i < carousels.length; i++) {
-    const images = carousels[i].querySelectorAll('.carousel__image');
+    const images = carousels[i].querySelectorAll('.carousel__image')
     if (images.length > 1) {
-      changePicture(carousels[i], images);
-      const svgs = carousels[i].querySelectorAll('.button--svg');
-      display(svgs);
+      changePicture(carousels[i], images)
+      const svgs = carousels[i].querySelectorAll('.button--svg')
+      display(svgs)
     }
   }
-  return;
+  return
 }
 // adds event listeneres to the left and right buttons on images so the user can click on them and
 // change the picture being displayed
 function changePicture(carousel, images) {
-  const rightButton = carousel.querySelector('.button--right');
+  const rightButton = carousel.querySelector('.button--right')
   rightButton.addEventListener('click', function () {
-    changeIndexRight(images);
-  });
-  const leftButton = carousel.querySelector('.button--left');
+    changeIndexRight(images)
+  })
+  const leftButton = carousel.querySelector('.button--left')
   leftButton.addEventListener('click', function () {
-    changeIndexLeft(images);
-  });
+    changeIndexLeft(images)
+  })
 }
 
 // searchbar__input.addEventListener('submit', handleFormSubmit);
 
-loadImages(images);
+loadImages(images)
 
 // waiting until everything has loaded to run the function that places cards where they
 // should be
@@ -484,15 +490,12 @@ document.addEventListener('readystatechange', event => {
   if (document.readyState === 'complete') {
     // setupBlocks();
     // dropDown();
-    colcade = new Colcade('.grid', {
-      columns: '.grid-col',
-      items: '.card',
-    });
-    const observer = new IntersectionObserver(handleIntersect, options);
-    observer.observe(footer);
-    carousel();
+    simpleM.init()
+    const observer = new IntersectionObserver(handleIntersect, options)
+    observer.observe(footer)
+    carousel()
   }
-});
+})
 
 // Much of this was written using the url below as a guideline
 // https://benholland.me/javascript/2012/02/20/how-to-build-a-site-that-works-like-pinterest.html

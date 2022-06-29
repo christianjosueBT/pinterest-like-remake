@@ -13,6 +13,8 @@
     <!-- Font Awesome Icons -->
     <title>Coffee Shops</title>
     <!-- Customs Stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/coffeeshops.css">
   </head>
@@ -91,55 +93,54 @@
 
     </div>
     <!-- COFFEE SHOP CARDS -->
-    <div class="container container--100">
+    <div class="container-fluid">
+      <div class="row">
 
-      <div class="grid">
-
-        <div class="grid-col grid-col--1">
-        </div>
-        <div class="grid-col grid-col--2">
-        </div>
-        <div class="grid-col grid-col--3">
-        </div>
-        <div class="grid-col grid-col--4">
-        </div>
-
-        <% shops.forEach(coffeeShop => { %>
-        <div class="card card--v2">
-          <div class="card__image carousel">
-            <% for(let i = 0; i < coffeeShop.images.length; i++) { %>
-            <% if(i === 0) { %>
-            <a href="/coffeeShops/<%=coffeeShop._id%>">
-              <img class="active carousel__image" data-src="<%=coffeeShop.images[i].filename%>" alt="...">
-            </a>
-            <% } else { %>
-            <a href="/coffeeShops/<%=coffeeShop._id%>">
-              <img class="carousel__image" data-src="<%=coffeeShop.images[i].filename%>" alt="...">
-            </a>
-            <% }} %>
-            <div class="card__image__top">
-              <h3><a href="/coffeeShops/<%=coffeeShop._id%>"><%=coffeeShop.name%></a>
-              </h3>
+        <div class="grid col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <% shops.forEach(coffeeShop => { %>
+          <div class="card card--v2">
+            <div class="card__image carousel">
+              <% for(let i = 0; i < coffeeShop.images.length; i++) { %>
+              <% if(i === 0) { %>
+              <a href="/coffeeShops/<%=coffeeShop._id%>">
+                <img class="active carousel__image" data-src="<%=coffeeShop.images[i].filename%>" alt="...">
+              </a>
+              <% } else { %>
+              <a href="/coffeeShops/<%=coffeeShop._id%>">
+                <img class="carousel__image" data-src="<%=coffeeShop.images[i].filename%>" alt="...">
+              </a>
+              <% }} %>
+              <div class="card__image__top">
+                <h3><a href="/coffeeShops/<%=coffeeShop._id%>"><%=coffeeShop.name%></a>
+                </h3>
+              </div>
+              <div class="card__image__bottom">
+                <p><%=coffeeShop.description.slice(0,50)%>...</p>
+              </div>
+              <svg class="button--svg button--left hide">
+                <use href="#svg--left"></use>
+              </svg>
+              <svg class="button--svg button--right hide">
+                <use href="#svg--right"></use>
+              </svg>
             </div>
-            <div class="card__image__bottom">
-              <p><%=coffeeShop.description.slice(0,50)%>...</p>
-            </div>
-            <svg class="button--svg button--left hide">
-              <use href="#svg--left"></use>
-            </svg>
-            <svg class="button--svg button--right hide">
-              <use href="#svg--right"></use>
-            </svg>
           </div>
+          <% }) %>
         </div>
-        <% }) %>
+
+        <div class="grid col-lg-3 col-md-4 col-sm-6 col-xs-12"></div>
+        <div class="grid col-lg-3 col-md-4 col-sm-6 col-xs-12"></div>
+        <div class="grid col-lg-3 col-md-4 col-sm-6 col-xs-12"></div>
+
       </div>
+    </div>
 
 
 
-      <footer>
-        <p>The Footer. &copy; 2019 Turkey Stuff Inc.</p>
-      </footer>
+
+    <footer>
+      <p>The Footer. &copy; 2019 Turkey Stuff Inc.</p>
+    </footer>
     </div>
 
 
@@ -195,7 +196,11 @@
       </symbol>
     </svg>
     <!-- JAVASCRIPT -->
-    <script src="https://npmcdn.com/colcade@0/colcade.js"></script>
+    <!-- <script src="https://npmcdn.com/colcade@0/colcade.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+      integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+      crossorigin="anonymous"></script>
+    <script src="/js/simple-masonry-compiled.js"></script>
     <script src="/js/loaduser.js"></script>
     <script src="/js/colcade.js"></script>
   </body>

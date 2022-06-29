@@ -116,11 +116,7 @@ dialog {
   display: none !important;
 }
 .grid {
-  display: flex !important;
-
-  .grid-col {
-    flex: 1;
-    padding: 0 0.2em;
+  .card {
   }
 }
 .flex {
@@ -380,7 +376,7 @@ dialog {
   max-width: 16rem;
   background-color: var(--secondary-1);
   margin-top: 0.5em;
-  /* transition: all 0.5s ease; */
+  transition: all 0.5s ease;
 }
 .card__title {
   margin: 1em 1em 0;
