@@ -5,7 +5,7 @@
   align-items: center;
   padding: 0.25em;
   justify-content: flex-start;
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-1);
   border-radius: 1em;
   border: none;
   height: 2rem;
@@ -16,7 +16,7 @@
 .dropdown {
   display: inline-block;
   position: relative;
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-1);
   right: 1em;
   height: 2rem;
 }
@@ -24,7 +24,6 @@
 .dropdown__toggle {
   padding: 0.5em 2em 0.5em 1.5em;
   border: none;
-  font-size: 1rem;
   background-color: inherit;
   cursor: pointer;
   height: 2rem;
@@ -108,7 +107,6 @@
 }
 
 .menu--svg > li > p {
-  font-size: 0.75em;
   font-weight: 400;
 }
 
