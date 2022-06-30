@@ -3,7 +3,7 @@ const controller = new AbortController()
 const heights = []
 const images = document.querySelectorAll('.carousel__image')
 const footer = document.querySelector('footer')
-const container100 = document.querySelector('.container--100')
+const container = document.querySelector('.container--100')
 const grid = document.querySelector('.grid')
 const searchbar__input = document.querySelector('.searchbar__input')
 let blocks = document.querySelectorAll('.card')
@@ -28,6 +28,46 @@ let simpleM = new SimpleMasonry({
   masonryBox: '.row',
   masonryColumn: '.grid',
 })
+
+// shit taken from https://stackoverflow.com/questions/11106876/is-it-possible-to-animate-flexbox-inserts-removes
+function getFlexItemsInfo(container) {
+  return Array.from(container.children).map(item => {
+    const rect = item.getBoundingClientRect()
+    return {
+      element: item,
+      x: rect.left,
+      y: rect.top,
+      width: rect.right - rect.left,
+      height: rect.bottom - rect.top,
+    }
+  })
+}
+
+function aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo) {
+  for (const newFlexItemInfo of newFlexItemsInfo) {
+    const oldFlexItemInfo = oldFlexItemsInfo.find(
+      itemInfo => itemInfo.element === newFlexItemInfo.element
+    )
+
+    const translateX = oldFlexItemInfo.x - newFlexItemInfo.x
+    const translateY = oldFlexItemInfo.y - newFlexItemInfo.y
+    const scaleX = oldFlexItemInfo.width / newFlexItemInfo.width
+    const scaleY = oldFlexItemInfo.height / newFlexItemInfo.height
+
+    newFlexItemInfo.element.animate(
+      [
+        {
+          transform: `translate(${translateX}px, ${translateY}px)`,
+        },
+        { transform: 'none' },
+      ],
+      {
+        duration: 250,
+        easing: 'ease-out',
+      }
+    )
+  }
+}
 
 // ********************************************************************
 // intersection observer
@@ -292,8 +332,10 @@ function loadImages(images) {
   colWidth =
     parseInt(
       window.getComputedStyle(document.body).getPropertyValue('font-size')
-    ) * 17
+    ) * 20
   const pixelRatio = window.devicePixelRatio || 1.0
+
+  console.log(`pixel ratio is: ${pixelRatio}`)
 
   let str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
     colWidth * pixelRatio
@@ -472,7 +514,12 @@ function carousel() {
 function changePicture(carousel, images) {
   const rightButton = carousel.querySelector('.button--right')
   rightButton.addEventListener('click', function () {
+    let col = this.parentElement.parentElement.parentElement
+    const oldFlexItemsInfo = getFlexItemsInfo(col)
     changeIndexRight(images)
+    const newFlexItemsInfo = getFlexItemsInfo(col)
+
+    aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
   })
   const leftButton = carousel.querySelector('.button--left')
   leftButton.addEventListener('click', function () {

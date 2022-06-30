@@ -115,10 +115,10 @@ dialog {
 .hide {
   display: none !important;
 }
-.grid {
-  .card {
-  }
-}
+// .grid {
+//   .card {
+//   }
+// }
 .flex {
   display: flex;
 }
@@ -373,7 +373,7 @@ dialog {
   // position: absolute;
   position: relative;
   border-radius: 2.5em 2.5em 2.5em 2.5em;
-  max-width: 16rem;
+  max-width: 20rem;
   background-color: var(--secondary-1);
   margin-top: 0.5em;
   transition: all 0.5s ease;
@@ -479,6 +479,7 @@ dialog {
 /* V2 */
 .card--v2.card {
   overflow: hidden;
+  margin: 1rem auto;
 }
 .card__image__top {
   display: grid;
@@ -488,7 +489,7 @@ dialog {
   left: 0;
   width: 100%;
   height: 4rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
   -webkit-transition: transform 0.5s, background-color 1s 0.5s;
   transition: transform 0.5s, background-color 1s 0.5s;
 
