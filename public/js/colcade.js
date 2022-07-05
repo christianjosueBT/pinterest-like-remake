@@ -1,5 +1,4 @@
 // global variables
-const controller = new AbortController()
 const heights = []
 const images = document.querySelectorAll('.carousel__image')
 const footer = document.querySelector('footer')
@@ -7,12 +6,13 @@ const container = document.querySelector('.container--100')
 const grid = document.querySelector('.grid')
 const searchbar__input = document.querySelector('.searchbar__input')
 let blocks = document.querySelectorAll('.card')
+let state = 'masonry'
 let margin = 0
 let windowWidth = 0
 let colWidth =
   parseInt(
     window.getComputedStyle(document.body).getPropertyValue('font-size')
-  ) * 17
+  ) * 20
 let cardsSpace = 0
 let colCount = 0
 let whiteSpace = 0
@@ -154,7 +154,7 @@ async function getData() {
   colWidth =
     parseInt(
       window.getComputedStyle(document.body).getPropertyValue('font-size')
-    ) * 17
+    ) * 20
   let str = window.location.href.includes('?')
     ? `${window.location.href}&page=${page}`
     : `/colcade?page=${page}`
@@ -162,10 +162,12 @@ async function getData() {
   try {
     let res = await fetch(str)
     let data = await res.json()
+    console.log(data)
     let items = []
 
     for (let i = 0; i < data.length; i++) {
-      items.push(await createCard(data[i]))
+      let card = await createCard(data[i])
+      simpleM.append(card)
     }
   } catch (e) {
     console.log('error in getData()', e)
@@ -255,7 +257,6 @@ function dropDown() {
     toggle.addEventListener('click', function (event) {
       event.preventDefault()
       const dropdown = event.target.parentNode
-      console.log(dropdown)
       dropdown.classList.toggle('is-open')
     })
   }
@@ -273,7 +274,7 @@ function dropDown() {
 // Functions that change the layout of the page
 function masonryLayout() {
   state = 'masonry'
-  const shops = document.querySelector('.container--fluid')
+  const shops = document.querySelector('.container-fluid')
   shops.classList.remove('container--layout')
   const cards = document.querySelectorAll('.card')
   for (let card of cards) {
@@ -282,13 +283,11 @@ function masonryLayout() {
     card.classList.remove('card--layout')
     changeImages(card, colWidth)
   }
-  window.addEventListener('resize', { signal: controller.signal })
   return
 }
 function largeLayout() {
-  controller.abort()
   state = 'large'
-  const shops = document.querySelector('.container--fluid')
+  const shops = document.querySelector('.container-fluid')
   shops.classList.add('container--layout')
   const cards = document.querySelectorAll('.card')
   for (let card of cards) {
@@ -300,9 +299,8 @@ function largeLayout() {
   return
 }
 function smallLayout() {
-  controller.abort()
   state = 'small'
-  const shops = document.querySelector('.container--fluid')
+  const shops = document.querySelector('.container-fluid')
   shops.classList.add('container--layout')
   const cards = document.querySelectorAll('.card')
   for (let card of cards) {
@@ -313,6 +311,11 @@ function smallLayout() {
   }
   return
 }
+
+// attaching click event listeners to the dropdown options: masonry, large, and small
+document.querySelector('#masonry-grid').addEventListener('click', masonryLayout)
+document.querySelector('#large-grid').addEventListener('click', largeLayout)
+document.querySelector('#small-grid').addEventListener('click', smallLayout)
 
 // ********************************************************************
 // loading images, creating new cards, changing displayed images
@@ -338,9 +341,20 @@ function loadImages(images) {
 // sets the images sources for a card, accounts for device pixel ratio and size of the rendered element to deliver images optimized for data size
 async function setImages(card__image, images, colWidth, id) {
   const pixelRatio = window.devicePixelRatio || 1.0
-  let str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-    colWidth * pixelRatio
-  )}/coffeeShops`
+  let str = ''
+  if (state === 'masonry') {
+    str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
+      colWidth * pixelRatio
+    )}/coffeeShops`
+  } else if (state === 'large') {
+    str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
+      colWidth * pixelRatio
+    )},ar_2:3,c_fill/coffeeShops`
+  } else if (state === 'small') {
+    str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
+      colWidth * pixelRatio
+    )},ar_1:1,c_fill/coffeeShops`
+  }
 
   const sources = []
 
@@ -361,35 +375,36 @@ async function setImages(card__image, images, colWidth, id) {
     return
   })
 }
-// // changes the already loaded images sources to new ones that display the chosen aspect ratio
-// function changeImages(card, colWidth) {
-//   const pixelRatio = window.devicePixelRatio || 1.0;
-//   let str = '';
-//   const images = card.querySelectorAll('img');
+// changes the already loaded images sources to new ones that display the chosen aspect ratio
+function changeImages(card, colWidth) {
+  const pixelRatio = window.devicePixelRatio || 1.0
+  let str = ''
+  const images = card.querySelectorAll('img')
 
-//   // console.log(images);
-//   if (state === 'masonry') {
-//     str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-//       colWidth * pixelRatio
-//     )}/coffeeShops`;
-//   } else if (state === 'large') {
-//     str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-//       colWidth * pixelRatio
-//     )},ar_2:3,c_fill/coffeeShops`;
-//   } else if (state === 'small') {
-//     str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-//       colWidth * pixelRatio
-//     )},ar_1:1,c_fill/coffeeShops`;
-//   }
+  if (state === 'masonry') {
+    str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
+      colWidth * pixelRatio
+    )}/coffeeShops`
+  } else if (state === 'large') {
+    str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
+      colWidth * pixelRatio
+    )},ar_2:3,c_fill/coffeeShops`
+  } else if (state === 'small') {
+    str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
+      colWidth * pixelRatio
+    )},ar_1:1,c_fill/coffeeShops`
+  }
 
-//   for (let i = 0; i < images.length; i++) {
-//     images[i].src = `${str}/${images[i].dataset.src}`;
-//   }
-//   return;
-// }
-// // creates all elements a card needs, then puts them together and adds them to the page
+  for (let i = 0; i < images.length; i++) {
+    images[i].src = `${str}/${images[i].dataset.src}`
+  }
+  return
+}
+// creates all elements a card needs, then puts them together and adds them to the page
 async function createCard(data) {
   let className = 'card card--v2'
+  if (state === 'large') className += ' card--layout card--large'
+  else if (state === 'small') className += ' card--layout card--small'
 
   let card = document.createElement('div')
   let card__image = document.createElement('div')
@@ -429,7 +444,6 @@ async function createCard(data) {
   card__image.appendChild(svgRight)
 
   card.appendChild(card__image)
-  // grid.appendChild(card);
 
   await setImages(card__image, data.images, colWidth, data._id)
   if (data.images.length > 1) {
