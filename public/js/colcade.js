@@ -255,6 +255,7 @@ function dropDown() {
     toggle.addEventListener('click', function (event) {
       event.preventDefault()
       const dropdown = event.target.parentNode
+      console.log(dropdown)
       dropdown.classList.toggle('is-open')
     })
   }
@@ -281,7 +282,7 @@ function masonryLayout() {
     card.classList.remove('card--layout')
     changeImages(card, colWidth)
   }
-  window.addEventListener('resize', setupBlocks, { signal: controller.signal })
+  window.addEventListener('resize', { signal: controller.signal })
   return
 }
 function largeLayout() {
@@ -310,7 +311,6 @@ function smallLayout() {
     card.classList.remove('card--large')
     changeImages(card, colWidth)
   }
-  // setupBlocks();
   return
 }
 
@@ -526,8 +526,7 @@ loadImages(images)
 // should be
 document.addEventListener('readystatechange', event => {
   if (document.readyState === 'complete') {
-    // setupBlocks();
-    // dropDown();
+    dropDown()
     simpleM.init()
     const observer = new IntersectionObserver(handleIntersect, options)
     observer.observe(footer)

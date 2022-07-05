@@ -46,7 +46,7 @@
   top: 2.1em;
   min-width: 100%;
   background-color: inherit;
-  z-index: 1;
+  z-index: 30;
 }
 
 /* change the direction of the CSS border arrow if the dropdown menu is visible */
