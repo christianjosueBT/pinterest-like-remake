@@ -142,13 +142,6 @@ const handleFormSubmit = async event => {
       return window.location.reload()
     }
   } catch (e) {
-    // if (e.message) {
-    //   console.log(JSON.parse(e.message));
-    //   alert(JSON.parse(e.message).error, 'danger');
-    // } else {
-    //   console.log('2', e);
-    //   alert(e.message, 'danger');
-    // }
     console.log('error in handleFormSubmit', e)
     form.classList.remove('was-validated')
   }
@@ -256,72 +249,70 @@ async function getData() {
 // ********************************************************************
 
 // toggles dropdown toggling, closes dropdown if user clicks anywhere on the window
-// function dropDown() {
-//   const toggles = document.querySelectorAll('.dropdown__toggle');
-//   for (let toggle of toggles) {
-//     toggle.addEventListener('click', function (event) {
-//       event.preventDefault();
-//       const dropdown = event.target.parentNode;
-//       dropdown.classList.toggle('is-open');
-//     });
-//   }
-//   window.onclick = function (event) {
-//     if (!event.target.matches('.dropdown__toggle')) {
-//       const dropDowns = document.querySelectorAll('.dropdown');
-//       for (i = 0; i < dropDowns.length; i++) {
-//         if (dropDowns[i].classList.contains('is-open'))
-//           dropDowns[i].classList.remove('is-open');
-//       }
-//     }
-//   };
-//   return;
-// }
+function dropDown() {
+  const toggles = document.querySelectorAll('.dropdown__toggle')
+  for (let toggle of toggles) {
+    toggle.addEventListener('click', function (event) {
+      event.preventDefault()
+      const dropdown = event.target.parentNode
+      dropdown.classList.toggle('is-open')
+    })
+  }
+  window.onclick = function (event) {
+    if (!event.target.matches('.dropdown__toggle')) {
+      const dropDowns = document.querySelectorAll('.dropdown')
+      for (i = 0; i < dropDowns.length; i++) {
+        if (dropDowns[i].classList.contains('is-open'))
+          dropDowns[i].classList.remove('is-open')
+      }
+    }
+  }
+  return
+}
 // Functions that change the layout of the page
-// function masonryLayout() {
-//   state = 'masonry';
-//   const shops = document.querySelector('.container--100');
-//   shops.classList.remove('container--layout');
-//   const cards = document.querySelectorAll('.card');
-//   for (let card of cards) {
-//     card.classList.remove('card--large');
-//     card.classList.remove('card--small');
-//     card.classList.remove('card--layout');
-//     changeImages(card, colWidth);
-//   }
-//   setupBlocks();
-//   window.addEventListener('resize', setupBlocks, { signal: controller.signal });
-//   return;
-// }
-// function largeLayout() {
-//   controller.abort();
-//   state = 'large';
-//   const shops = document.querySelector('.container--100');
-//   shops.classList.add('container--layout');
-//   const cards = document.querySelectorAll('.card');
-//   for (let card of cards) {
-//     card.classList.add('card--large');
-//     card.classList.add('card--layout');
-//     card.classList.remove('card--small');
-//     changeImages(card, colWidth);
-//   }
-//   // setupBlocks();
-//   return;
-// }
-// function smallLayout() {
-//   controller.abort();
-//   state = 'small';
-//   const shops = document.querySelector('.container--100');
-//   shops.classList.add('container--layout');
-//   const cards = document.querySelectorAll('.card');
-//   for (let card of cards) {
-//     card.classList.add('card--small');
-//     card.classList.add('card--layout');
-//     card.classList.remove('card--large');
-//     changeImages(card, colWidth);
-//   }
-//   // setupBlocks();
-//   return;
-// }
+function masonryLayout() {
+  state = 'masonry'
+  const shops = document.querySelector('.container--fluid')
+  shops.classList.remove('container--layout')
+  const cards = document.querySelectorAll('.card')
+  for (let card of cards) {
+    card.classList.remove('card--large')
+    card.classList.remove('card--small')
+    card.classList.remove('card--layout')
+    changeImages(card, colWidth)
+  }
+  window.addEventListener('resize', setupBlocks, { signal: controller.signal })
+  return
+}
+function largeLayout() {
+  controller.abort()
+  state = 'large'
+  const shops = document.querySelector('.container--fluid')
+  shops.classList.add('container--layout')
+  const cards = document.querySelectorAll('.card')
+  for (let card of cards) {
+    card.classList.add('card--large')
+    card.classList.add('card--layout')
+    card.classList.remove('card--small')
+    changeImages(card, colWidth)
+  }
+  return
+}
+function smallLayout() {
+  controller.abort()
+  state = 'small'
+  const shops = document.querySelector('.container--fluid')
+  shops.classList.add('container--layout')
+  const cards = document.querySelectorAll('.card')
+  for (let card of cards) {
+    card.classList.add('card--small')
+    card.classList.add('card--layout')
+    card.classList.remove('card--large')
+    changeImages(card, colWidth)
+  }
+  // setupBlocks();
+  return
+}
 
 // ********************************************************************
 // loading images, creating new cards, changing displayed images

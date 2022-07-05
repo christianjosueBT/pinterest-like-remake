@@ -21,7 +21,7 @@
   height: 2rem;
 }
 .dropdown__toggle {
-  padding: 0.5em 2em 0.5em 1.5em;
+  // padding: 0.5em 2em 0.5em 1.5em;
   border: none;
   background-color: inherit;
   cursor: pointer;
@@ -60,7 +60,7 @@
   height: 1.5em;
 }
 .dropdown--svg .dropdown__toggle {
-  padding: 0.4em 0.75em 0 0;
+  padding: 0.2em 0.75em 0;
 }
 .dropdown--svg .dropdown__toggle::after {
   right: 0.1em;

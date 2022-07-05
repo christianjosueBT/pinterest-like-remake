@@ -253,6 +253,10 @@ dialog {
   z-index: 20;
 }
 
+.dropdown__toggle {
+  padding: 0;
+}
+
 .dropdown--content > * {
   padding-left: 1em;
 }
