@@ -187,6 +187,10 @@ dialog .closeModal:hover {
   flex-basis: 80%;
 }
 
+.basis-90 {
+  flex-basis: 90%;
+}
+
 .navFont {
   font-family: "Sansita Swashed", cursive !important;
 }
@@ -340,28 +344,10 @@ dialog .closeModal:hover {
   position: relative;
   z-index: 10;
 }
-
-/* -----searchbar__input styles----- */
-.searchbar__input {
+.searchbar .searchbar__input {
   flex: 1;
 }
-
-/* styling the X button that appears when you type in the search input box */
-.searchbar__input__text::-webkit-search-cancel-button {
-  -webkit-appearance: none;
-  height: 1em;
-  width: 1em;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23000" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>');
-  background-size: contain;
-  pointer-events: none;
-  cursor: pointer;
-}
-
-.searchbar__input__text:focus::-webkit-search-cancel-button {
-  pointer-events: all;
-}
-
-.searchbar__input__text {
+.searchbar .searchbar__input .searchbar__input__text {
   flex: 1;
   margin: 0;
   width: 100%;
@@ -379,53 +365,53 @@ dialog .closeModal:hover {
           user-select: none;
   white-space: nowrap;
 }
-
-/* -----search-icon styles---- */
-.searchbar__wrapper {
+.searchbar .searchbar__input .searchbar__input__text::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 1em;
+  width: 1em;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23000" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>');
+  background-size: contain;
+  pointer-events: none;
+  cursor: pointer;
+}
+.searchbar .searchbar__input .searchbar__input__text .searchbar__input__text:focus::-webkit-search-cancel-button {
+  pointer-events: all;
+}
+.searchbar .searchbar__wrapper {
   padding: 0 1.5em;
 }
-
-.searchbar__wrapper__icon {
+.searchbar .searchbar__wrapper .searchbar__wrapper__icon {
   opacity: 0.3;
   bottom: 0;
   left: 1em;
   margin: auto;
   position: absolute;
   top: 0;
-  width: 1em;
+  width: 1.75em;
 }
-
-.searchbar--transparent {
+.searchbar.searchbar--transparent {
   background-color: transparent;
   border: 2px solid var(--light-text);
   border-radius: 1em;
   color: var(--light-text);
 }
-
-.searchbar--transparent .searchbar__input__text {
+.searchbar.searchbar--transparent .searchbar__input__text {
   background-color: transparent;
   color: var(--light-text);
   border: none;
   flex: 1;
 }
-
-.searchbar--transparent .searchbar__input__text:focus {
+.searchbar.searchbar--transparent .searchbar__input__text:focus {
   outline-color: var(--light-text);
   outline-width: 1px;
 }
-
-.searchbar--transparent .searchbar__input__text::-webkit-search-cancel-button {
+.searchbar.searchbar--transparent .searchbar__input__text::-webkit-search-cancel-button {
   opacity: 1;
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23fff" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>') no-repeat;
   color: var(--light-text);
 }
-
-.searchbar--transparent .searchbar__wrapper__icon {
+.searchbar.searchbar--transparent .searchbar__wrapper__icon {
   opacity: 1;
-}
-
-.searchbar--transparent .searchbar__input__text {
-  color: var(--light-text);
 }
 
 /*******************************************************************  CARD SECTION START  *******************************************************************/
@@ -611,7 +597,6 @@ dialog .closeModal:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-/*******************************************************************  CONTAINER SECTION START  *******************************************************************/
 .card--item {
   display: flex;
   flex-flow: row wrap;
@@ -692,6 +677,9 @@ dialog .closeModal:hover {
 }
 
 .button--svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   width: 2em;
   stroke: #fff;
@@ -850,4 +838,6 @@ dialog .closeModal:hover {
 
 .stars--outer {
   fill: var(--dark-text);
-}/*# sourceMappingURL=general.css.map */
+}
+
+/*******************************************************************  SVG SECTION  *******************************************************************//*# sourceMappingURL=general.css.map */

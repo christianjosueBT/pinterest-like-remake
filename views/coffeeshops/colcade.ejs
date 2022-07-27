@@ -3,10 +3,9 @@
 
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Accept-CH" content="DPR, Width">
-    <!-- Google Fonts! -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <meta name="viewport" content="widthscale=1.0">
+    <meta http-equiv="Accept-CH" content="DPR, WidtGoogle Fonts! -->
+    <link rel=" preconnect" href="https://fonts.gstatic.com">
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Sansita+Swashed:wght@300;400;500;600&display=swap"
       rel="stylesheet">
@@ -49,12 +48,13 @@
         <!-- search input -->
         <div class="searchbar basis-90">
           <label for="searchbar__input" class="searchbar__wrapper">
-            <svg class="searchbar__wrapper__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.005 512.005">
+            <svg class="searchbar__wrapper__icon fill--white" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512.005 512.005">
               <path
                 d="M505.749,475.587l-145.6-145.6c28.203-34.837,45.184-79.104,45.184-127.317c0-111.744-90.923-202.667-202.667-202.667
-                    S0,90.925,0,202.669s90.923,202.667,202.667,202.667c48.213,0,92.48-16.981,127.317-45.184l145.6,145.6
-                    c4.16,4.16,9.621,6.251,15.083,6.251s10.923-2.091,15.083-6.251C514.091,497.411,514.091,483.928,505.749,475.587z
-                    M202.667,362.669c-88.235,0-160-71.765-160-160s71.765-160,160-160s160,71.765,160,160S290.901,362.669,202.667,362.669z" />
+                              S0,90.925,0,202.669s90.923,202.667,202.667,202.667c48.213,0,92.48-16.981,127.317-45.184l145.6,145.6
+                              c4.16,4.16,9.621,6.251,15.083,6.251s10.923-2.091,15.083-6.251C514.091,497.411,514.091,483.928,505.749,475.587z
+                              M202.667,362.669c-88.235,0-160-71.765-160-160s71.765-160,160-160s160,71.765,160,160S290.901,362.669,202.667,362.669z" />
             </svg>
           </label>
           <form class="searchbar__input" action="/colcade" method="GET">
@@ -65,22 +65,26 @@
         <div class="dropdown dropdown--svg justify-end">
           <button class="dropdown__toggle">
             <svg>
-              <use href="#masonry""></use>
+              <use href="#masonry"></use>
         </svg>
       </button>
       <div class=" dropdown__drawer">
+
                 <ul class="menu menu--svg">
-                  <li id="masonry-grid"><svg>
+                  <li id="masonry-grid">
+                    <svg>
                       <use href="#masonry"></use>
                     </svg>
                     <p>Masonry</p>
                   </li>
-                  <li id="large-grid"><svg>
+                  <li id="large-grid">
+                    <svg>
                       <use href="#grid-large"></use>
                     </svg>
                     <p>Large</p>
                   </li>
-                  <li id="small-grid"><svg>
+                  <li id="small-grid">
+                    <svg>
                       <use href="#grid-small"></use>
                     </svg>
                     <p>Small</p>
@@ -117,10 +121,10 @@
               <div class="card__image__bottom">
                 <p><%=coffeeShop.description.slice(0,50)%>...</p>
               </div>
-              <svg class="button--svg button--left hide">
+              <svg width="48" height="48" viewBox="0 0 24 24" class="button--svg button--left hide">
                 <use href="#svg--left"></use>
               </svg>
-              <svg class="button--svg button--right hide">
+              <svg width="48" height="48" viewBox="0 0 24 24" class="button--svg button--right hide">
                 <use href="#svg--right"></use>
               </svg>
             </div>
@@ -148,51 +152,66 @@
     <!-- layouts -->
     <svg display='none' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
       x="0px" y="0px">
-      <symbol id="grid-large" viewBox="0 0 64 80">
-        <rect x="33" y="33" width="31" height="31" />
-        <rect x="33" width="31" height="31" />
-        <rect width="31" height="31" />
-        <rect y="33" width="31" height="31" />
-      </symbol>
     </svg>
-    <svg display='none' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
-      x="0px" y="0px">
-      <symbol id="grid-small" viewBox="0 0 64 80">
-        <g>
-          <rect y="22.875" width="20.125" height="18.25" />
-          <rect x="22.125" y="22.875" width="19.75" height="18.25" />
-          <rect x="22.125" width="19.75" height="20.875" />
-          <rect x="43.875" width="20.125" height="20.875" />
-          <rect x="22.125" y="43.125" width="19.75" height="20.875" />
-          <rect x="43.875" y="22.875" width="20.125" height="18.25" />
-          <rect y="43.125" width="20.125" height="20.875" />
-          <rect x="43.875" y="43.125" width="20.125" height="20.875" />
-          <rect width="20.125" height="20.875" />
+    <svg class="gridLarge" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="grid-large" fill="none">
+        <g id="items">
+          <rect id="Rectangle 2" x="4" y="13" rx="1" stroke="#D9D9D9" />
+          <rect id="Rectangle 7" x="10" y="13" rx="1" stroke="#D9D9D9" />
+          <rect id="Rectangle 8" x="16" y="13" rx="1" stroke="#D9D9D9" />
+          <rect id="Rectangle 9" x="4" y="6" rx="1" stroke="#D9D9D9" />
+          <rect id="Rectangle 10" x="10" y="6" rx="1" stroke="#D9D9D9" />
+          <rect id="Rectangle 11" x="16" y="6" rx="1" stroke="#D9D9D9" />
         </g>
+        <rect id="outline" x="2.5" y="4.5" rx="0.5" stroke="black" />
       </symbol>
     </svg>
-    <svg display='none' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
-      x="0px" y="0px">
-      <symbol id="masonry" viewBox="0 0 64 80">
-        <rect x="22.667" y="44.125" width="18.667" height="19.875" />
-        <polygon
-          points="22.667,0 22.667,24.958 22.667,26.958 22.667,42.125 41.334,42.125 41.334,20.667 41.334,18.667 41.334,0" />
-        <rect x="43.334" width="20.666" height="18.667" />
-        <polygon points="43.334,20.667 43.334,42.125 43.334,44.125 43.334,64 64,64 64,20.667" />
-        <polygon points="20.667,44.125 20.667,42.125 20.667,26.958 0,26.958 0,64 20.667,64" />
-        <rect width="20.667" height="24.958" />
+
+    <svg display="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="grid-small" fill="none">
+        <g id="items">
+          <rect id="Rectangle 2" x="5.5" y="5.5" rx="0.5" stroke="#D9D9D9" />
+          <rect id="Rectangle 4" x="5.5" y="11.5" rx="0.5" stroke="#D9D9D9" />
+          <rect id="Rectangle 15" x="10.5" y="11.5" rx="0.5" stroke="#D9D9D9" />
+          <rect id="Rectangle 5" x="10.5" y="5.5" rx="0.5" stroke="#D9D9D9" />
+          <rect id="Rectangle 12" x="15.5" y="11.5" rx="0.5" stroke="#D9D9D9" />
+          <rect id="Rectangle 14" x="15.5" y="5.5" rx="0.5" stroke="#D9D9D9" />
+          <path id="Vector 10"
+            d="M5.5 19.5V18.1C5.5 17.7686 5.76863 17.5 6.1 17.5H7H7.9C8.23137 17.5 8.5 17.7686 8.5 18.1V19.5"
+            stroke="#D9D9D9" stroke-linecap="square" />
+          <path id="Vector 11"
+            d="M10.5 19.5V18.1C10.5 17.7686 10.7686 17.5 11.1 17.5H12H12.9C13.2314 17.5 13.5 17.7686 13.5 18.1V19.5"
+            stroke="#D9D9D9" stroke-linecap="square" />
+          <path id="Vector 12"
+            d="M15.5 19.5V18.1C15.5 17.7686 15.7686 17.5 16.1 17.5H17H17.9C18.2314 17.5 18.5 17.7686 18.5 18.1V19.5"
+            stroke="#D9D9D9" stroke-linecap="square" />
+        </g>
+        <rect id="outline" x="3.5" y="3.5" rx="0.5" stroke="black" />
+      </symbol>
+    </svg>
+
+    <svg display='none' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="masonry" fill="none">
+        <rect x="5.5" y="5.5" rx="0.5" stroke="#D9D9D9" />
+        <rect x="12.5" y="5.5" rx="0.5" stroke="#D9D9D9" />
+        <rect x="5.5" y="12.5" rx="0.5" stroke="#D9D9D9" />
+        <rect x="12.5" y="15.5" rx="0.5" stroke="#D9D9D9" />
+        <rect x="3.5" y="3.5" rx="0.5" stroke="black" />
       </symbol>
     </svg>
     <!-- image buttons -->
-    <!-- <circle cx="20" cy="20" r="20" fill="#aaa5" stroke="none"/> -->
-    <svg display='none' xmlns="http://www.w3.org/2000/svg">
-      <symbol id="svg--left" viewBox="0 0 40 40">
-        <path d="M 25,10 L 15,20 L 25,30" fill="none" stroke-width="2px"></path>
+    <svg viewBox="0 0 24 24" display='none' xmlns="http://www.w3.org/2000/svg">
+      <symbol id="svg--left" fill="none">
+        <circle cx="12" cy="12" r="9.5" stroke="#D9D9D9" />
+        <path
+          d="M8.64645 11.6464C8.45118 11.8417 8.45118 12.1583 8.64645 12.3536L11.8284 15.5355C12.0237 15.7308 12.3403 15.7308 12.5355 15.5355C12.7308 15.3403 12.7308 15.0237 12.5355 14.8284L9.70711 12L12.5355 9.17157C12.7308 8.97631 12.7308 8.65973 12.5355 8.46447C12.3403 8.2692 12.0237 8.2692 11.8284 8.46447L8.64645 11.6464ZM9 12.5H9.5V11.5H9V12.5Z" />
       </symbol>
     </svg>
-    <svg display='none' xmlns="http://www.w3.org/2000/svg">
-      <symbol id="svg--right" viewBox="0 0 40 40">
-        <path d="M 15,10 L 25,20 L 15,30" fill="none" stroke-width="2px"></path>
+    <svg viewBox="0 0 24 24" display='none' xmlns="http://www.w3.org/2000/svg">
+      <symbol id="svg--right" fill="none">
+        <circle cx="12" cy="12" r="9.5" stroke="#D9D9D9" />
+        <path
+          d="M14.8536 12.3536C15.0488 12.1583 15.0488 11.8417 14.8536 11.6464L11.6716 8.46447C11.4763 8.2692 11.1597 8.2692 10.9645 8.46447C10.7692 8.65973 10.7692 8.97631 10.9645 9.17157L13.7929 12L10.9645 14.8284C10.7692 15.0237 10.7692 15.3403 10.9645 15.5355C11.1597 15.7308 11.4763 15.7308 11.6716 15.5355L14.8536 12.3536ZM14 12.5H14.5V11.5H14V12.5Z" />
       </symbol>
     </svg>
     <!-- JAVASCRIPT -->

@@ -1,9 +1,11 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="4" y="13" width="4" height="5" rx="1" stroke="#D9D9D9"/>
-<rect x="10" y="13" width="4" height="5" rx="1" stroke="#D9D9D9"/>
-<rect x="16" y="13" width="4" height="5" rx="1" stroke="#D9D9D9"/>
-<rect x="4" y="6" width="4" height="5" rx="1" stroke="#D9D9D9"/>
-<rect x="10" y="6" width="4" height="5" rx="1" stroke="#D9D9D9"/>
-<rect x="16" y="6" width="4" height="5" rx="1" stroke="#D9D9D9"/>
-<rect x="2.5" y="4.5" width="19" height="15" rx="0.5" stroke="black"/>
+<g id="items">
+<rect id="Rectangle 2" x="4" y="13" width="4" height="5" rx="1" stroke="#D9D9D9"/>
+<rect id="Rectangle 7" x="10" y="13" width="4" height="5" rx="1" stroke="#D9D9D9"/>
+<rect id="Rectangle 8" x="16" y="13" width="4" height="5" rx="1" stroke="#D9D9D9"/>
+<rect id="Rectangle 9" x="4" y="6" width="4" height="5" rx="1" stroke="#D9D9D9"/>
+<rect id="Rectangle 10" x="10" y="6" width="4" height="5" rx="1" stroke="#D9D9D9"/>
+<rect id="Rectangle 11" x="16" y="6" width="4" height="5" rx="1" stroke="#D9D9D9"/>
+</g>
+<rect id="outlines" x="2.5" y="4.5" width="19" height="15" rx="0.5" stroke="black"/>
 </svg>
