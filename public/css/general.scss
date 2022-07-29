@@ -7,7 +7,7 @@
   --main-1: #cdb4db;
   --main-2: #ffc8dd;
   --main-3: #ffafcc;
-  --secondary-1: #dae0e6;
+  --secondary-1: #bde0fe;
   --secondary-2: #a2d2ff;
   --accent-primary: #999;
   --accent-secondary: #2d2e2f;
@@ -46,7 +46,7 @@ body {
   height: 100%;
   width: 100%;
   line-height: 1.6;
-  background-color: var(--main-1);
+  // background-color: var(--main-1);
 }
 /* overriding default user agent styles of some tags */
 ul {
@@ -348,7 +348,9 @@ dialog {
       margin: auto;
       position: absolute;
       top: 0;
-      width: 1.75em;
+      width: 1rem;
+      // stroke: var(--main-1);
+      fill: var(--accent-secondary);
     }
   }
 
@@ -379,6 +381,7 @@ dialog {
 
     .searchbar__wrapper__icon {
       opacity: 1;
+      fill: var(--light-text);
     }
   }
   
