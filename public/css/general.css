@@ -693,7 +693,7 @@ dialog .closeModal:hover {
 
 .button--svg {
   position: absolute;
-  width: 2em;
+  width: 1.125em;
   stroke: #fff;
   cursor: pointer;
   z-index: 20;
