@@ -299,7 +299,6 @@ dialog {
   cursor: text;
   border-radius: 1em;
   position: relative;
-  z-index: 10;
   
   // searchbar input styles
   .searchbar__input {
@@ -771,3 +770,20 @@ dialog {
 // .gridLarge {
 
 // }
+
+.masonry {
+  display: block;
+  width: 24;
+  height: 24;
+
+  .items {
+    width: 24;
+    height: 24;
+    stroke: var(--main-1);
+  }
+  .outline {
+    width: 24;
+    height: 24;
+    stroke: var(--main-2)
+  }
+}

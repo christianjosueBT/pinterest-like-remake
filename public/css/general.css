@@ -341,7 +341,6 @@ dialog .closeModal:hover {
   cursor: text;
   border-radius: 1em;
   position: relative;
-  z-index: 10;
 }
 .searchbar .searchbar__input {
   flex: 1;
@@ -841,4 +840,19 @@ dialog .closeModal:hover {
   fill: var(--dark-text);
 }
 
-/*******************************************************************  SVG SECTION  *******************************************************************//*# sourceMappingURL=general.css.map */
+/*******************************************************************  SVG SECTION  *******************************************************************/
+.masonry {
+  display: block;
+  width: 24;
+  height: 24;
+}
+.masonry .items {
+  width: 24;
+  height: 24;
+  stroke: var(--main-1);
+}
+.masonry .outline {
+  width: 24;
+  height: 24;
+  stroke: var(--main-2);
+}/*# sourceMappingURL=general.css.map */

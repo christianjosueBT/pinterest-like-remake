@@ -4,8 +4,9 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Accept-CH" content="DPR, WidtGoogle Fonts! -->
-    <link rel=" preconnect" href="https://fonts.gstatic.com">
+    <meta http-equiv="Accept-CH" content="DPR, Width">
+    <!-- Google Fonts! -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Sansita+Swashed:wght@300;400;500;600&display=swap"
       rel="stylesheet">
@@ -46,7 +47,7 @@
     <div class="container">
       <div class="widgetBar">
         <!-- search input -->
-        <div class="searchbar basis-90">
+        <div class="searchbar basis-80">
           <label for="searchbar__input" class="searchbar__wrapper">
             <svg class="searchbar__wrapper__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.005 512.005">
               <path
@@ -63,9 +64,16 @@
         <!-- button to change the grid layout -->
         <div class="dropdown dropdown--svg justify-end">
           <button class="dropdown__toggle">
-            <svg>
+
+            <svg class="masonryContainer">
               <use href="#masonry"></use>
             </svg>
+            <svg class="downArrow" width="48" height="48" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M11.6464 13.8536C11.8417 14.0488 12.1583 14.0488 12.3536 13.8536L15.5355 10.6716C15.7308 10.4763 15.7308 10.1597 15.5355 9.96447C15.3403 9.7692 15.0237 9.7692 14.8284 9.96447L12 12.7929L9.17157 9.96447C8.97631 9.7692 8.65973 9.7692 8.46447 9.96447C8.2692 10.1597 8.2692 10.4763 8.46447 10.6716L11.6464 13.8536ZM12.5 13.5V13H11.5V13.5H12.5Z" />
+            </svg>
+
           </button>
           <div class="dropdown__drawer">
 
@@ -148,12 +156,10 @@
 
 
     <!-- SVGs  -->
-    <!-- layouts -->
-    <svg display='none' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
-      x="0px" y="0px">
-    </svg>
-    <svg class="gridLarge" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <symbol id="grid-large" fill="none">
+    <svg display='none' xmlns="http://www.w3.org/2000/svg">
+
+      <!-- layouts -->
+      <symbol id="grid-large" fill="none" viewBox="0 0 24 24">
         <g id="items">
           <rect id="Rectangle 2" x="4" y="13" rx="1" stroke="#D9D9D9" />
           <rect id="Rectangle 7" x="10" y="13" rx="1" stroke="#D9D9D9" />
@@ -164,10 +170,7 @@
         </g>
         <rect id="outline" x="2.5" y="4.5" rx="0.5" stroke="black" />
       </symbol>
-    </svg>
-
-    <svg display="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <symbol id="grid-small" fill="none">
+      <symbol id="grid-small" fill="none" viewBox="0 0 24 24">
         <g id="items">
           <rect id="Rectangle 2" x="5.5" y="5.5" rx="0.5" stroke="#D9D9D9" />
           <rect id="Rectangle 4" x="5.5" y="11.5" rx="0.5" stroke="#D9D9D9" />
@@ -187,27 +190,20 @@
         </g>
         <rect id="outline" x="3.5" y="3.5" rx="0.5" stroke="black" />
       </symbol>
-    </svg>
 
-    <svg display='none' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <symbol id="masonry" fill="none">
-        <rect x="5.5" y="5.5" rx="0.5" stroke="#D9D9D9" />
-        <rect x="12.5" y="5.5" rx="0.5" stroke="#D9D9D9" />
-        <rect x="5.5" y="12.5" rx="0.5" stroke="#D9D9D9" />
-        <rect x="12.5" y="15.5" rx="0.5" stroke="#D9D9D9" />
-        <rect x="3.5" y="3.5" rx="0.5" stroke="black" />
+      <symbol id="masonry" fill="none" class="masonry" viewBox="0 0 24 24">
+        <path id="items" class="items"
+          d="M5.5 6C5.5 5.72386 5.72386 5.5 6 5.5H10C10.2761 5.5 10.5 5.72386 10.5 6V10C10.5 10.2761 10.2761 10.5 10 10.5H6C5.72386 10.5 5.5 10.2761 5.5 10V6ZM12.5 6C12.5 5.72386 12.7239 5.5 13 5.5H18C18.2761 5.5 18.5 5.72386 18.5 6V13C18.5 13.2761 18.2761 13.5 18 13.5H13C12.7239 13.5 12.5 13.2761 12.5 13V6ZM5.5 13C5.5 12.7239 5.72386 12.5 6 12.5H10C10.2761 12.5 10.5 12.7239 10.5 13V18C10.5 18.2761 10.2761 18.5 10 18.5H6C5.72386 18.5 5.5 18.2761 5.5 18V13ZM12.5 16C12.5 15.7239 12.7239 15.5 13 15.5H18C18.2761 15.5 18.5 15.7239 18.5 16V18C18.5 18.2761 18.2761 18.5 18 18.5H13C12.7239 18.5 12.5 18.2761 12.5 18V16Z" />
+        <rect id="outline" class="outline" x="3.5" y="3.5" rx="0.5" width="17" height="17" />
       </symbol>
-    </svg>
-    <!-- image buttons -->
-    <svg viewBox="0 0 24 24" display='none' xmlns="http://www.w3.org/2000/svg">
-      <symbol id="svg--left" fill="none">
-        <circle cx="12" cy="12" r="9.5" stroke="#D9D9D9" />
+
+      <!-- image buttons -->
+      <symbol id="svg--left" fill="none" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9.5" />
         <path
           d="M8.64645 11.6464C8.45118 11.8417 8.45118 12.1583 8.64645 12.3536L11.8284 15.5355C12.0237 15.7308 12.3403 15.7308 12.5355 15.5355C12.7308 15.3403 12.7308 15.0237 12.5355 14.8284L9.70711 12L12.5355 9.17157C12.7308 8.97631 12.7308 8.65973 12.5355 8.46447C12.3403 8.2692 12.0237 8.2692 11.8284 8.46447L8.64645 11.6464ZM9 12.5H9.5V11.5H9V12.5Z" />
       </symbol>
-    </svg>
-    <svg viewBox="0 0 24 24" display='none' xmlns="http://www.w3.org/2000/svg">
-      <symbol id="svg--right" fill="none">
+      <symbol id="svg--right" fill="none" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="9.5" stroke="#D9D9D9" />
         <path
           d="M14.8536 12.3536C15.0488 12.1583 15.0488 11.8417 14.8536 11.6464L11.6716 8.46447C11.4763 8.2692 11.1597 8.2692 10.9645 8.46447C10.7692 8.65973 10.7692 8.97631 10.9645 9.17157L13.7929 12L10.9645 14.8284C10.7692 15.0237 10.7692 15.3403 10.9645 15.5355C11.1597 15.7308 11.4763 15.7308 11.6716 15.5355L14.8536 12.3536ZM14 12.5H14.5V11.5H14V12.5Z" />

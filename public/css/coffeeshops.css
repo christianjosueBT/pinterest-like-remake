@@ -9,6 +9,7 @@
   border-radius: 1em;
   border: none;
   height: 2rem;
+  z-index: 20;
 }
 
 /****************************** CHANGE LAYOUT BUTTONS *******************************/
@@ -22,20 +23,23 @@
 }
 
 .dropdown__toggle {
+  display: flex;
+  align-items: center;
   border: none;
   background-color: inherit;
   cursor: pointer;
   height: 2rem;
 }
-
-/* CSS border arrows */
-.dropdown__toggle::after {
-  content: "";
-  position: absolute;
-  right: 1em;
-  top: 1.1em;
-  border: 0.3em solid;
-  border-color: var(--dark-text) transparent transparent;
+.dropdown__toggle .masonryContainer {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+}
+.dropdown__toggle .downArrow {
+  margin-left: -18px;
+  fill: var(--accent-secondary);
+  opacity: 0.3;
 }
 
 /* dropdown container */
@@ -49,29 +53,8 @@
   z-index: 30;
 }
 
-/* change the direction of the CSS border arrow if the dropdown menu is visible */
-.dropdown.is-open .dropdown__toggle::after {
-  top: 0.55em;
-  border-color: transparent transparent var(--dark-text);
-}
-
 .dropdown.is-open .dropdown__drawer {
   display: block;
-}
-
-/* SVG class modifier */
-.dropdown--svg svg {
-  width: 1.5em;
-  height: 1.5em;
-}
-
-.dropdown--svg .dropdown__toggle {
-  padding: 0.2em 0.75em 0;
-}
-
-.dropdown--svg .dropdown__toggle::after {
-  right: 0.1em;
-  top: 0.9em;
 }
 
 /**********************************  MENU MODULE  **********************************/
