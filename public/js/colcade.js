@@ -29,7 +29,7 @@ let simpleM = new SimpleMasonry({
   masonryColumn: '.grid',
 })
 
-// shit taken from https://stackoverflow.com/questions/11106876/is-it-possible-to-animate-flexbox-inserts-removes
+// taken from https://stackoverflow.com/questions/11106876/is-it-possible-to-animate-flexbox-inserts-removes
 function getFlexItemsInfo(container) {
   return Array.from(container.children).map(item => {
     const rect = item.getBoundingClientRect()
@@ -176,76 +176,6 @@ async function getData() {
 }
 
 // ********************************************************************
-// updating the location of everything in the page
-// ********************************************************************
-
-// places cards where they should be to get a pinterest like layout
-// function setupBlocks() {
-//   colWidth =
-//     parseInt(
-//       window.getComputedStyle(document.body).getPropertyValue('font-size')
-//     ) * 16;
-//   blocks = document.querySelectorAll('.card');
-//   // getting window width, width of a card, and setting the margin to be equal to one rem
-//   windowWidth = window.innerWidth;
-//   margin = parseInt(
-//     window.getComputedStyle(document.body).getPropertyValue('font-size')
-//   );
-//   // calculating how many cards fit in a "row" of the viewport
-//   colCount = Math.floor(windowWidth / (colWidth + margin));
-//   // calculating the space the cards will take (including the margin I want between them as well as the
-//   // minimum margin between the cards and the left and right side of the page)
-//   cardsSpace = colCount * (colWidth + margin);
-//   // calculating the whitespace that will remain
-//   whiteSpace = windowWidth - cardsSpace;
-//   // only placing the cards that fit in the first row in their appropriate places
-//   if (blocks.length >= colCount) {
-//     for (let i = 0; i < colCount; i++) {
-//       // I want the white space to be divided evenly on the left and right side of the page
-//       blocks[i].style.left = `${
-//         (whiteSpace + margin) / 2 + (colWidth + margin) * i
-//       }px`;
-//       // placing the cards at the top of their container and letting top margin take care of the rest
-//       blocks[i].style.top = '0px';
-//       // storing height of each of these cards in an array called "heights"
-//       heights.push(blocks[i].offsetHeight + margin);
-//     }
-//   } else if (blocks.length !== 1) {
-//     for (let i = 0; i < blocks.length; i++) {
-//       // I want the white space to be divided evenly on the left and right side of the page
-//       blocks[i].style.left = `${
-//         (whiteSpace + margin) / 2 + (colWidth + margin) * i
-//       }px`;
-//       // placing the cards at the top of their container and letting top margin take care of the rest
-//       blocks[i].style.top = '0px';
-//       // storing height of each of these cards in an array called "heights"
-//       heights.push(blocks[i].offsetHeight + margin);
-//     }
-//   } else if (blocks.length === 1) {
-//     blocks[0].style.left = `${(windowWidth - colWidth) / 2}px`;
-//     blocks[0].style.top = '0px';
-//     heights.push(blocks[0].offsetHeight + margin);
-//   }
-
-//   // placing the remainder of the cards
-//   for (let i = colCount; i < blocks.length; i++) {
-//     // calculating the smallest value in the array of heights
-//     min = Math.min(...heights);
-//     // calculating the index of this of this smallest value
-//     index = heights.findIndex(n => n === min);
-//     // placing a card below the shortest card column
-//     blocks[i].style.left = `${blocks[index].offsetLeft}px`;
-//     blocks[i].style.top = `${heights[index]}px`;
-//     // updating the heights array to reflect the new height of the column
-//     heights[index] += blocks[i].offsetHeight + margin;
-//   }
-//   footer.style.top = `${Math.max(...heights) + 20}px`;
-//   // resetting the heights array to reuse this function if needed
-//   heights.length = [];
-//   return;
-// }
-
-// ********************************************************************
 // dropwdown for changing the layout of the page observer
 // and different layout options
 // ********************************************************************
@@ -255,8 +185,8 @@ function dropDown() {
   const toggles = document.querySelectorAll('.dropdown__toggle')
   for (let toggle of toggles) {
     toggle.addEventListener('click', function (event) {
-      event.preventDefault()
-      const dropdown = event.target.parentNode
+      event.stopPropagation()
+      const dropdown = event.currentTarget.parentNode
       dropdown.classList.toggle('is-open')
     })
   }
