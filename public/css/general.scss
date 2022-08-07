@@ -315,6 +315,7 @@ dialog {
 .searchbar {
   display: flex;
   background-color: var(--secondary-1);
+  align-items: center;
   cursor: text;
   border-radius: 1em;
   position: relative;
@@ -361,13 +362,12 @@ dialog {
 
     .searchbar__wrapper__icon {
       opacity: 0.3;
-      bottom: 0;
-      left: 0.5em;
       margin: auto;
       position: absolute;
       top: 0;
+      bottom: 0;
+      left: 0.5em;
       width: 1rem;
-      // stroke: var(--main-1);
       fill: var(--accent-secondary);
     }
 
@@ -384,6 +384,12 @@ dialog {
     border: 2px solid var(--light-text);
     border-radius: 1em;
     color: var(--light-text);
+    width: auto;
+
+    .searchbar__input {
+      display: flex;
+      align-items: stretch;
+    }
 
     .searchbar__input__text {
       background-color: transparent;
