@@ -65,6 +65,7 @@ body {
 ul {
   padding-left: 0;
   list-style-type: none;
+  list-style: none;
 }
 
 a {
@@ -129,17 +130,17 @@ dialog .closeModal:hover {
 }
 
 .flex {
-  display: flex;
+  display: flex !important;
 }
 
 .flex--center {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .flex--column {
-  display: flex;
-  flex-flow: column nowrap;
+  display: flex !important;
+  flex-flow: column nowrap !important;
 }
 
 .bold {
@@ -170,24 +171,28 @@ dialog .closeModal:hover {
   padding: 0 !important;
 }
 
-.grow-2 {
-  flex: 2;
+.grow-1 {
+  flex: 1 !important;
 }
 
-.grow-1 {
-  flex: 1;
+.grow-2 {
+  flex: 2 !important;
 }
 
 .order-1 {
-  order: -1;
+  order: -1 !important;
 }
 
 .basis-80 {
-  flex-basis: 80%;
+  flex-basis: 80% !important;
 }
 
 .basis-90 {
-  flex-basis: 90%;
+  flex-basis: 90% !important;
+}
+
+.basis-100 {
+  flex-basis: 100% !important;
 }
 
 .navFont {
@@ -195,15 +200,19 @@ dialog .closeModal:hover {
 }
 
 .font-small {
-  font-size: 0.75rem;
+  font-size: 0.75rem !important;
+}
+
+.height--80 {
+  height: 80% !important;
+}
+
+.height--90 {
+  height: 90% !important;
 }
 
 .height--100 {
   height: 100% !important;
-}
-
-.height--80 {
-  height: 90% !important;
 }
 
 .width--100 {
@@ -215,7 +224,7 @@ dialog .closeModal:hover {
 }
 
 .fill--white {
-  fill: #fff;
+  fill: #fff !important;
 }
 
 .placeholder-light::-moz-placeholder {
@@ -232,47 +241,48 @@ dialog .closeModal:hover {
 
 /*******************************************************************  NAVBAR SECTION START  *******************************************************************/
 /* Define the main Navigation block */
-.nav {
-  height: 2.5rem;
-  width: 100%;
-  line-height: 1.6;
-  background-color: var(--main-1);
-  margin-bottom: 2rem;
-}
-
-/* Remove bullets, margin and padding */
-.nav ul {
+.header {
   display: flex;
   align-items: center;
-  height: 100%;
-}
-
-/* Define the block styling for the links */
-.nav__el {
-  padding: 0 1em;
+  gap: 0.75rem;
+  height: 2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  background-color: var(--main-1);
   color: var(--dark-text);
+  /* Make ul a flex item and align its children */
 }
-
-/* This is optional, however if you want to display the active link differently apply a background to it */
-.nav__el.active {
-  background-color: var(--main-2);
+.header .header-logo {
+  flex: 0 1 auto;
 }
-
-.nav__user {
+.header .top-navigation {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  gap: 0.75rem;
+}
+.header .top-navigation .main-nav {
+  flex: 0 1;
+}
+.header .top-navigation .searchbar {
+  flex: 1 0;
+}
+.header .top-navigation .nav__user {
   display: flex;
   align-items: center;
   padding: 0.1em 0.4em;
   position: relative;
   gap: 0.1em;
 }
-.nav__user .user,
-.nav__user .login {
+.header .top-navigation .nav__user .user,
+.header .top-navigation .nav__user .login {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   gap: 0.3em;
 }
-.nav__user .user::after {
+.header .top-navigation .nav__user .user::after {
   content: "";
   width: 0;
   height: 0;
@@ -281,6 +291,7 @@ dialog .closeModal:hover {
   border-top: 5px solid black;
 }
 
+/* display the active link differently */
 .dropdown--content {
   display: none;
   align-items: flex-start;
@@ -321,7 +332,7 @@ dialog .closeModal:hover {
 
 .picture {
   display: flex;
-  width: 2rem;
+  width: 1.85rem;
   border: 2px solid var(--secondary-2);
   border-radius: 1em;
 }
@@ -341,6 +352,8 @@ dialog .closeModal:hover {
   cursor: text;
   border-radius: 1em;
   position: relative;
+  width: 100%;
+  z-index: 20;
 }
 .searchbar .searchbar__input {
   flex: 1;
@@ -348,14 +361,16 @@ dialog .closeModal:hover {
 .searchbar .searchbar__input .searchbar__input__text {
   flex: 1;
   margin: 0;
+  padding: 0;
   width: 100%;
-  height: 2rem;
+  height: 1.65rem;
   background-color: var(--secondary-1);
-  border-color: transparent;
+  border: unset;
+  border-radius: 1em;
   line-height: 2.75em;
   margin: auto 0;
   overflow: hidden;
-  text-align: initial;
+  text-indent: 10px;
   text-overflow: ellipsis;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -369,24 +384,24 @@ dialog .closeModal:hover {
   width: 1em;
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23000" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>');
   background-size: contain;
-  pointer-events: none;
+  pointer-events: all;
   cursor: pointer;
 }
-.searchbar .searchbar__input .searchbar__input__text .searchbar__input__text:focus::-webkit-search-cancel-button {
-  pointer-events: all;
-}
 .searchbar .searchbar__wrapper {
-  padding: 0 1.5em;
+  padding-left: 1.75em;
 }
 .searchbar .searchbar__wrapper .searchbar__wrapper__icon {
   opacity: 0.3;
   bottom: 0;
-  left: 1em;
+  left: 0.5em;
   margin: auto;
   position: absolute;
   top: 0;
   width: 1rem;
   fill: var(--accent-secondary);
+}
+.searchbar .searchbar__wrapper:focus-within .searchbar__wrapper__icon {
+  opacity: 1;
 }
 .searchbar.searchbar--transparent {
   background-color: transparent;
@@ -420,7 +435,6 @@ dialog .closeModal:hover {
   position: relative;
   border-radius: 2.5em 2.5em 2.5em 2.5em;
   max-width: 20rem;
-  background-color: var(--secondary-1);
   margin-top: 0.5em;
   transition: all 0.5s ease;
 }
@@ -471,7 +485,6 @@ dialog .closeModal:hover {
 .card--form {
   display: inline-block;
   position: static;
-  /* height: 50vh; */
 }
 
 .card--form .card__body {
@@ -841,18 +854,26 @@ dialog .closeModal:hover {
 }
 
 /*******************************************************************  SVG SECTION  *******************************************************************/
+.grid-large .items {
+  stroke: var(--main-1);
+}
+.grid-large .outline {
+  stroke: var(--main-2);
+}
+
+.grid-small .items {
+  stroke: var(--main-1);
+}
+.grid-small .outline {
+  stroke: var(--main-2);
+}
+
 .masonry {
   display: block;
-  width: 24;
-  height: 24;
 }
 .masonry .items {
-  width: 24;
-  height: 24;
   stroke: var(--main-1);
 }
 .masonry .outline {
-  width: 24;
-  height: 24;
   stroke: var(--main-2);
-}/*# sourceMappingURL=general.css.map */
+}

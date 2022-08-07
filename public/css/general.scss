@@ -52,6 +52,7 @@ body {
 ul {
   padding-left: 0;
   list-style-type: none;
+  list-style: none;
 }
 a {
   text-decoration: none;
@@ -120,15 +121,15 @@ dialog {
 //   }
 // }
 .flex {
-  display: flex;
+  display: flex !important;
 }
 .flex--center {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
 }
 .flex--column {
-  display: flex;
-  flex-flow: column nowrap;
+  display: flex !important;
+  flex-flow: column nowrap !important;
 }
 .bold {
   font-weight: 600 !important;
@@ -151,20 +152,23 @@ dialog {
 .padding-0 {
   padding: 0 !important;
 }
-.grow-2 {
-  flex: 2;
-}
 .grow-1 {
-  flex: 1;
+  flex: 1 !important;
+}
+.grow-2 {
+  flex: 2 !important;
 }
 .order-1 {
-  order: -1;
+  order: -1 !important;
 }
 .basis-80 {
-  flex-basis: 80%;
+  flex-basis: 80% !important;
 }
 .basis-90 {
-  flex-basis: 90%;
+  flex-basis: 90% !important;
+}
+.basis-100 {
+  flex-basis: 100% !important;
 }
 // .absolute {
 // position: absolute;
@@ -173,13 +177,16 @@ dialog {
   font-family: 'Sansita Swashed', cursive !important;
 }
 .font-small {
-  font-size: 0.75rem;
+  font-size: 0.75rem !important;
+}
+.height--80 {
+  height: 80% !important;
+}
+.height--90 {
+  height: 90% !important;
 }
 .height--100 {
   height: 100% !important;
-}
-.height--80 {
-  height: 90% !important;
 }
 .width--100 {
   width: 100% !important;
@@ -188,7 +195,7 @@ dialog {
   background: none !important;
 }
 .fill--white {
-  fill: #fff;
+  fill: #fff !important;
 }
 .placeholder-light::placeholder {
   color: var(--light-text);
@@ -197,53 +204,65 @@ dialog {
 /*******************************************************************  NAVBAR SECTION START  *******************************************************************/
 
 /* Define the main Navigation block */
-.nav {
-  height: 2.5rem;
-  width: 100%;
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  height: 2rem;
   line-height: 1.6;
-  background-color: var(--main-1);
   margin-bottom: 2rem;
-}
-/* Remove bullets, margin and padding */
-.nav ul {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-/* Define the block styling for the links */
-.nav__el {
-  padding: 0 1em;
+  background-color: var(--main-1);
   color: var(--dark-text);
-}
-/* This is optional, however if you want to display the active link differently apply a background to it */
-.nav__el.active {
-  background-color: var(--main-2);
-}
 
-.nav__user {
-  display: flex;
-  align-items: center;
-  padding: 0.1em 0.4em;
-  position: relative;
-  gap: 0.1em;
+  .header-logo {
+    flex: 0 1 auto;
+  }
 
-  .user,
-  .login {
+  /* Make ul a flex item and align its children */
+  .top-navigation {
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
-    gap: 0.3em;
-  }
+    flex: 1;
+    width: 100%;
+    gap: 0.75rem;
 
-  .user::after {
-    content: '';
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid black;
+    .main-nav {
+      flex: 0 1;
+    }
+    .searchbar {
+      flex: 1 0;
+    }
+
+    .nav__user {
+      display: flex;
+      align-items: center;
+      padding: 0.1em 0.4em;
+      position: relative;
+      gap: 0.1em;
+
+      .user,
+      .login {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 0.3em;
+      }
+
+      .user::after {
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid black;
+      }
+    }
   }
 }
+/* display the active link differently */
+// .nav__el.active {
+//   background-color: var(--main-2);
+// }
 
 .dropdown--content {
   display: none;
@@ -281,7 +300,7 @@ dialog {
 }
 .picture {
   display: flex;
-  width: 2rem;
+  width: 1.85rem;
   border: 2px solid var(--secondary-2);
   border-radius: 1em;
 }
@@ -299,22 +318,26 @@ dialog {
   cursor: text;
   border-radius: 1em;
   position: relative;
-  
-  // searchbar input styles
+  width: 100%;
+  z-index: 20;
+
+  // input
   .searchbar__input {
     flex: 1;
-    
+
     .searchbar__input__text {
       flex: 1;
       margin: 0;
+      padding: 0;
       width: 100%;
-      height: 2rem;
+      height: 1.65rem;
       background-color: var(--secondary-1);
-      border-color: transparent;
+      border: unset;
+      border-radius: 1em;
       line-height: 2.75em;
       margin: auto 0;
       overflow: hidden;
-      text-align: initial;
+      text-indent: 10px;
       text-overflow: ellipsis;
       user-select: none;
       white-space: nowrap;
@@ -326,30 +349,32 @@ dialog {
         width: 1em;
         background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23000" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>');
         background-size: contain;
-        pointer-events: none;
+        pointer-events: all;
         cursor: pointer;
       }
-      .searchbar__input__text:focus::-webkit-search-cancel-button {
-        pointer-events: all;
-      }
-
     }
   }
 
-  // search-icon styles
+  // search icon
   .searchbar__wrapper {
-    padding: 0 1.5em;
-  
+    padding-left: 1.75em;
+
     .searchbar__wrapper__icon {
       opacity: 0.3;
       bottom: 0;
-      left: 1em;
+      left: 0.5em;
       margin: auto;
       position: absolute;
       top: 0;
       width: 1rem;
       // stroke: var(--main-1);
       fill: var(--accent-secondary);
+    }
+
+    &:focus-within {
+      .searchbar__wrapper__icon {
+        opacity: 1;
+      }
     }
   }
 
@@ -361,20 +386,21 @@ dialog {
     color: var(--light-text);
 
     .searchbar__input__text {
-     background-color: transparent;
-     color: var(--light-text);
-     border: none;
-     flex: 1;
+      background-color: transparent;
+      color: var(--light-text);
+      border: none;
+      flex: 1;
 
-     &:focus {
-      outline-color: var(--light-text);
-      outline-width: 1px;
-     }
+      &:focus {
+        outline-color: var(--light-text);
+        outline-width: 1px;
+      }
 
-     &::-webkit-search-cancel-button {
-       opacity: 1;
-       background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23fff" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>') no-repeat;
-       color: var(--light-text);
+      &::-webkit-search-cancel-button {
+        opacity: 1;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23fff" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>')
+          no-repeat;
+        color: var(--light-text);
       }
     }
 
@@ -383,7 +409,6 @@ dialog {
       fill: var(--light-text);
     }
   }
-  
 }
 
 /*******************************************************************  CARD SECTION START  *******************************************************************/
@@ -392,7 +417,6 @@ dialog {
   position: relative;
   border-radius: 2.5em 2.5em 2.5em 2.5em;
   max-width: 20rem;
-  background-color: var(--secondary-1);
   margin-top: 0.5em;
   transition: all 0.5s ease;
 }
@@ -437,7 +461,6 @@ dialog {
 .card--form {
   display: inline-block;
   position: static;
-  /* height: 50vh; */
 }
 .card--form .card__body {
   padding: 0.5em 1.5em 2em;
@@ -578,8 +601,6 @@ dialog {
   flex-flow: row wrap;
   justify-content: center;
   column-gap: 0.75rem;
-
-
 }
 .container--center {
   display: flex;
@@ -764,26 +785,37 @@ dialog {
   fill: var(--dark-text);
 }
 
-
 /*******************************************************************  SVG SECTION  *******************************************************************/
 
-// .gridLarge {
+.grid-large {
+  .items {
+    stroke: var(--main-1);
+  }
 
-// }
+  .outline {
+    stroke: var(--main-2);
+  }
+}
+
+.grid-small {
+  .items {
+    stroke: var(--main-1);
+  }
+
+  .outline {
+    stroke: var(--main-2);
+  }
+}
 
 .masonry {
   display: block;
-  width: 24;
-  height: 24;
+  // width: 24;
+  // height: 24;
 
   .items {
-    width: 24;
-    height: 24;
     stroke: var(--main-1);
   }
   .outline {
-    width: 24;
-    height: 24;
-    stroke: var(--main-2)
+    stroke: var(--main-2);
   }
 }
