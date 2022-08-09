@@ -243,9 +243,26 @@ function smallLayout() {
 }
 
 // attaching click event listeners to the dropdown options: masonry, large, and small
-document.querySelector('#masonry-grid').addEventListener('click', masonryLayout)
-document.querySelector('#large-grid').addEventListener('click', largeLayout)
-document.querySelector('#small-grid').addEventListener('click', smallLayout)
+document
+  .querySelector('#masonry-grid')
+  .addEventListener('pointerdown', masonryLayout)
+document.querySelector('#masonry-grid').addEventListener('keypress', e => {
+  if (e.key === 'Enter') masonryLayout()
+})
+
+document
+  .querySelector('#large-grid')
+  .addEventListener('pointerdown', largeLayout)
+document.querySelector('#large-grid').addEventListener('keypress', e => {
+  if (e.key === 'Enter') largeLayout()
+})
+
+document
+  .querySelector('#small-grid')
+  .addEventListener('pointerdown', smallLayout)
+document.querySelector('#small-grid').addEventListener('keypress', e => {
+  if (e.key === 'Enter') smallLayout()
+})
 
 // ********************************************************************
 // loading images, creating new cards, changing displayed images
@@ -475,6 +492,10 @@ document.addEventListener('readystatechange', event => {
     const observer = new IntersectionObserver(handleIntersect, options)
     observer.observe(footer)
     carousel()
+
+    const keyboardfocusableElements = document.querySelectorAll(
+      'a[href], button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
+    )
   }
 })
 

@@ -1,49 +1,43 @@
-/**********************************  WIDGETBAR MODULE  **********************************/
-/* default widgetbar */
-.widgetBar {
-  display: flex;
-  align-items: center;
-  padding: 0.25em;
-  justify-content: flex-start;
-  background-color: var(--secondary-1);
-  border-radius: 1em;
-  border: none;
-  height: 2rem;
-  z-index: 20;
-}
-
 /****************************** CHANGE LAYOUT BUTTONS *******************************/
 /* Default dropdown button */
-.dropdown {
-  display: inline-block;
-  position: relative;
-  background-color: var(--secondary-1);
-  border-radius: 1rem;
-  height: 2rem;
-}
 .dropdown .dropdown__toggle {
+  position: relative;
   display: flex;
+  padding: 0 0.5em;
   align-items: center;
   border: none;
-  background-color: unset;
+  border-radius: 1em;
+  background-color: var(--secondary-1);
   cursor: pointer;
-  height: 2rem;
 }
 .dropdown .dropdown__toggle .masonryContainer {
   display: grid;
   place-items: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.5em;
+  height: 2.5em;
 }
 .dropdown .dropdown__toggle .downArrow {
-  width: 2rem;
-  margin-left: -0.75rem;
+  width: 2em;
+  margin-left: -0.75em;
   fill: var(--accent-secondary);
   opacity: 0.3;
 }
-.dropdown .dropdown__toggle .downArrow:hover, .dropdown .dropdown__toggle .downArrow:focus {
+.dropdown .dropdown__toggle .downArrow:hover {
   transform: scale(1.1);
   opacity: 1;
+}
+.dropdown:focus .dropdown__toggle, .dropdown:focus-within .dropdown__toggle {
+  background-color: var(--secondary-2);
+}
+.dropdown:focus .dropdown__drawer, .dropdown:focus-within .dropdown__drawer {
+  display: block;
+}
+.dropdown:focus .downArrow, .dropdown:focus-within .downArrow {
+  transform: scale(1.1);
+  opacity: 1;
+}
+.dropdown.is-open .dropdown__drawer {
+  display: block;
 }
 .dropdown.is-open .downArrow {
   transform: scale(1.1);
@@ -55,11 +49,10 @@
   display: none;
   position: absolute;
   left: 0;
-  top: 2.1em;
-  min-width: 100%;
-  background-color: inherit;
+  top: 2.7em;
+  background-color: var(--secondary-1);
   z-index: 30;
-  border-radius: 1rem;
+  border-radius: 1em;
   /* SVG menu modifier */
 }
 .dropdown__drawer .menu {
@@ -72,11 +65,22 @@
   text-decoration: none;
   cursor: pointer;
 }
+.dropdown__drawer .menu li svg {
+  width: 4.5em;
+  height: 4.5em;
+}
 .dropdown__drawer .menu li + li {
   border-top: 1px solid var(--accent-primary);
 }
-.dropdown__drawer .menu li:hover {
-  background-color: var(--accent-primary);
+.dropdown__drawer .menu *:first-child {
+  border-radius: 1em 1em 0 0;
+}
+.dropdown__drawer .menu *:last-child {
+  border-radius: 0 0 1em 1em;
+}
+.dropdown__drawer .menu li:hover,
+.dropdown__drawer .menu li:focus {
+  background-color: var(--secondary-2);
 }
 .dropdown__drawer .menu--svg > li {
   display: flex;
@@ -86,10 +90,6 @@
 }
 .dropdown__drawer .menu--svg > li > p {
   font-weight: 400;
-}
-
-.dropdown.is-open .dropdown__drawer {
-  display: block;
 }
 
 /**********************************  MENU MODULE  **********************************/

@@ -16,10 +16,10 @@ function loadUserData(user) {
   if (user && Object.keys(user).length > 0) {
     // user = JSON.parse(user);
     const nav = document.querySelector('.nav__user__div')
-    const userVar = nav.querySelector('.user')
-    const profile = nav.querySelector('.dropdown--profile')
-    const form = nav.querySelector('.dropdown--logout')
-    const logout = nav.querySelector('.submit')
+    const userVar = document.querySelector('.username')
+    const profile = document.querySelector('.dropdown--profile')
+    const form = document.querySelector('.dropdown--logout')
+    const logout = document.querySelector('.dropdown--submit')
 
     nav.classList.remove('hide')
     userVar.classList.remove('hide')

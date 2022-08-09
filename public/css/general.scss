@@ -5,6 +5,7 @@
   font-size: calc(1vw + 0.6em);
   font-family: 'Montserrat', sans-serif;
   --main-1: #cdb4db;
+  --main-1: #cdb4db;
   --main-2: #ffc8dd;
   --main-3: #ffafcc;
   --secondary-1: #bde0fe;
@@ -66,14 +67,14 @@ footer {
   width: 100%;
   background-color: transparent;
   color: transparent;
-  padding: 1rem 3rem 3rem 3rem;
+  padding: 1em 3em 3em 3em;
   bottom: 0px;
-  margin-top: 2rem;
+  margin-top: 2em;
 }
 
 dialog {
   // position: relative;
-  border-radius: 1rem;
+  border-radius: 1em;
   background-color: var(--main-2);
 
   h2 {
@@ -95,9 +96,9 @@ dialog {
     width: 50px;
     height: 50px;
     border: none;
-    padding: 0.4rem;
+    padding: 0.4em;
     top: 0;
-    right: 0.8rem;
+    right: 0.8em;
     cursor: pointer;
 
     &:hover {
@@ -177,7 +178,7 @@ dialog {
   font-family: 'Sansita Swashed', cursive !important;
 }
 .font-small {
-  font-size: 0.75rem !important;
+  font-size: 0.75em !important;
 }
 .height--80 {
   height: 80% !important;
@@ -205,17 +206,24 @@ dialog {
 
 /* Define the main Navigation block */
 .header {
+  font-size: 0.75em;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  height: 2rem;
+  gap: 0.75em;
+  height: 4em;
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin-bottom: 1em;
   background-color: var(--main-1);
   color: var(--dark-text);
 
   .header-logo {
     flex: 0 1 auto;
+
+    a {
+      * {
+        padding: 0.25rem 0.35em;
+      }
+    }
   }
 
   /* Make ul a flex item and align its children */
@@ -224,83 +232,121 @@ dialog {
     align-items: center;
     flex: 1;
     width: 100%;
-    gap: 0.75rem;
+    gap: 0.75em;
 
     .main-nav {
       flex: 0 1;
+
+      a {
+        padding: 1em 0.35em;
+      }
     }
+
     .searchbar {
       flex: 1 0;
     }
 
-    .nav__user {
-      display: flex;
-      align-items: center;
-      padding: 0.1em 0.4em;
+    .user {
       position: relative;
-      gap: 0.1em;
 
-      .user,
-      .login {
+      .nav__user {
         display: flex;
-        justify-content: space-evenly;
         align-items: center;
-        gap: 0.3em;
-      }
+        padding: 0.1em 0.4em;
+        position: relative;
+        gap: 0.5em;
 
-      .user::after {
-        content: '';
-        width: 0;
-        height: 0;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 5px solid black;
+        * {
+          cursor: pointer;
+        }
+
+        .username,
+        .login {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          gap: 0.3em;
+        }
       }
     }
   }
 }
+
 /* display the active link differently */
 // .nav__el.active {
 //   background-color: var(--main-2);
 // }
 
 .dropdown--content {
-  display: none;
-  align-items: flex-start;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: stretch;
+  justify-content: center;
   border-radius: 1em 1em;
   position: absolute;
-  bottom: -3rem;
+  top: -10em;
+  left: 0;
   width: 100%;
-  height: min-content;
   background: var(--secondary-1);
   z-index: 30;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+
+  &:hover,
+  &:focus-within {
+    opacity: 1;
+    top: unset;
+    bottom: -5em;
+  }
+
+  * {
+    padding: 0.5em;
+
+    &:hover,
+    &:focus {
+      background-color: var(--main-2);
+      color: var(--bs-link-hover-color);
+    }
+  }
+
+  *:first-child {
+    border-radius: 1em 1em 0 0;
+  }
+  *:last-child {
+    border-radius: 0 0 1em 1em;
+  }
 }
 
 .dropdown__toggle {
   padding: 0;
 }
-
-.dropdown--content > * {
-  padding-left: 1em;
+.dropdown--logout {
+  &:hover {
+    color: var(--bs-link-hover-color);
+  }
 }
-.submit {
+.dropdown--submit {
   text-align: center;
+  padding: 0;
   cursor: pointer;
 }
 
-.nav__user:hover .dropdown--content {
-  display: flex;
-  flex-flow: column wrap;
+.nav__user__div:hover ~ .dropdown--content,
+.nav__user__div:focus ~ .dropdown--content {
+  opacity: 1;
+  top: unset;
+  bottom: -5em;
 }
 
 /* miscellaneous */
 .border {
   border: 1.5px solid var(--main-2);
-  border-radius: 0.2em;
+  border-radius: 1em;
 }
 .picture {
   display: flex;
-  width: 1.85rem;
+  width: 2.5em;
   border: 2px solid var(--secondary-2);
   border-radius: 1em;
 }
@@ -331,8 +377,8 @@ dialog {
       margin: 0;
       padding: 0;
       width: 100%;
-      height: 1.65rem;
-      background-color: var(--secondary-1);
+      height: 2.5em;
+      background-color: inherit;
       border: unset;
       border-radius: 1em;
       line-height: 2.75em;
@@ -367,7 +413,7 @@ dialog {
       top: 0;
       bottom: 0;
       left: 0.5em;
-      width: 1rem;
+      width: 1em;
       fill: var(--accent-secondary);
     }
 
@@ -415,6 +461,10 @@ dialog {
       fill: var(--light-text);
     }
   }
+
+  &:focus-within {
+    background-color: var(--secondary-2);
+  }
 }
 
 /*******************************************************************  CARD SECTION START  *******************************************************************/
@@ -422,9 +472,13 @@ dialog {
 .card {
   position: relative;
   border-radius: 2.5em 2.5em 2.5em 2.5em;
-  max-width: 20rem;
+  max-width: 20em;
   margin-top: 0.5em;
   transition: all 0.5s ease;
+
+  &:focus {
+    border-width: 4px;
+  }
 }
 .card__title {
   margin: 1em 1em 0;
@@ -526,17 +580,17 @@ dialog {
 /* V2 */
 .card--v2.card {
   overflow: hidden;
-  margin: 1rem auto;
+  margin: 1em auto;
 }
 
 .card__image__top {
   display: grid;
   place-items: center;
   position: absolute;
-  top: -6rem;
+  top: -6em;
   left: 0;
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.5em 1em;
   -webkit-transition: transform 0.5s, background-color 1s 0.5s;
   transition: transform 0.5s, background-color 1s 0.5s;
 
@@ -554,30 +608,30 @@ dialog {
   display: grid;
   place-items: center;
   position: absolute;
-  bottom: -4rem;
+  bottom: -4em;
   left: 0;
   max-width: 100%;
-  height: 4rem;
+  height: 4em;
   color: var(--light-text);
   -webkit-transition: transform 0.5s, background-color 1s 0.5s;
   transition: transform 0.5s, background-color 1s 0.5s;
 }
 .card__image__bottom p {
-  padding-left: 2rem;
+  padding-left: 2em;
   font-size: 0.75em;
 }
 /* override shadow effect */
-.card--v2.card:hover {
+.card--v2:hover {
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 }
-.card--v2.card:hover .card__image__top {
+.card--v2:hover .card__image__top {
   opacity: 1;
-  transform: translateY(6rem);
+  transform: translateY(6em);
   background-color: rgba(0, 0, 0, 0.5);
 }
-.card--v2.card:hover .card__image__bottom {
+.card--v2:hover .card__image__bottom {
   opacity: 1;
-  transform: translateY(-4rem);
+  transform: translateY(-4em);
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -606,7 +660,7 @@ dialog {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  column-gap: 0.75rem;
+  column-gap: 0.75em;
 }
 .container--center {
   display: flex;
@@ -736,7 +790,7 @@ dialog {
 }
 .comment__main__body {
   flex-basis: 100%;
-  font-size: 0.75rem;
+  font-size: 0.75em;
 }
 
 /* Label module */

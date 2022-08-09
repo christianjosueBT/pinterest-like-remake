@@ -20,19 +20,24 @@
   </head>
 
   <body>
-    <!-- main header -->
+
+    <!-- HEADER -->
     <header class="header container-fluid">
-      <!-- logo -->
+
+      <!-- LOGO -->
       <div class="header-logo">
         <a href="/">
-          <h3 class="navFont">Find Me Food Now!</h3>
+          <h4 class="navFont">F</h4>
         </a>
       </div>
+
+      <!-- MAIN NAVIGATION -->
       <div class="top-navigation">
         <nav class="main-nav">
           <a href="/coffeeshops">Home</a>
         </nav>
-        <!-- search bar -->
+
+        <!-- SEARCH BAR -->
         <div class="searchbar">
           <label for="searchbar__input" class="searchbar__wrapper basis-100">
             <svg class="searchbar__wrapper__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.005 512.005">
@@ -48,64 +53,66 @@
           </label>
         </div>
 
-        <a class="nav__user nav__user__a hide">
-          <div class="login hide">Login</div>
-        </a>
-        <div class="nav__user nav__user__div hide">
-          <div class="user hide">User</div>
+        <!-- CHANGE LAYOUT -->
+        <div class="dropdown">
+          <button class="dropdown__toggle">
+
+            <svg class="masonryContainer">
+              <use href="#masonry"></use>
+            </svg>
+            <svg class="downArrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M11.6464 13.8536C11.8417 14.0488 12.1583 14.0488 12.3536 13.8536L15.5355 10.6716C15.7308 10.4763 15.7308 10.1597 15.5355 9.96447C15.3403 9.7692 15.0237 9.7692 14.8284 9.96447L12 12.7929L9.17157 9.96447C8.97631 9.7692 8.65973 9.7692 8.46447 9.96447C8.2692 10.1597 8.2692 10.4763 8.46447 10.6716L11.6464 13.8536ZM12.5 13.5V13H11.5V13.5H12.5Z" />
+            </svg>
+
+          </button>
+          <div class="dropdown__drawer">
+            <ul class="menu menu--svg">
+              <li id="masonry-grid" tabindex="0">
+                <svg>
+                  <use href="#masonry"></use>
+                </svg>
+                <p>Masonry</p>
+              </li>
+              <li id="large-grid" tabindex="0">
+                <svg>
+                  <use href="#grid-large"></use>
+                </svg>
+                <p>Large</p>
+              </li>
+              <li id="small-grid" tabindex="0">
+                <svg>
+                  <use href="#grid-small"></use>
+                </svg>
+                <p>Small</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+
+        <!-- USER OR LOGIN -->
+        <div class="user">
+          <a class="nav__user nav__user__a hide" tabindex="0">
+            <div class="login hide">Login</div>
+          </a>
+          <div class="nav__user nav__user__div hide" tabindex="0">
+            <div class="username hide">User</div>
+          </div>
           <div class="dropdown--content">
-            <a class="dropdown--profile">Profile</a>
-            <form class="dropdown--logout" action="/users/logout" method="POST">
-              <div class="submit">Logout</div>
+            <a class="dropdown--profile" tabindex="0">Profile</a>
+            <form class="dropdown--logout" action="/users/logout" method="POST" tabindex="0">
+              <div class="dropdown--submit">Logout</div>
             </form>
           </div>
         </div>
+
+
       </div>
     </header>
-    <!-- "justify-end margin-right"
-        
-      </div>
-    </header>
 
-    <!-- SEARCH BAR AND GRID LAYOUT BUTTON -->
-    <!-- <div class="widgetBar">
-      <div class="dropdown dropdown--svg justify-end">
-        <button class="dropdown__toggle">
-
-          <svg class="masonryContainer">
-            <use href="#masonry"></use>
-          </svg>
-          <svg class="downArrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M11.6464 13.8536C11.8417 14.0488 12.1583 14.0488 12.3536 13.8536L15.5355 10.6716C15.7308 10.4763 15.7308 10.1597 15.5355 9.96447C15.3403 9.7692 15.0237 9.7692 14.8284 9.96447L12 12.7929L9.17157 9.96447C8.97631 9.7692 8.65973 9.7692 8.46447 9.96447C8.2692 10.1597 8.2692 10.4763 8.46447 10.6716L11.6464 13.8536ZM12.5 13.5V13H11.5V13.5H12.5Z" />
-          </svg>
-
-        </button>
-        <div class="dropdown__drawer">
-
-          <ul class="menu menu--svg">
-            <li id="masonry-grid">
-              <svg>
-                <use href="#masonry"></use>
-              </svg>
-              <p>Masonry</p>
-            </li>
-            <li id="large-grid">
-              <svg>
-                <use href="#grid-large"></use>
-              </svg>
-              <p>Large</p>
-            </li>
-            <li id="small-grid">
-              <svg>
-                <use href="#grid-small"></use>
-              </svg>
-              <p>Small</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div> -->
+    <!-- "justify-end margin-right" -->
 
 
     <!-- COFFEE SHOP CARDS -->
