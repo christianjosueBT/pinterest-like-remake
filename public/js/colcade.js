@@ -30,6 +30,12 @@ let simpleM = new SimpleMasonry({
 })
 
 // taken from https://stackoverflow.com/questions/11106876/is-it-possible-to-animate-flexbox-inserts-removes
+
+/**
+ * Generates and returns an array of objects containing the size and location of a node element's children
+ * @param {Node} container parent node element containing all the children to be animated
+ * @returns {Array of Objects} array containing size and location information of the parent's children
+ */
 function getFlexItemsInfo(container) {
   return Array.from(container.children).map(item => {
     const rect = item.getBoundingClientRect()
@@ -43,6 +49,12 @@ function getFlexItemsInfo(container) {
   })
 }
 
+/**
+ * Animates the transition between the old position and size of some elements, and their future position and size
+ * @param {Array of Objects} oldFlexItemsInfo contains the past location and size information of the items of interest
+ * @param {Array of Objects} newFlexItemsInfo contains the new location and size information of the items of interest
+ * @returns {void}
+ */
 function aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo) {
   for (const newFlexItemInfo of newFlexItemsInfo) {
     const oldFlexItemInfo = oldFlexItemsInfo.find(
@@ -67,21 +79,28 @@ function aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo) {
       }
     )
   }
+
+  return
 }
 
 // ********************************************************************
 // intersection observer
 // ********************************************************************
 
+// options for the intersection observer
 let options = {
   root: null,
   rootMargins: '0px',
   threshold: 0.5,
 }
-// handles what happens when an intersection happens
+
+/**
+ * Function to be passed to an intersection observer. It runs when an intersection is detected. If the first object of the list is intersecting, we fetch data
+ * @param {Array} entries List of node elements we will be observing
+ */
 function handleIntersect(entries) {
   if (entries[0].isIntersecting) {
-    getData()
+    fetchCards()
   }
 }
 
@@ -120,8 +139,7 @@ const postFormDataAsJson = async ({ url, formData }) => {
 }
 
 /**
- * Handles form submits. Prevents default form submission, allowing
- * us to handle form submission better
+ * Handles form submits. Prevents default form submission, allowing us to handle form submission better
  * @param {event} event The event that triggered the callback (should be form submit)
  * @returns {void} Does not return anything
  */
@@ -148,8 +166,11 @@ const handleFormSubmit = async event => {
   return
 }
 
-// if footer comes into view, get more cards
-async function getData() {
+/**
+ * Fetch data necessary for more cards, creates new card elements, and appends them onto our site using simple masonry's append functionality
+ * @returns {Void}
+ */
+async function fetchCards() {
   page++
   colWidth =
     parseInt(
@@ -162,35 +183,48 @@ async function getData() {
   try {
     let res = await fetch(str)
     let data = await res.json()
-    console.log(data)
-    let items = []
 
     for (let i = 0; i < data.length; i++) {
       let card = await createCard(data[i])
       simpleM.append(card)
     }
   } catch (e) {
-    console.log('error in getData()', e)
+    console.log('error in fetchCards()', e)
   }
   return
 }
 
 // ********************************************************************
-// dropwdown for changing the layout of the page observer
-// and different layout options
+// LAYOUT FUNCTIONALITY
 // ********************************************************************
 
-// toggles dropdown toggling, closes dropdown if user clicks anywhere on the window
+/**
+ * Toggles dropdown opening and closing. Closes dropdown if user clicks anywhere outside the dropdown.
+ * @returns {Void}
+ */
 function dropDown() {
-  const toggles = document.querySelectorAll('.dropdown__toggle')
+  const toggles = document.querySelectorAll('.dropdown')
   for (let toggle of toggles) {
-    toggle.addEventListener('click', function (event) {
+    toggle.addEventListener('pointerdown', function (event) {
       event.stopPropagation()
-      const dropdown = event.currentTarget.parentNode
+      const dropdown = event.currentTarget
       dropdown.classList.toggle('is-open')
     })
+
+    toggle.addEventListener('focusin', function (event) {
+      console.log('focusin fired')
+      const dropdown = event.currentTarget
+      dropdown.classList.add('is-open')
+    })
+
+    toggle.addEventListener('focusout', function (event) {
+      console.log('focusout fired')
+      const dropdown = event.currentTarget
+      dropdown.classList.remove('is-open')
+    })
   }
-  window.onclick = function (event) {
+
+  window.addEventListener('pointerdown', function (event) {
     if (!event.target.matches('.dropdown__toggle')) {
       const dropDowns = document.querySelectorAll('.dropdown')
       for (i = 0; i < dropDowns.length; i++) {
@@ -198,10 +232,16 @@ function dropDown() {
           dropDowns[i].classList.remove('is-open')
       }
     }
-  }
+  })
+
   return
 }
+
 // Functions that change the layout of the page
+/**
+ * Changes the state of the page to 'masonry' and changes all cards to the masonry layout style by removing and adding css classes and replacing the images of the cards for more suitable ones
+ * @returns {Void}
+ */
 function masonryLayout() {
   state = 'masonry'
   const shops = document.querySelector('.container-fluid')
@@ -215,6 +255,10 @@ function masonryLayout() {
   }
   return
 }
+/**
+ * Changes the state of the page to 'large' and changes all cards to the large layout style by removing and adding css classes and replacing the images of the cards for more suitable ones
+ * @returns {Void}
+ */
 function largeLayout() {
   state = 'large'
   const shops = document.querySelector('.container-fluid')
@@ -228,6 +272,10 @@ function largeLayout() {
   }
   return
 }
+/**
+ * Changes the state of the page to 'small' and changes all cards to the small layout style by removing and adding css classes and replacing the images of the cards for more suitable ones
+ * @returns {Void}
+ */
 function smallLayout() {
   state = 'small'
   const shops = document.querySelector('.container-fluid')
@@ -242,7 +290,7 @@ function smallLayout() {
   return
 }
 
-// attaching click event listeners to the dropdown options: masonry, large, and small
+// attaching pointerdown and enter key event listeners to the dropdown options: masonry, large, and small
 document
   .querySelector('#masonry-grid')
   .addEventListener('pointerdown', masonryLayout)
@@ -265,10 +313,14 @@ document.querySelector('#small-grid').addEventListener('keypress', e => {
 })
 
 // ********************************************************************
-// loading images, creating new cards, changing displayed images
+// CARD, CAROUSEL, AND IMAGE FUNCTIONALITY
 // ********************************************************************
 
-// calculates ideal image sizes then loads them in
+/**
+ * Given a list of images to load and the dimensions of the viewport, calculates ideal image sizes and dynamically loads them in to the page
+ * @param {nodelist} images list of images to be loaded
+ * @returns {Void}
+ */
 function loadImages(images) {
   colWidth =
     parseInt(
@@ -284,8 +336,17 @@ function loadImages(images) {
   for (let i = 0; i < images.length; i++) {
     images[i].src = `${str}/${images[i].dataset.src}`
   }
+
+  return
 }
 // sets the images sources for a card, accounts for device pixel ratio and size of the rendered element to deliver images optimized for data size
+/**
+ *
+ * @param {*} card__image
+ * @param {*} images
+ * @param {*} colWidth
+ * @param {*} id
+ */
 async function setImages(card__image, images, colWidth, id) {
   const pixelRatio = window.devicePixelRatio || 1.0
   let str = ''
@@ -304,25 +365,38 @@ async function setImages(card__image, images, colWidth, id) {
   }
 
   const sources = []
+  const fulfilledImages = []
 
   for (let i = 0; i < images.length; i++) {
     const src = [`${str}/${images[i].filename}`, images[i].filename]
     sources.push(src)
   }
-  Promise.all(sources.map(loadImage)).then(imgs => {
-    for (let i = 0; i < imgs.length; i++) {
-      if (i === 0) imgs[i].className = 'active carousel__image'
-      else imgs[i].className = 'carousel__image'
-      let a = document.createElement('a')
-      a.setAttribute('href', `/coffeeShops/${id}`)
-      a.appendChild(imgs[i])
-      card__image.appendChild(a)
+  Promise.allSettled(sources.map(loadImage)).then(results => {
+    for (let i = 0; i < results.length; i++) {
+      if (results[i].status === 'fulfilled') {
+        i === 0
+          ? (results[i].value.className = 'active carousel__image')
+          : (results[i].value.className = 'carousel__image')
+        let a = document.createElement('a')
+        a.setAttribute('href', `/coffeeShops/${id}`)
+        a.appendChild(results[i].value)
+        card__image.appendChild(a)
+        fulfilledImages.push(results[i].value)
+      } else {
+        // console.log(results[i].reason)
+      }
     }
-    changePicture(card__image, imgs)
+    changePicture(card__image, fulfilledImages)
     return
   })
 }
 // changes the already loaded images sources to new ones that display the chosen aspect ratio
+/**
+ *
+ * @param {Node} card Card whose images are to be changed
+ * @param {*} colWidth
+ * @returns
+ */
 function changeImages(card, colWidth) {
   const pixelRatio = window.devicePixelRatio || 1.0
   let str = ''
@@ -398,6 +472,7 @@ async function createCard(data) {
   }
   return card
 }
+
 // loads the images using promises
 const loadImage = src =>
   new Promise((resolve, reject) => {
@@ -407,6 +482,7 @@ const loadImage = src =>
     img.src = src[0]
     img.dataset.src = src[1]
   })
+
 // checks if element passed to it is "active" or not. Returns a boolean value
 const active = element => element.classList.contains('active')
 // changes which image is "active" to the left
@@ -473,6 +549,7 @@ function changePicture(carousel, images) {
 
     aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
   })
+
   const leftButton = carousel.querySelector('.button--left')
   leftButton.addEventListener('click', function () {
     changeIndexLeft(images)
@@ -482,6 +559,14 @@ function changePicture(carousel, images) {
 // searchbar__input.addEventListener('submit', handleFormSubmit);
 
 loadImages(images)
+
+handleErrorCapture = event => {
+  console.group('Error event captured at the dom')
+  console.log(event)
+  console.groupEnd()
+}
+
+document.addEventListener('error', handleErrorCapture, true)
 
 // waiting until everything has loaded to run the function that places cards where they
 // should be
