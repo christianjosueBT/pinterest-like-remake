@@ -247,7 +247,7 @@ dialog .closeModal:hover {
   display: flex;
   align-items: center;
   gap: 0.75em;
-  height: 4em;
+  height: 3em;
   line-height: 1.6;
   margin-bottom: 1em;
   background-color: var(--main-1);
@@ -258,7 +258,7 @@ dialog .closeModal:hover {
   flex: 0 1 auto;
 }
 .header .header-logo a * {
-  padding: 0.25rem 0.35em;
+  padding: 0.1em 0.35em;
 }
 .header .top-navigation {
   display: flex;
@@ -271,7 +271,7 @@ dialog .closeModal:hover {
   flex: 0 1;
 }
 .header .top-navigation .main-nav a {
-  padding: 1em 0.35em;
+  padding: 0.7em 0.35em;
 }
 .header .top-navigation .searchbar {
   flex: 1 0;
@@ -297,29 +297,29 @@ dialog .closeModal:hover {
   gap: 0.3em;
 }
 
-/* display the active link differently */
 .dropdown--content {
   display: flex;
   flex-flow: column wrap;
   align-items: stretch;
   justify-content: center;
-  border-radius: 1em 1em;
   position: absolute;
-  top: -10em;
+  bottom: -5em;
   left: 0;
-  width: 100%;
-  background: var(--secondary-1);
+  width: 0;
   z-index: 30;
+  opacity: 0;
+  border-radius: 1em 1em;
+  background: var(--secondary-1);
+  overflow: hidden;
   text-align: center;
   cursor: pointer;
-  opacity: 0;
 }
 .dropdown--content:hover, .dropdown--content:focus-within {
   opacity: 1;
-  top: unset;
-  bottom: -5em;
+  width: 100%;
 }
 .dropdown--content * {
+  width: 0;
   padding: 0.5em;
 }
 .dropdown--content *:hover, .dropdown--content *:focus {
@@ -347,11 +347,15 @@ dialog .closeModal:hover {
   cursor: pointer;
 }
 
-.nav__user__div:hover ~ .dropdown--content,
-.nav__user__div:focus ~ .dropdown--content {
+.nav__user__div:hover .dropdown--content,
+.nav__user__div:focus-within .dropdown--content {
   opacity: 1;
-  top: unset;
+  width: 110%;
   bottom: -5em;
+}
+.nav__user__div:hover .dropdown--content *,
+.nav__user__div:focus-within .dropdown--content * {
+  width: 100%;
 }
 
 /* miscellaneous */
@@ -394,7 +398,7 @@ dialog .closeModal:hover {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 2.5em;
+  height: 2em;
   background-color: inherit;
   border: unset;
   border-radius: 1em;
@@ -411,6 +415,7 @@ dialog .closeModal:hover {
 }
 .searchbar .searchbar__input .searchbar__input__text::-webkit-search-cancel-button {
   -webkit-appearance: none;
+  margin-right: 0.5em;
   height: 1em;
   width: 1em;
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23000" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>');
@@ -434,10 +439,14 @@ dialog .closeModal:hover {
 .searchbar .searchbar__wrapper:focus-within .searchbar__wrapper__icon {
   opacity: 1;
 }
+.searchbar:focus-within {
+  background-color: var(--secondary-2);
+}
 .searchbar.searchbar--transparent {
+  align-items: stretch;
   background-color: transparent;
   border: 2px solid var(--light-text);
-  border-radius: 1em;
+  border-radius: 4em;
   color: var(--light-text);
   width: auto;
 }
@@ -447,25 +456,30 @@ dialog .closeModal:hover {
 }
 .searchbar.searchbar--transparent .searchbar__input__text {
   background-color: transparent;
+  margin: 0;
+  height: unset;
   color: var(--light-text);
   border: none;
+  border-radius: 4em;
   flex: 1;
+  font-size: large;
 }
 .searchbar.searchbar--transparent .searchbar__input__text:focus {
   outline-color: var(--light-text);
-  outline-width: 1px;
+  outline-width: 2px;
 }
 .searchbar.searchbar--transparent .searchbar__input__text::-webkit-search-cancel-button {
   opacity: 1;
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23fff" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>') no-repeat;
   color: var(--light-text);
 }
-.searchbar.searchbar--transparent .searchbar__wrapper__icon {
+.searchbar.searchbar--transparent .searchbar__wrapper {
+  padding: 1em;
+}
+.searchbar.searchbar--transparent .searchbar__wrapper .searchbar__wrapper__icon {
+  width: 1.5em;
   opacity: 1;
   fill: var(--light-text);
-}
-.searchbar:focus-within {
-  background-color: var(--secondary-2);
 }
 
 /*******************************************************************  CARD SECTION START  *******************************************************************/

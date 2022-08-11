@@ -210,7 +210,7 @@ dialog {
   display: flex;
   align-items: center;
   gap: 0.75em;
-  height: 4em;
+  height: 3em;
   line-height: 1.6;
   margin-bottom: 1em;
   background-color: var(--main-1);
@@ -221,7 +221,7 @@ dialog {
 
     a {
       * {
-        padding: 0.25rem 0.35em;
+        padding: 0.1em 0.35em;
       }
     }
   }
@@ -238,7 +238,7 @@ dialog {
       flex: 0 1;
 
       a {
-        padding: 1em 0.35em;
+        padding: 0.7em 0.35em;
       }
     }
 
@@ -272,35 +272,33 @@ dialog {
   }
 }
 
-/* display the active link differently */
-// .nav__el.active {
-//   background-color: var(--main-2);
-// }
-
 .dropdown--content {
   display: flex;
   flex-flow: column wrap;
   align-items: stretch;
   justify-content: center;
-  border-radius: 1em 1em;
+
   position: absolute;
-  top: -10em;
+  bottom: -5em;
   left: 0;
-  width: 100%;
-  background: var(--secondary-1);
+  width: 0;
   z-index: 30;
+
+  opacity: 0;
+  border-radius: 1em 1em;
+  background: var(--secondary-1);
+  overflow: hidden;
   text-align: center;
   cursor: pointer;
-  opacity: 0;
 
   &:hover,
   &:focus-within {
     opacity: 1;
-    top: unset;
-    bottom: -5em;
+    width: 100%;
   }
 
   * {
+    width: 0;
     padding: 0.5em;
 
     &:hover,
@@ -332,11 +330,15 @@ dialog {
   cursor: pointer;
 }
 
-.nav__user__div:hover ~ .dropdown--content,
-.nav__user__div:focus ~ .dropdown--content {
+.nav__user__div:hover .dropdown--content,
+.nav__user__div:focus-within .dropdown--content {
   opacity: 1;
-  top: unset;
+  width: 110%;
   bottom: -5em;
+
+  * {
+    width: 100%;
+  }
 }
 
 /* miscellaneous */
@@ -377,7 +379,7 @@ dialog {
       margin: 0;
       padding: 0;
       width: 100%;
-      height: 2.5em;
+      height: 2em;
       background-color: inherit;
       border: unset;
       border-radius: 1em;
@@ -392,6 +394,7 @@ dialog {
       // styling the X button that appears when you type in the search input box
       &::-webkit-search-cancel-button {
         -webkit-appearance: none;
+        margin-right: 0.5em;
         height: 1em;
         width: 1em;
         background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23000" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>');
@@ -424,11 +427,16 @@ dialog {
     }
   }
 
+  &:focus-within {
+    background-color: var(--secondary-2);
+  }
+
   // transparent searchbar modifier
   &.searchbar--transparent {
+    align-items: stretch;
     background-color: transparent;
     border: 2px solid var(--light-text);
-    border-radius: 1em;
+    border-radius: 4em;
     color: var(--light-text);
     width: auto;
 
@@ -439,13 +447,17 @@ dialog {
 
     .searchbar__input__text {
       background-color: transparent;
+      margin: 0;
+      height: unset;
       color: var(--light-text);
       border: none;
+      border-radius: 4em;
       flex: 1;
+      font-size: large;
 
       &:focus {
         outline-color: var(--light-text);
-        outline-width: 1px;
+        outline-width: 2px;
       }
 
       &::-webkit-search-cancel-button {
@@ -456,14 +468,15 @@ dialog {
       }
     }
 
-    .searchbar__wrapper__icon {
-      opacity: 1;
-      fill: var(--light-text);
-    }
-  }
+    .searchbar__wrapper {
+      padding: 1em;
 
-  &:focus-within {
-    background-color: var(--secondary-2);
+      .searchbar__wrapper__icon {
+        width: 1.5em;
+        opacity: 1;
+        fill: var(--light-text);
+      }
+    }
   }
 }
 
