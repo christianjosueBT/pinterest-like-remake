@@ -487,12 +487,8 @@ dialog .closeModal:hover {
 .card {
   position: relative;
   border-radius: 2.5em 2.5em 2.5em 2.5em;
-  max-width: 20em;
   margin-top: 0.5em;
   transition: all 0.5s ease;
-}
-.card:focus {
-  border-width: 4px;
 }
 
 .card__title {
@@ -508,9 +504,7 @@ dialog .closeModal:hover {
   padding: 0.5em 2em 1.5em;
 }
 
-/* On mouse-over, add a deeper shadow */
 .card:hover {
-  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); */
   transition: none;
 }
 
@@ -524,7 +518,7 @@ dialog .closeModal:hover {
 .card--layout > .card__image > a > img {
   -o-object-fit: cover;
      object-fit: cover;
-  width: 16em;
+  width: 16 em;
 }
 
 /* modifier for the large layout  */
@@ -610,6 +604,10 @@ dialog .closeModal:hover {
   overflow: hidden;
   margin: 1em auto;
 }
+.card--v2.card:focus-within {
+  outline: 5px auto Highlight;
+  outline: 5px auto -webkit-focus-ring-color;
+}
 
 .card__image__top {
   display: grid;
@@ -650,16 +648,19 @@ dialog .closeModal:hover {
 }
 
 /* override shadow effect */
-.card--v2:hover {
+.card--v2:hover,
+.card--v2:focus-within {
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 }
 
+.card--v2:focus-within .card__image__top,
 .card--v2:hover .card__image__top {
   opacity: 1;
   transform: translateY(6em);
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.card--v2:focus-within .card__image__bottom,
 .card--v2:hover .card__image__bottom {
   opacity: 1;
   transform: translateY(-4em);
