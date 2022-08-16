@@ -69,7 +69,7 @@ footer {
   color: transparent;
   padding: 1em 3em 3em 3em;
   bottom: 0px;
-  margin-top: 2em;
+  margin-top: 20em;
 }
 
 dialog {
@@ -207,6 +207,7 @@ dialog {
 /* Define the main Navigation block */
 .header {
   font-size: 0.75em;
+  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 0.75em;
@@ -285,7 +286,7 @@ dialog {
   z-index: 30;
 
   opacity: 0;
-  border-radius: 1em 1em;
+  border-radius: 1em;
   background: var(--secondary-1);
   overflow: hidden;
   text-align: center;
@@ -293,8 +294,13 @@ dialog {
 
   &:hover,
   &:focus-within {
+    overflow: unset;
     opacity: 1;
-    width: 100%;
+    width: 110%;
+
+    * {
+      width: 100%;
+    }
   }
 
   * {
@@ -330,11 +336,9 @@ dialog {
   cursor: pointer;
 }
 
-.nav__user__div:hover .dropdown--content,
-.nav__user__div:focus-within .dropdown--content {
+.nav__user__div:hover .dropdown--content {
   opacity: 1;
   width: 110%;
-  bottom: -5em;
 
   * {
     width: 100%;
@@ -465,6 +469,9 @@ dialog {
         background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23fff" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>')
           no-repeat;
         color: var(--light-text);
+
+        height: 1.5em;
+        width: 1.5em;
       }
     }
 
@@ -485,13 +492,9 @@ dialog {
 .card {
   position: relative;
   border-radius: 2.5em 2.5em 2.5em 2.5em;
-  max-width: 20em;
+  // max-width: 20em;
   margin-top: 0.5em;
   transition: all 0.5s ease;
-
-  &:focus {
-    border-width: 4px;
-  }
 }
 .card__title {
   margin: 1em 1em 0;
@@ -504,9 +507,7 @@ dialog {
   padding: 0.5em 2em 1.5em;
 }
 
-/* On mouse-over, add a deeper shadow */
 .card:hover {
-  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); */
   transition: none;
 }
 
@@ -518,9 +519,8 @@ dialog {
 }
 .card--layout > .card__image > a > img {
   object-fit: cover;
-  width: 16em;
+  width: 16 em;
 }
-
 /* modifier for the large layout  */
 .card--large > .card__image > a > img {
   height: 20em;
@@ -577,7 +577,7 @@ dialog {
   bottom: 2em;
   color: var(--light-text);
   font-size: 1.5em;
-  font-weight: 800;
+  font-weight: 700;
   z-index: 20;
 }
 .card--showpage::after {
@@ -590,10 +590,18 @@ dialog {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
   z-index: 10;
 }
+
 /* V2 */
 .card--v2.card {
   overflow: hidden;
   margin: 1em auto;
+
+  &:focus-within {
+    // border-width: 4px;
+    outline: 5px auto Highlight;
+    outline: 5px auto -webkit-focus-ring-color;
+    // overflow: unset;
+  }
 }
 
 .card__image__top {
@@ -613,6 +621,7 @@ dialog {
     text-align: center;
   }
 }
+
 .card__image__top a {
   color: var(--light-text);
   font-size: 0.75em;
@@ -620,32 +629,53 @@ dialog {
 .card__image__bottom {
   display: grid;
   place-items: center;
+
   position: absolute;
   bottom: -4em;
   left: 0;
-  max-width: 100%;
-  height: 4em;
+  width: 100%;
+
+  line-height: 0.85em;
+  padding: 0.5em 1em 0.75em 1.5em;
   color: var(--light-text);
   -webkit-transition: transform 0.5s, background-color 1s 0.5s;
   transition: transform 0.5s, background-color 1s 0.5s;
-}
-.card__image__bottom p {
-  padding-left: 2em;
-  font-size: 0.75em;
+
+  p {
+    max-height: 2.6rem;
+    font-size: 0.75em;
+
+    overflow: hidden;
+    margin: 0;
+  }
 }
 /* override shadow effect */
-.card--v2:hover {
+.card--v2:hover,
+.card--v2:focus-within {
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 }
+.card--v2:focus-within .card__image__top,
 .card--v2:hover .card__image__top {
   opacity: 1;
   transform: translateY(6em);
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.card--v2:focus-within .card__image__bottom,
 .card--v2:hover .card__image__bottom {
   opacity: 1;
-  transform: translateY(-4em);
+  transform: translateY(-3.8em);
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.card--v2:focus-within .button--left,
+.card--v2:hover .button--left {
+  transform: translateX(3em);
+}
+
+.card--v2:focus-within .button--right,
+.card--v2:hover .button--right {
+  transform: translateX(-3em);
 }
 
 .card--item {
@@ -721,18 +751,21 @@ dialog {
   justify-content: center;
   position: absolute;
   width: 2em;
-  stroke: #fff;
   cursor: pointer;
   z-index: 20;
+
+  -webkit-transition: transform 0.5s;
+  transition: transform 0.5s;
 }
+.button--svg:focus,
 .button--svg:hover {
   transform: scale(1.2);
 }
 .button--right {
-  right: 1em;
+  right: -2em;
 }
 .button--left {
-  left: 1em;
+  left: -2em;
 }
 .button--transparent {
   background: none;
@@ -860,11 +893,11 @@ dialog {
 
 /*******************************************************************  SVG SECTION  *******************************************************************/
 
+// Layout svgs
 .grid-large {
   .items {
     stroke: var(--main-1);
   }
-
   .outline {
     stroke: var(--main-2);
   }
@@ -874,7 +907,6 @@ dialog {
   .items {
     stroke: var(--main-1);
   }
-
   .outline {
     stroke: var(--main-2);
   }
@@ -882,13 +914,24 @@ dialog {
 
 .masonry {
   display: block;
-  // width: 24;
-  // height: 24;
 
   .items {
     stroke: var(--main-1);
   }
   .outline {
     stroke: var(--main-2);
+  }
+}
+
+// button svgs
+.leftArrow,
+.rightArrow {
+  // border: none;
+
+  circle {
+    fill: var(--secondary-2);
+  }
+  path {
+    stroke: var(--accent-secondary);
   }
 }

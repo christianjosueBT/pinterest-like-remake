@@ -39,6 +39,7 @@
     .dropdown__drawer {
       opacity: 1;
       width: unset;
+      overflow: unset;
 
       li {
         width: unset;
@@ -72,7 +73,9 @@
     li {
       display: flex;
       flex-flow: row nowrap;
-      align-items: flex-start;
+      align-items: center;
+      // justify-content: center;
+
       width: 0;
       padding: 0;
       background-color: unset;
@@ -86,6 +89,7 @@
 
       p {
         width: 0;
+        padding: 0 1em 0;
       }
     }
 
@@ -106,5 +110,3 @@
     }
   }
 }
-
-/**********************************  MENU MODULE  **********************************/

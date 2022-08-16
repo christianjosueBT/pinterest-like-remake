@@ -6,13 +6,11 @@ const container = document.querySelector('.container--100')
 const grid = document.querySelector('.grid')
 const searchbar__input = document.querySelector('.searchbar__input')
 let blocks = document.querySelectorAll('.card')
+let firstCard = document.querySelector('.card')
 let state = 'masonry'
 let margin = 0
 let windowWidth = 0
-let colWidth =
-  parseInt(
-    window.getComputedStyle(document.body).getPropertyValue('font-size')
-  ) * 20
+let cardWidth = firstCard.offsetWidth
 let cardsSpace = 0
 let colCount = 0
 let whiteSpace = 0
@@ -91,7 +89,7 @@ function aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo) {
 let options = {
   root: null,
   rootMargins: '0px',
-  threshold: 0.5,
+  threshold: 0.9,
 }
 
 /**
@@ -172,10 +170,7 @@ const handleFormSubmit = async event => {
  */
 async function fetchCards() {
   page++
-  colWidth =
-    parseInt(
-      window.getComputedStyle(document.body).getPropertyValue('font-size')
-    ) * 20
+  cardWidth = firstCard.offsetWidth
   let str = window.location.href.includes('?')
     ? `${window.location.href}&page=${page}`
     : `/colcade?page=${page}`
@@ -212,13 +207,11 @@ function dropDown() {
     })
 
     toggle.addEventListener('focusin', function (event) {
-      console.log('focusin fired')
       const dropdown = event.currentTarget
       dropdown.classList.add('is-open')
     })
 
     toggle.addEventListener('focusout', function (event) {
-      console.log('focusout fired')
       const dropdown = event.currentTarget
       dropdown.classList.remove('is-open')
     })
@@ -244,6 +237,7 @@ function dropDown() {
  */
 function masonryLayout() {
   state = 'masonry'
+  cardWidth = firstCard.offsetWidth
   const shops = document.querySelector('.container-fluid')
   shops.classList.remove('container--layout')
   const cards = document.querySelectorAll('.card')
@@ -251,7 +245,7 @@ function masonryLayout() {
     card.classList.remove('card--large')
     card.classList.remove('card--small')
     card.classList.remove('card--layout')
-    changeImages(card, colWidth)
+    changeImages(card, cardWidth)
   }
   return
 }
@@ -261,6 +255,7 @@ function masonryLayout() {
  */
 function largeLayout() {
   state = 'large'
+  cardWidth = firstCard.offsetWidth
   const shops = document.querySelector('.container-fluid')
   shops.classList.add('container--layout')
   const cards = document.querySelectorAll('.card')
@@ -268,7 +263,7 @@ function largeLayout() {
     card.classList.add('card--large')
     card.classList.add('card--layout')
     card.classList.remove('card--small')
-    changeImages(card, colWidth)
+    changeImages(card, cardWidth)
   }
   return
 }
@@ -278,6 +273,7 @@ function largeLayout() {
  */
 function smallLayout() {
   state = 'small'
+  cardWidth = firstCard.offsetWidth
   const shops = document.querySelector('.container-fluid')
   shops.classList.add('container--layout')
   const cards = document.querySelectorAll('.card')
@@ -285,7 +281,7 @@ function smallLayout() {
     card.classList.add('card--small')
     card.classList.add('card--layout')
     card.classList.remove('card--large')
-    changeImages(card, colWidth)
+    changeImages(card, cardWidth)
   }
   return
 }
@@ -318,20 +314,17 @@ document.querySelector('#small-grid').addEventListener('keypress', e => {
 
 /**
  * Given a list of images to load and the dimensions of the viewport, calculates ideal image sizes and dynamically loads them in to the page
- * @param {nodelist} images list of images to be loaded
+ * @param {nodeList} images list of images to be loaded
  * @returns {Void}
  */
 function loadImages(images) {
-  colWidth =
-    parseInt(
-      window.getComputedStyle(document.body).getPropertyValue('font-size')
-    ) * 20
+  cardWidth = firstCard.offsetWidth
   const pixelRatio = window.devicePixelRatio || 1.0
 
   console.log(`pixel ratio is: ${pixelRatio}`)
 
   let str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-    colWidth * pixelRatio
+    cardWidth * pixelRatio
   )}/coffeeShops`
   for (let i = 0; i < images.length; i++) {
     images[i].src = `${str}/${images[i].dataset.src}`
@@ -339,28 +332,28 @@ function loadImages(images) {
 
   return
 }
-// sets the images sources for a card, accounts for device pixel ratio and size of the rendered element to deliver images optimized for data size
+
 /**
- *
- * @param {*} card__image
+ * sets the images sources for a card, accounts for device pixel ratio and size of the rendered element to deliver images optimized for data size
+ * @param {*} a
  * @param {*} images
- * @param {*} colWidth
+ * @param {*} cardWidth
  * @param {*} id
  */
-async function setImages(card__image, images, colWidth, id) {
+async function setImages(card__image, a, images, cardWidth) {
   const pixelRatio = window.devicePixelRatio || 1.0
   let str = ''
   if (state === 'masonry') {
     str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-      colWidth * pixelRatio
+      cardWidth * pixelRatio
     )}/coffeeShops`
   } else if (state === 'large') {
     str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-      colWidth * pixelRatio
+      cardWidth * pixelRatio
     )},ar_2:3,c_fill/coffeeShops`
   } else if (state === 'small') {
     str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-      colWidth * pixelRatio
+      cardWidth * pixelRatio
     )},ar_1:1,c_fill/coffeeShops`
   }
 
@@ -377,42 +370,39 @@ async function setImages(card__image, images, colWidth, id) {
         i === 0
           ? (results[i].value.className = 'active carousel__image')
           : (results[i].value.className = 'carousel__image')
-        let a = document.createElement('a')
-        a.setAttribute('href', `/coffeeShops/${id}`)
         a.appendChild(results[i].value)
-        card__image.appendChild(a)
         fulfilledImages.push(results[i].value)
       } else {
-        // console.log(results[i].reason)
+        console.log(results[i].reason)
       }
     }
     changePicture(card__image, fulfilledImages)
     return
   })
 }
-// changes the already loaded images sources to new ones that display the chosen aspect ratio
+
 /**
- *
+ * changes the already loaded images sources to new ones that display the chosen aspect ratio
  * @param {Node} card Card whose images are to be changed
- * @param {*} colWidth
+ * @param {*} cardWidth
  * @returns
  */
-function changeImages(card, colWidth) {
+function changeImages(card, cardWidth) {
   const pixelRatio = window.devicePixelRatio || 1.0
   let str = ''
   const images = card.querySelectorAll('img')
 
   if (state === 'masonry') {
     str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-      colWidth * pixelRatio
+      cardWidth * pixelRatio
     )}/coffeeShops`
   } else if (state === 'large') {
     str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-      colWidth * pixelRatio
+      cardWidth * pixelRatio
     )},ar_2:3,c_fill/coffeeShops`
   } else if (state === 'small') {
     str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-      colWidth * pixelRatio
+      cardWidth * pixelRatio
     )},ar_1:1,c_fill/coffeeShops`
   }
 
@@ -421,6 +411,7 @@ function changeImages(card, colWidth) {
   }
   return
 }
+
 // creates all elements a card needs, then puts them together and adds them to the page
 async function createCard(data) {
   let className = 'card card--v2'
@@ -429,6 +420,7 @@ async function createCard(data) {
 
   let card = document.createElement('div')
   let card__image = document.createElement('div')
+  let a = document.createElement('a')
   let card__image__top = document.createElement('div')
   let card__image__bottom = document.createElement('div')
   let h3 = document.createElement('h3')
@@ -439,10 +431,19 @@ async function createCard(data) {
   let svgRight = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
   let useRight = document.createElementNS('http://www.w3.org/2000/svg', 'use')
 
+  a.href = `/coffeeShops/${data._id}`
   useLeft.setAttribute('href', '#svg--left')
   useRight.setAttribute('href', '#svg--right')
   svgLeft.setAttribute('class', 'button--svg button--left hide')
+  svgLeft.setAttribute('tabindex', '0')
+  svgLeft.setAttribute('width', '48')
+  svgLeft.setAttribute('height', '48')
+  svgLeft.setAttribute('viewbox', '0 0 24 24')
   svgRight.setAttribute('class', 'button--svg button--right hide')
+  svgRight.setAttribute('tabindex', '0')
+  svgRight.setAttribute('width', '48')
+  svgRight.setAttribute('height', '48')
+  svgRight.setAttribute('viewbox', '0 0 24 24')
   svgLeft.appendChild(useLeft)
   svgRight.appendChild(useRight)
 
@@ -453,12 +454,14 @@ async function createCard(data) {
 
   h3__a.textContent = data.name.split(/\s+/).slice(0, 4).join(' ')
   h3__a.setAttribute('href', `/coffeeShops/${data._id}`)
+  h3__a.setAttribute('tabindex', '-1')
   p.textContent = `${data.description.slice(0, 50)}...`
 
   h3.appendChild(h3__a)
 
   card__image__top.appendChild(h3)
   card__image__bottom.appendChild(p)
+  card__image.appendChild(a)
   card__image.appendChild(card__image__top)
   card__image.appendChild(card__image__bottom)
   card__image.appendChild(svgLeft)
@@ -466,7 +469,9 @@ async function createCard(data) {
 
   card.appendChild(card__image)
 
-  await setImages(card__image, data.images, colWidth, data._id)
+  // await setImages(a, data.images, cardWidth, data._id)
+  cardWidth = firstCard.offsetWidth
+  await setImages(card__image, a, data.images, cardWidth)
   if (data.images.length > 1) {
     display([svgLeft, svgRight])
   }
@@ -537,11 +542,12 @@ function carousel() {
   }
   return
 }
+
 // adds event listeneres to the left and right buttons on images so the user can click on them and
 // change the picture being displayed
 function changePicture(carousel, images) {
   const rightButton = carousel.querySelector('.button--right')
-  rightButton.addEventListener('click', function () {
+  rightButton.addEventListener('pointerdown', function (e) {
     let col = this.parentElement.parentElement.parentElement
     const oldFlexItemsInfo = getFlexItemsInfo(col)
     changeIndexRight(images)
@@ -549,10 +555,35 @@ function changePicture(carousel, images) {
 
     aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
   })
+  rightButton.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      let col = this.parentElement.parentElement.parentElement
+      const oldFlexItemsInfo = getFlexItemsInfo(col)
+      changeIndexRight(images)
+      const newFlexItemsInfo = getFlexItemsInfo(col)
+
+      aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
+    }
+  })
 
   const leftButton = carousel.querySelector('.button--left')
-  leftButton.addEventListener('click', function () {
+  leftButton.addEventListener('pointerdown', function (e) {
+    let col = this.parentElement.parentElement.parentElement
+    const oldFlexItemsInfo = getFlexItemsInfo(col)
     changeIndexLeft(images)
+    const newFlexItemsInfo = getFlexItemsInfo(col)
+
+    aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
+  })
+  leftButton.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      let col = this.parentElement.parentElement.parentElement
+      const oldFlexItemsInfo = getFlexItemsInfo(col)
+      changeIndexLeft(images)
+      const newFlexItemsInfo = getFlexItemsInfo(col)
+
+      aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
+    }
   })
 }
 
@@ -578,9 +609,11 @@ document.addEventListener('readystatechange', event => {
     observer.observe(footer)
     carousel()
 
-    const keyboardfocusableElements = document.querySelectorAll(
-      'a[href], button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
-    )
+    // let myCards = simpleM.get()
+
+    // for (let card of myCards) {
+    //   console.log(card)
+    // }
   }
 })
 

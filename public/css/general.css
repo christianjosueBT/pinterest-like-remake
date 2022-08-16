@@ -84,7 +84,7 @@ footer {
   color: transparent;
   padding: 1em 3em 3em 3em;
   bottom: 0px;
-  margin-top: 2em;
+  margin-top: 20em;
 }
 
 dialog {
@@ -244,6 +244,7 @@ dialog .closeModal:hover {
 /* Define the main Navigation block */
 .header {
   font-size: 0.75em;
+  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 0.75em;
@@ -308,14 +309,18 @@ dialog .closeModal:hover {
   width: 0;
   z-index: 30;
   opacity: 0;
-  border-radius: 1em 1em;
+  border-radius: 1em;
   background: var(--secondary-1);
   overflow: hidden;
   text-align: center;
   cursor: pointer;
 }
 .dropdown--content:hover, .dropdown--content:focus-within {
+  overflow: unset;
   opacity: 1;
+  width: 110%;
+}
+.dropdown--content:hover *, .dropdown--content:focus-within * {
   width: 100%;
 }
 .dropdown--content * {
@@ -347,14 +352,11 @@ dialog .closeModal:hover {
   cursor: pointer;
 }
 
-.nav__user__div:hover .dropdown--content,
-.nav__user__div:focus-within .dropdown--content {
+.nav__user__div:hover .dropdown--content {
   opacity: 1;
   width: 110%;
-  bottom: -5em;
 }
-.nav__user__div:hover .dropdown--content *,
-.nav__user__div:focus-within .dropdown--content * {
+.nav__user__div:hover .dropdown--content * {
   width: 100%;
 }
 
@@ -472,6 +474,8 @@ dialog .closeModal:hover {
   opacity: 1;
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23fff" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>') no-repeat;
   color: var(--light-text);
+  height: 1.5em;
+  width: 1.5em;
 }
 .searchbar.searchbar--transparent .searchbar__wrapper {
   padding: 1em;
@@ -584,7 +588,7 @@ dialog .closeModal:hover {
   bottom: 2em;
   color: var(--light-text);
   font-size: 1.5em;
-  font-weight: 800;
+  font-weight: 700;
   z-index: 20;
 }
 
@@ -636,15 +640,17 @@ dialog .closeModal:hover {
   position: absolute;
   bottom: -4em;
   left: 0;
-  max-width: 100%;
-  height: 4em;
+  width: 100%;
+  line-height: 0.85em;
+  padding: 0.5em 1em 0.75em 1.5em;
   color: var(--light-text);
   transition: transform 0.5s, background-color 1s 0.5s;
 }
-
 .card__image__bottom p {
-  padding-left: 2em;
+  max-height: 2.6rem;
   font-size: 0.75em;
+  overflow: hidden;
+  margin: 0;
 }
 
 /* override shadow effect */
@@ -663,8 +669,18 @@ dialog .closeModal:hover {
 .card--v2:focus-within .card__image__bottom,
 .card--v2:hover .card__image__bottom {
   opacity: 1;
-  transform: translateY(-4em);
+  transform: translateY(-3.8em);
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.card--v2:focus-within .button--left,
+.card--v2:hover .button--left {
+  transform: translateX(3em);
+}
+
+.card--v2:focus-within .button--right,
+.card--v2:hover .button--right {
+  transform: translateX(-3em);
 }
 
 .card--item {
@@ -752,21 +768,22 @@ dialog .closeModal:hover {
   justify-content: center;
   position: absolute;
   width: 2em;
-  stroke: #fff;
   cursor: pointer;
   z-index: 20;
+  transition: transform 0.5s;
 }
 
+.button--svg:focus,
 .button--svg:hover {
   transform: scale(1.2);
 }
 
 .button--right {
-  right: 1em;
+  right: -2em;
 }
 
 .button--left {
-  left: 1em;
+  left: -2em;
 }
 
 .button--transparent {
@@ -933,4 +950,13 @@ dialog .closeModal:hover {
 }
 .masonry .outline {
   stroke: var(--main-2);
+}
+
+.leftArrow circle,
+.rightArrow circle {
+  fill: var(--secondary-2);
+}
+.leftArrow path,
+.rightArrow path {
+  stroke: var(--accent-secondary);
 }

@@ -1,232 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Accept-CH" content="DPR, Width">
-    <!-- Google Fonts! -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Sansita+Swashed:wght@300;400;500;600&display=swap"
-      rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <title>Coffee Shops</title>
-    <!-- Customs Stylesheets -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/general.css">
-    <link rel="stylesheet" href="/css/coffeeshops.css">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Accept-CH" content="DPR, Width">
+  <!-- Google Fonts! -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Sansita+Swashed:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <title>Coffee Shops</title>
+  <!-- Customs Stylesheets -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/general.css">
+  <link rel="stylesheet" href="/css/coffeeshops.css">
+</head>
 
-  <body>
+<body>
 
-    <!-- HEADER -->
-    <header class="header container-fluid">
+  <!-- HEADER -->
+  <header class="header container-fluid">
 
-      <!-- LOGO -->
-      <div class="header-logo">
-        <a href="/">
-          <h4 class="navFont">F</h4>
-        </a>
-      </div>
+    <!-- LOGO -->
+    <div class="header-logo">
+      <a href="/">
+        <h4 class="navFont">F</h4>
+      </a>
+    </div>
 
-      <!-- MAIN NAVIGATION -->
-      <div class="top-navigation">
-        <nav class="main-nav">
-          <a href="/coffeeshops">Home</a>
-        </nav>
+    <!-- MAIN NAVIGATION -->
+    <div class="top-navigation">
+      <nav class="main-nav">
+        <a href="/coffeeshops">Home</a>
+      </nav>
 
-        <!-- SEARCH BAR -->
-        <div class="searchbar">
-          <label for="searchbar__input" class="searchbar__wrapper basis-100">
-            <svg class="searchbar__wrapper__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.005 512.005">
-              <path
-                d="M505.749,475.587l-145.6-145.6c28.203-34.837,45.184-79.104,45.184-127.317c0-111.744-90.923-202.667-202.667-202.667
+      <!-- SEARCH BAR -->
+      <div class="searchbar">
+        <label for="searchbar__input" class="searchbar__wrapper basis-100">
+          <svg class="searchbar__wrapper__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.005 512.005">
+            <path d="M505.749,475.587l-145.6-145.6c28.203-34.837,45.184-79.104,45.184-127.317c0-111.744-90.923-202.667-202.667-202.667
                                         S0,90.925,0,202.669s90.923,202.667,202.667,202.667c48.213,0,92.48-16.981,127.317-45.184l145.6,145.6
                                         c4.16,4.16,9.621,6.251,15.083,6.251s10.923-2.091,15.083-6.251C514.091,497.411,514.091,483.928,505.749,475.587z
                                         M202.667,362.669c-88.235,0-160-71.765-160-160s71.765-160,160-160s160,71.765,160,160S290.901,362.669,202.667,362.669z" />
-            </svg>
-            <form class="searchbar__input" action="/colcade" method="GET">
-              <input class="searchbar__input__text" type="search" name="search" placeholder="Search for Restaurants">
-            </form>
-          </label>
-        </div>
-
-        <!-- CHANGE LAYOUT -->
-        <div class="dropdown">
-          <button class="dropdown__toggle">
-
-            <svg class="masonryContainer">
-              <use href="#masonry"></use>
-            </svg>
-            <svg class="downArrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M11.6464 13.8536C11.8417 14.0488 12.1583 14.0488 12.3536 13.8536L15.5355 10.6716C15.7308 10.4763 15.7308 10.1597 15.5355 9.96447C15.3403 9.7692 15.0237 9.7692 14.8284 9.96447L12 12.7929L9.17157 9.96447C8.97631 9.7692 8.65973 9.7692 8.46447 9.96447C8.2692 10.1597 8.2692 10.4763 8.46447 10.6716L11.6464 13.8536ZM12.5 13.5V13H11.5V13.5H12.5Z" />
-            </svg>
-
-          </button>
-          <div class="dropdown__drawer">
-            <ul class="menu">
-              <li id="masonry-grid" tabindex="0">
-                <svg>
-                  <use href="#masonry"></use>
-                </svg>
-                <p>Masonry</p>
-              </li>
-              <li id="large-grid" tabindex="0">
-                <svg>
-                  <use href="#grid-large"></use>
-                </svg>
-                <p>Large</p>
-              </li>
-              <li id="small-grid" tabindex="0">
-                <svg>
-                  <use href="#grid-small"></use>
-                </svg>
-                <p>Small</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-
-
-        <!-- USER OR LOGIN -->
-        <div class="user">
-          <a class="nav__user nav__user__a hide" tabindex="0">
-            <div class="login hide">Login</div>
-          </a>
-          <div class="nav__user nav__user__div hide" tabindex="0">
-            <div class="username hide">User</div>
-            <div class="dropdown--content">
-              <a class="dropdown--profile" tabindex="0">Profile</a>
-              <form class="dropdown--logout" action="/users/logout" method="POST" tabindex="0">
-                <div class="dropdown--submit">Logout</div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-
+          </svg>
+          <form class="searchbar__input" action="/colcade" method="GET">
+            <input class="searchbar__input__text" type="search" name="search" placeholder="Search for Restaurants">
+          </form>
+        </label>
       </div>
-    </header>
 
-    <!-- "justify-end margin-right" -->
+      <!-- CHANGE LAYOUT -->
+      <div class="dropdown">
+        <button class="dropdown__toggle">
+
+          <svg class="masonryContainer">
+            <use href="#masonry"></use>
+          </svg>
+          <svg class="downArrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.6464 13.8536C11.8417 14.0488 12.1583 14.0488 12.3536 13.8536L15.5355 10.6716C15.7308 10.4763 15.7308 10.1597 15.5355 9.96447C15.3403 9.7692 15.0237 9.7692 14.8284 9.96447L12 12.7929L9.17157 9.96447C8.97631 9.7692 8.65973 9.7692 8.46447 9.96447C8.2692 10.1597 8.2692 10.4763 8.46447 10.6716L11.6464 13.8536ZM12.5 13.5V13H11.5V13.5H12.5Z" />
+          </svg>
+
+        </button>
+        <div class="dropdown__drawer">
+          <ul class="menu">
+            <li id="masonry-grid" tabindex="0">
+              <svg>
+                <use href="#masonry"></use>
+              </svg>
+              <p>Masonry</p>
+            </li>
+            <li id="large-grid" tabindex="0">
+              <svg>
+                <use href="#grid-large"></use>
+              </svg>
+              <p>Large</p>
+            </li>
+            <li id="small-grid" tabindex="0">
+              <svg>
+                <use href="#grid-small"></use>
+              </svg>
+              <p>Small</p>
+            </li>
+          </ul>
+        </div>
+      </div>
 
 
-    <!-- COFFEE SHOP CARDS -->
-    <div class="container-fluid">
-      <div class="row">
 
-        <div class="grid col-lg-3 col-md-4 col-sm-6 col-xs-12" data-col="0">
-          <% shops.forEach(coffeeShop => { %>
-          <div class="card card--v2" tabindex="0">
-            <div class="card__image carousel">
+      <!-- USER OR LOGIN -->
+      <div class="user">
+        <a class="nav__user nav__user__a hide" tabindex="0">
+          <div class="login hide">Login</div>
+        </a>
+        <div class="nav__user nav__user__div hide" tabindex="0">
+          <div class="username hide">User</div>
+          <div class="dropdown--content">
+            <a class="dropdown--profile" tabindex="0">Profile</a>
+            <form class="dropdown--logout" action="/users/logout" method="POST" tabindex="0">
+              <div class="dropdown--submit">Logout</div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </header>
+
+  <!-- "justify-end margin-right" -->
+
+
+  <!-- COFFEE SHOP CARDS -->
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="grid col-lg-3 col-md-4 col-sm-6 col-xs-12" data-col="0">
+        <% shops.forEach(coffeeShop => { %>
+        <div class="card card--v2">
+          <div class="card__image carousel">
+            <a href="/coffeeShops/<%=coffeeShop._id%>">
               <% for(let i = 0; i < coffeeShop.images.length; i++) { %>
               <% if(i === 0) { %>
-              <a href="/coffeeShops/<%=coffeeShop._id%>">
-                <img class="active carousel__image" data-src="<%=coffeeShop.images[i].filename%>" alt="...">
-              </a>
+              <img class="active carousel__image" data-src="<%=coffeeShop.images[i].filename%>" alt="...">
               <% } else { %>
-              <a href="/coffeeShops/<%=coffeeShop._id%>">
-                <img class="carousel__image" data-src="<%=coffeeShop.images[i].filename%>" alt="...">
-              </a>
+              <img class="carousel__image" data-src="<%=coffeeShop.images[i].filename%>" alt="...">
               <% }} %>
-              <div class="card__image__top">
-                <h3><a href="/coffeeShops/<%=coffeeShop._id%>"><%=coffeeShop.name%></a>
-                </h3>
-              </div>
-              <div class="card__image__bottom">
-                <p><%=coffeeShop.description.slice(0,50)%>...</p>
-              </div>
-              <svg width="48" height="48" viewBox="0 0 24 24" class="button--svg button--left hide">
-                <use href="#svg--left"></use>
-              </svg>
-              <svg width="48" height="48" viewBox="0 0 24 24" class="button--svg button--right hide">
-                <use href="#svg--right"></use>
-              </svg>
+            </a>
+            <div class="card__image__top">
+              <h3><a href="/coffeeShops/<%=coffeeShop._id%>" tabindex="-1"><%=coffeeShop.name%></a>
+              </h3>
             </div>
+            <div class="card__image__bottom">
+              <p><%=coffeeShop.description%></p>
+            </div>
+            <svg width="48" height="48" viewBox="0 0 24 24" class="button--svg button--left hide" tabindex="0">
+              <use href="#svg--left"></use>
+            </svg>
+            <svg width="48" height="48" viewBox="0 0 24 24" class="button--svg button--right hide" tabindex="0">
+              <use href="#svg--right"></use>
+            </svg>
           </div>
-          <% }) %>
         </div>
-
-        <div class="grid col-lg-3 col-md-4 col-sm-6 col-xs-12" data-col="1"></div>
-        <div class="grid col-lg-3 col-md-4 col-sm-6 col-xs-12" data-col="2"></div>
-        <div class="grid col-lg-3 col-md-4 col-sm-6 col-xs-12" data-col="3"></div>
-
+        <% }) %>
       </div>
+
+      <div class="grid col-lg-3 col-md-4 col-sm-6 col-xs-12" data-col="1"></div>
+      <div class="grid col-lg-3 col-md-4 col-sm-6 col-xs-12" data-col="2"></div>
+      <div class="grid col-lg-3 col-md-4 col-sm-6 col-xs-12" data-col="3"></div>
+
     </div>
+  </div>
 
 
 
 
-    <footer>
-      <p>The Footer. &copy; 2019 Turkey Stuff Inc.</p>
-    </footer>
-    </div>
+  <footer>
+    <p>The Footer. &copy; 2019 Turkey Stuff Inc.</p>
+  </footer>
 
 
-    <!-- SVGs  -->
-    <svg display='none' xmlns="http://www.w3.org/2000/svg">
+  <!-- SVGs  -->
+  <svg display='none' xmlns="http://www.w3.org/2000/svg">
 
-      <!-- layouts -->
-      <symbol id="grid-large" class="grid-large" fill="none" viewBox="0 0 24 24">
-        <g id="items" class="items">
-          <path
-            d="M4 14C4 13.4477 4.44772 13 5 13H7C7.55228 13 8 13.4477 8 14V17C8 17.5523 7.55228 18 7 18H5C4.44772 18 4 17.5523 4 17V14Z" />
-          <path
-            d="M10 14C10 13.4477 10.4477 13 11 13H13C13.5523 13 14 13.4477 14 14V17C14 17.5523 13.5523 18 13 18H11C10.4477 18 10 17.5523 10 17V14Z" />
-          <path
-            d="M16 14C16 13.4477 16.4477 13 17 13H19C19.5523 13 20 13.4477 20 14V17C20 17.5523 19.5523 18 19 18H17C16.4477 18 16 17.5523 16 17V14Z" />
-          <path
-            d="M4 7C4 6.44772 4.44772 6 5 6H7C7.55228 6 8 6.44772 8 7V10C8 10.5523 7.55228 11 7 11H5C4.44772 11 4 10.5523 4 10V7Z" />
-          <path
-            d="M10 7C10 6.44772 10.4477 6 11 6H13C13.5523 6 14 6.44772 14 7V10C14 10.5523 13.5523 11 13 11H11C10.4477 11 10 10.5523 10 10V7Z" />
-          <path
-            d="M16 7C16 6.44772 16.4477 6 17 6H19C19.5523 6 20 6.44772 20 7V10C20 10.5523 19.5523 11 19 11H17C16.4477 11 16 10.5523 16 10V7Z" />
-        </g>
-        <rect id="outline" class="outline" x="2.5" y="4.5" width="19" height="15" rx="0.5" />
-      </symbol>
+    <!-- layouts -->
+    <symbol id="grid-large" class="grid-large" fill="none" viewBox="0 0 24 24">
+      <g id="items" class="items">
+        <path d="M4 14C4 13.4477 4.44772 13 5 13H7C7.55228 13 8 13.4477 8 14V17C8 17.5523 7.55228 18 7 18H5C4.44772 18 4 17.5523 4 17V14Z" />
+        <path d="M10 14C10 13.4477 10.4477 13 11 13H13C13.5523 13 14 13.4477 14 14V17C14 17.5523 13.5523 18 13 18H11C10.4477 18 10 17.5523 10 17V14Z" />
+        <path d="M16 14C16 13.4477 16.4477 13 17 13H19C19.5523 13 20 13.4477 20 14V17C20 17.5523 19.5523 18 19 18H17C16.4477 18 16 17.5523 16 17V14Z" />
+        <path d="M4 7C4 6.44772 4.44772 6 5 6H7C7.55228 6 8 6.44772 8 7V10C8 10.5523 7.55228 11 7 11H5C4.44772 11 4 10.5523 4 10V7Z" />
+        <path d="M10 7C10 6.44772 10.4477 6 11 6H13C13.5523 6 14 6.44772 14 7V10C14 10.5523 13.5523 11 13 11H11C10.4477 11 10 10.5523 10 10V7Z" />
+        <path d="M16 7C16 6.44772 16.4477 6 17 6H19C19.5523 6 20 6.44772 20 7V10C20 10.5523 19.5523 11 19 11H17C16.4477 11 16 10.5523 16 10V7Z" />
+      </g>
+      <rect id="outline" class="outline" x="2.5" y="4.5" width="19" height="15" rx="0.5" />
+    </symbol>
 
 
-      <symbol id="grid-small" class="grid-small" fill="none" viewBox="0 0 24 24">
-        <g id="items" class="items">
-          <path id="items-1"
-            d="M5.5 19.5V18.1C5.5 17.7686 5.76863 17.5 6.1 17.5H7.9C8.23137 17.5 8.5 17.7686 8.5 18.1V19.5M10.5 19.5V18.1C10.5 17.7686 10.7686 17.5 11.1 17.5H12.9C13.2314 17.5 13.5 17.7686 13.5 18.1V19.5M15.5 19.5V18.1C15.5 17.7686 15.7686 17.5 16.1 17.5H17.9C18.2314 17.5 18.5 17.7686 18.5 18.1V19.5"
-            stroke-linecap="square" />
-          <path id="items-2"
-            d="M6 5.5H8C8.27614 5.5 8.5 5.72386 8.5 6V9C8.5 9.27614 8.27614 9.5 8 9.5H6C5.72386 9.5 5.5 9.27614 5.5 9V6C5.5 5.72386 5.72386 5.5 6 5.5ZM6 11.5H8C8.27614 11.5 8.5 11.7239 8.5 12V15C8.5 15.2761 8.27614 15.5 8 15.5H6C5.72386 15.5 5.5 15.2761 5.5 15V12C5.5 11.7239 5.72386 11.5 6 11.5ZM11 11.5H13C13.2761 11.5 13.5 11.7239 13.5 12V15C13.5 15.2761 13.2761 15.5 13 15.5H11C10.7239 15.5 10.5 15.2761 10.5 15V12C10.5 11.7239 10.7239 11.5 11 11.5ZM11 5.5H13C13.2761 5.5 13.5 5.72386 13.5 6V9C13.5 9.27614 13.2761 9.5 13 9.5H11C10.7239 9.5 10.5 9.27614 10.5 9V6C10.5 5.72386 10.7239 5.5 11 5.5ZM16 11.5H18C18.2761 11.5 18.5 11.7239 18.5 12V15C18.5 15.2761 18.2761 15.5 18 15.5H16C15.7239 15.5 15.5 15.2761 15.5 15V12C15.5 11.7239 15.7239 11.5 16 11.5ZM16 5.5H18C18.2761 5.5 18.5 5.72386 18.5 6V9C18.5 9.27614 18.2761 9.5 18 9.5H16C15.7239 9.5 15.5 9.27614 15.5 9V6C15.5 5.72386 15.7239 5.5 16 5.5Z" />
-        </g>
-        <rect id="outline" class="outline" x="3.5" y="3.5" width="17" height="17" rx="0.5" />
-      </symbol>
+    <symbol id="grid-small" class="grid-small" fill="none" viewBox="0 0 24 24">
+      <g id="items" class="items">
+        <path id="items-1" d="M5.5 19.5V18.1C5.5 17.7686 5.76863 17.5 6.1 17.5H7.9C8.23137 17.5 8.5 17.7686 8.5 18.1V19.5M10.5 19.5V18.1C10.5 17.7686 10.7686 17.5 11.1 17.5H12.9C13.2314 17.5 13.5 17.7686 13.5 18.1V19.5M15.5 19.5V18.1C15.5 17.7686 15.7686 17.5 16.1 17.5H17.9C18.2314 17.5 18.5 17.7686 18.5 18.1V19.5" stroke-linecap="square" />
+        <path id="items-2" d="M6 5.5H8C8.27614 5.5 8.5 5.72386 8.5 6V9C8.5 9.27614 8.27614 9.5 8 9.5H6C5.72386 9.5 5.5 9.27614 5.5 9V6C5.5 5.72386 5.72386 5.5 6 5.5ZM6 11.5H8C8.27614 11.5 8.5 11.7239 8.5 12V15C8.5 15.2761 8.27614 15.5 8 15.5H6C5.72386 15.5 5.5 15.2761 5.5 15V12C5.5 11.7239 5.72386 11.5 6 11.5ZM11 11.5H13C13.2761 11.5 13.5 11.7239 13.5 12V15C13.5 15.2761 13.2761 15.5 13 15.5H11C10.7239 15.5 10.5 15.2761 10.5 15V12C10.5 11.7239 10.7239 11.5 11 11.5ZM11 5.5H13C13.2761 5.5 13.5 5.72386 13.5 6V9C13.5 9.27614 13.2761 9.5 13 9.5H11C10.7239 9.5 10.5 9.27614 10.5 9V6C10.5 5.72386 10.7239 5.5 11 5.5ZM16 11.5H18C18.2761 11.5 18.5 11.7239 18.5 12V15C18.5 15.2761 18.2761 15.5 18 15.5H16C15.7239 15.5 15.5 15.2761 15.5 15V12C15.5 11.7239 15.7239 11.5 16 11.5ZM16 5.5H18C18.2761 5.5 18.5 5.72386 18.5 6V9C18.5 9.27614 18.2761 9.5 18 9.5H16C15.7239 9.5 15.5 9.27614 15.5 9V6C15.5 5.72386 15.7239 5.5 16 5.5Z" />
+      </g>
+      <rect id="outline" class="outline" x="3.5" y="3.5" width="17" height="17" rx="0.5" />
+    </symbol>
 
-      <symbol id="masonry" fill="none" class="masonry" viewBox="0 0 24 24">
-        <path id="items" class="items"
-          d="M5.5 6C5.5 5.72386 5.72386 5.5 6 5.5H10C10.2761 5.5 10.5 5.72386 10.5 6V10C10.5 10.2761 10.2761 10.5 10 10.5H6C5.72386 10.5 5.5 10.2761 5.5 10V6ZM12.5 6C12.5 5.72386 12.7239 5.5 13 5.5H18C18.2761 5.5 18.5 5.72386 18.5 6V13C18.5 13.2761 18.2761 13.5 18 13.5H13C12.7239 13.5 12.5 13.2761 12.5 13V6ZM5.5 13C5.5 12.7239 5.72386 12.5 6 12.5H10C10.2761 12.5 10.5 12.7239 10.5 13V18C10.5 18.2761 10.2761 18.5 10 18.5H6C5.72386 18.5 5.5 18.2761 5.5 18V13ZM12.5 16C12.5 15.7239 12.7239 15.5 13 15.5H18C18.2761 15.5 18.5 15.7239 18.5 16V18C18.5 18.2761 18.2761 18.5 18 18.5H13C12.7239 18.5 12.5 18.2761 12.5 18V16Z" />
-        <rect id="outline" class="outline" x="3.5" y="3.5" rx="0.5" width="17" height="17" />
-      </symbol>
+    <symbol id="masonry" fill="none" class="masonry" viewBox="0 0 24 24">
+      <path id="items" class="items" d="M5.5 6C5.5 5.72386 5.72386 5.5 6 5.5H10C10.2761 5.5 10.5 5.72386 10.5 6V10C10.5 10.2761 10.2761 10.5 10 10.5H6C5.72386 10.5 5.5 10.2761 5.5 10V6ZM12.5 6C12.5 5.72386 12.7239 5.5 13 5.5H18C18.2761 5.5 18.5 5.72386 18.5 6V13C18.5 13.2761 18.2761 13.5 18 13.5H13C12.7239 13.5 12.5 13.2761 12.5 13V6ZM5.5 13C5.5 12.7239 5.72386 12.5 6 12.5H10C10.2761 12.5 10.5 12.7239 10.5 13V18C10.5 18.2761 10.2761 18.5 10 18.5H6C5.72386 18.5 5.5 18.2761 5.5 18V13ZM12.5 16C12.5 15.7239 12.7239 15.5 13 15.5H18C18.2761 15.5 18.5 15.7239 18.5 16V18C18.5 18.2761 18.2761 18.5 18 18.5H13C12.7239 18.5 12.5 18.2761 12.5 18V16Z" />
+      <rect id="outline" class="outline" x="3.5" y="3.5" rx="0.5" width="17" height="17" />
+    </symbol>
 
-      <!-- image buttons -->
-      <symbol id="svg--left" fill="none" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="9.5" />
-        <path
-          d="M8.64645 11.6464C8.45118 11.8417 8.45118 12.1583 8.64645 12.3536L11.8284 15.5355C12.0237 15.7308 12.3403 15.7308 12.5355 15.5355C12.7308 15.3403 12.7308 15.0237 12.5355 14.8284L9.70711 12L12.5355 9.17157C12.7308 8.97631 12.7308 8.65973 12.5355 8.46447C12.3403 8.2692 12.0237 8.2692 11.8284 8.46447L8.64645 11.6464ZM9 12.5H9.5V11.5H9V12.5Z" />
-      </symbol>
-      <symbol id="svg--right" fill="none" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="9.5" stroke="#D9D9D9" />
-        <path
-          d="M14.8536 12.3536C15.0488 12.1583 15.0488 11.8417 14.8536 11.6464L11.6716 8.46447C11.4763 8.2692 11.1597 8.2692 10.9645 8.46447C10.7692 8.65973 10.7692 8.97631 10.9645 9.17157L13.7929 12L10.9645 14.8284C10.7692 15.0237 10.7692 15.3403 10.9645 15.5355C11.1597 15.7308 11.4763 15.7308 11.6716 15.5355L14.8536 12.3536ZM14 12.5H14.5V11.5H14V12.5Z" />
-      </symbol>
-    </svg>
-    <!-- JAVASCRIPT -->
-    <!-- <script src="https://npmcdn.com/colcade@0/colcade.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
-      integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
-      crossorigin="anonymous"></script>
-    <script src="/js/simple-masonry-compiled.js"></script>
-    <script src="/js/loaduser.js"></script>
-    <script src="/js/colcade.js"></script>
-  </body>
+    <!-- image buttons -->
+    <symbol id="svg--left" class="leftArrow" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9.5" />
+      <path d="M8.64645 11.6464C8.45118 11.8417 8.45118 12.1583 8.64645 12.3536L11.8284 15.5355C12.0237 15.7308 12.3403 15.7308 12.5355 15.5355C12.7308 15.3403 12.7308 15.0237 12.5355 14.8284L9.70711 12L12.5355 9.17157C12.7308 8.97631 12.7308 8.65973 12.5355 8.46447C12.3403 8.2692 12.0237 8.2692 11.8284 8.46447L8.64645 11.6464ZM9 12.5H9.5V11.5H9V12.5Z" />
+    </symbol>
+    <symbol id="svg--right" class="rightArrow" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9.5" />
+      <path d="M14.8536 12.3536C15.0488 12.1583 15.0488 11.8417 14.8536 11.6464L11.6716 8.46447C11.4763 8.2692 11.1597 8.2692 10.9645 8.46447C10.7692 8.65973 10.7692 8.97631 10.9645 9.17157L13.7929 12L10.9645 14.8284C10.7692 15.0237 10.7692 15.3403 10.9645 15.5355C11.1597 15.7308 11.4763 15.7308 11.6716 15.5355L14.8536 12.3536ZM14 12.5H14.5V11.5H14V12.5Z" />
+    </symbol>
+  </svg>
+  <!-- JAVASCRIPT -->
+  <!-- <script src="https://npmcdn.com/colcade@0/colcade.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+  <script src="/js/simple-masonry-compiled.js"></script>
+  <script src="/js/loaduser.js"></script>
+  <script src="/js/colcade.js"></script>
+</body>
 
 </html>

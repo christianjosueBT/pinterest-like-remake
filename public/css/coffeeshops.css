@@ -32,6 +32,7 @@
 .dropdown.is-open .dropdown__drawer {
   opacity: 1;
   width: unset;
+  overflow: unset;
 }
 .dropdown.is-open .dropdown__drawer li {
   width: unset;
@@ -61,7 +62,7 @@
 .dropdown__drawer .menu li {
   display: flex;
   flex-flow: row nowrap;
-  align-items: flex-start;
+  align-items: center;
   width: 0;
   padding: 0;
   background-color: unset;
@@ -74,6 +75,7 @@
 }
 .dropdown__drawer .menu li p {
   width: 0;
+  padding: 0 1em 0;
 }
 .dropdown__drawer .menu li + li {
   border-top: 1px solid var(--accent-primary);
@@ -88,5 +90,3 @@
 .dropdown__drawer .menu li:focus {
   background-color: var(--secondary-2);
 }
-
-/**********************************  MENU MODULE  **********************************/
