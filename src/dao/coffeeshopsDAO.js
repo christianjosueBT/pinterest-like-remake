@@ -69,6 +69,9 @@ export default class coffeeShopsDAO {
       console.error(
         `Unable to find coffee shops in DAO getCoffeeShops() function 😩😩😩\n${e}`
       )
+      console.error(
+        `Unable to find coffee shops in DAO getCoffeeShops() function 😩😩😩\n${e}`
+      )
       return { shopsList: [], totalNumShops: 0 }
     }
     // Paging implementation

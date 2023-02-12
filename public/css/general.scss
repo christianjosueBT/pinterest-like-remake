@@ -300,11 +300,11 @@ dialog {
   border-radius: 1em;
   position: relative;
   z-index: 10;
-  
+
   // searchbar input styles
   .searchbar__input {
     flex: 1;
-    
+
     .searchbar__input__text {
       flex: 1;
       margin: 0;
@@ -333,14 +333,13 @@ dialog {
       .searchbar__input__text:focus::-webkit-search-cancel-button {
         pointer-events: all;
       }
-
     }
   }
 
   // search-icon styles
   .searchbar__wrapper {
     padding: 0 1.5em;
-  
+
     .searchbar__wrapper__icon {
       opacity: 0.3;
       bottom: 0;
@@ -360,20 +359,21 @@ dialog {
     color: var(--light-text);
 
     .searchbar__input__text {
-     background-color: transparent;
-     color: var(--light-text);
-     border: none;
-     flex: 1;
+      background-color: transparent;
+      color: var(--light-text);
+      border: none;
+      flex: 1;
 
-     &:focus {
-      outline-color: var(--light-text);
-      outline-width: 1px;
-     }
+      &:focus {
+        outline-color: var(--light-text);
+        outline-width: 1px;
+      }
 
-     &::-webkit-search-cancel-button {
-       opacity: 1;
-       background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23fff" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>') no-repeat;
-       color: var(--light-text);
+      &::-webkit-search-cancel-button {
+        opacity: 1;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23fff" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>')
+          no-repeat;
+        color: var(--light-text);
       }
     }
 
@@ -381,7 +381,6 @@ dialog {
       opacity: 1;
     }
   }
-  
 }
 
 /*******************************************************************  CARD SECTION START  *******************************************************************/
@@ -576,8 +575,6 @@ dialog {
   flex-flow: row wrap;
   justify-content: center;
   column-gap: 0.75rem;
-
-
 }
 .container--center {
   display: flex;
@@ -762,9 +759,8 @@ dialog {
   fill: var(--dark-text);
 }
 
-
 /*******************************************************************  SVG SECTION  *******************************************************************/
 
-// .gridLarge {
-
-// }
+.caret-down {
+  transform: rotate(180, 350, 350);
+}
