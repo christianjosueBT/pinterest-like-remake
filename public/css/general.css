@@ -29,10 +29,6 @@
   color: var(--grey-text);
 }
 
-:-ms-input-placeholder {
-  color: var(--grey-text);
-}
-
 ::placeholder {
   color: var(--grey-text);
 }
@@ -223,10 +219,6 @@ dialog .closeModal:hover {
   color: var(--light-text);
 }
 
-.placeholder-light:-ms-input-placeholder {
-  color: var(--light-text);
-}
-
 .placeholder-light::placeholder {
   color: var(--light-text);
 }
@@ -289,7 +281,6 @@ dialog .closeModal:hover {
   position: absolute;
   bottom: -3rem;
   width: 100%;
-  height: -webkit-min-content;
   height: -moz-min-content;
   height: min-content;
   background: var(--secondary-1);
@@ -361,7 +352,6 @@ dialog .closeModal:hover {
   text-overflow: ellipsis;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   white-space: nowrap;
 }
@@ -840,4 +830,7 @@ dialog .closeModal:hover {
   fill: var(--dark-text);
 }
 
-/*******************************************************************  SVG SECTION  *******************************************************************//*# sourceMappingURL=general.css.map */
+/*******************************************************************  SVG SECTION  *******************************************************************/
+.caret-down {
+  transform: rotate(180, 350, 350);
+}/*# sourceMappingURL=general.css.map */
