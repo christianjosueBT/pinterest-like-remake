@@ -8,24 +8,33 @@
   background-color: var(--secondary-1);
   border-radius: 1em;
   border: none;
-  height: 2rem;
+  height: 44px;
 }
 
 /****************************** DROPDOWN BUTTON *******************************/
 /* Default dropdown button */
 .dropdown {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
   background-color: var(--secondary-1);
+  border-radius: 1em;
   right: 1em;
-  height: 2rem;
+  height: 44px;
+  z-index: 10;
 }
 
 .dropdown__toggle {
+  display: flex;
+  flex-flow: row nowrap;
   border: none;
   background-color: inherit;
   cursor: pointer;
   height: 2rem;
+}
+.dropdown__toggle .arrowDown {
+  margin-left: -4px;
 }
 
 /* dropdown container */
@@ -40,23 +49,14 @@
 }
 
 /* change the direction of the CSS border arrow if the dropdown menu is visible */
-.dropdown.is-open .dropdown__toggle::after {
-  top: 0.55em;
-  border-color: transparent transparent var(--dark-text);
-}
-
 .dropdown.is-open .dropdown__drawer {
   display: block;
 }
 
 /* SVG class modifier */
 .dropdown--svg svg {
-  width: 1.5em;
-  height: 1.5em;
-}
-
-.dropdown--svg .dropdown__toggle {
-  padding: 0.2em 0.75em 0;
+  width: 24px;
+  height: 24px;
 }
 
 /**********************************  MENU MODULE  **********************************/

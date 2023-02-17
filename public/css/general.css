@@ -16,6 +16,7 @@
   --dark-text: #000;
   --danger: #e75b68;
   --rating: #ffea37;
+  --transparent: #ffffff00;
   font-weight: 400;
 }
 
@@ -333,7 +334,7 @@ dialog .closeModal:hover {
   cursor: text;
   border-radius: 1em;
   position: relative;
-  z-index: 10;
+  height: inherit;
 }
 .searchbar .searchbar__input {
   flex: 1;
@@ -341,10 +342,11 @@ dialog .closeModal:hover {
 .searchbar .searchbar__input .searchbar__input__text {
   flex: 1;
   margin: 0;
+  padding: 0;
   width: 100%;
-  height: 2rem;
+  height: 100%;
   background-color: var(--secondary-1);
-  border-color: transparent;
+  border: none;
   line-height: 2.75em;
   margin: auto 0;
   overflow: hidden;
@@ -354,6 +356,7 @@ dialog .closeModal:hover {
      -moz-user-select: none;
           user-select: none;
   white-space: nowrap;
+  vertical-align: top;
 }
 .searchbar .searchbar__input .searchbar__input__text::-webkit-search-cancel-button {
   -webkit-appearance: none;
@@ -369,15 +372,13 @@ dialog .closeModal:hover {
 }
 .searchbar .searchbar__wrapper {
   padding: 0 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.searchbar .searchbar__wrapper .searchbar__wrapper__icon {
-  opacity: 0.3;
-  bottom: 0;
-  left: 1em;
+.searchbar .searchbar__wrapper .search {
   margin: auto;
-  position: absolute;
-  top: 0;
-  width: 1.75em;
+  width: 24px;
 }
 .searchbar.searchbar--transparent {
   background-color: transparent;
@@ -649,6 +650,11 @@ dialog .closeModal:hover {
   color: var(--dark-text);
 }
 
+.button--none {
+  background-color: var(--transparent);
+  padding: 0;
+}
+
 .button--form {
   background: none;
 }
@@ -831,6 +837,16 @@ dialog .closeModal:hover {
 }
 
 /*******************************************************************  SVG SECTION  *******************************************************************/
-.caret-down {
-  transform: rotate(180, 350, 350);
+.arrowDown {
+  fill: var(--main-3);
+}
+
+.masonry {
+  fill: var(--secondary-2);
+  stroke: var(--secondary-2);
+}
+
+.search {
+  fill: var(--secondary-2);
+  stroke: var(--secondary-2);
 }/*# sourceMappingURL=general.css.map */

@@ -37,6 +37,10 @@
   /* -webkit-transition: all 1s; */
 }
 
+.searchbar {
+  z-index: 10;
+}
+
 /****************************** LOADING ANIMATION MODULE ******************************/
 .loader-wrapper {
   width: 100%;
