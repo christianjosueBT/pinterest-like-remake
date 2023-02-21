@@ -125,8 +125,7 @@ dialog .closeModal:hover {
 }
 
 .active {
-  opacity: 1 !important;
-  max-height: 1000px !important;
+  display: block !important;
 }
 
 .hide {
@@ -737,11 +736,8 @@ dialog .closeModal:hover {
 }
 
 .carousel__image {
-  transition: opacity 0.3s ease-out, max-height 0.3s ease-out;
-  opacity: 0;
-  height: auto;
-  max-height: 0;
-  overflow: hidden;
+  transition: opacity 0.3s ease-out;
+  display: none;
 }
 
 .carousel__top {
