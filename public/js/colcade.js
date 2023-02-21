@@ -29,7 +29,7 @@ let simpleM = new SimpleMasonry({
   masonryColumn: '.grid',
 })
 
-// shit taken from https://stackoverflow.com/questions/11106876/is-it-possible-to-animate-flexbox-inserts-removes
+// taken from https://stackoverflow.com/questions/11106876/is-it-possible-to-animate-flexbox-inserts-removes
 function getFlexItemsInfo(container) {
   return Array.from(container.children).map(item => {
     const rect = item.getBoundingClientRect()
@@ -252,21 +252,18 @@ async function getData() {
 
 // toggles dropdown toggling, closes dropdown if user clicks anywhere on the window
 function dropDown() {
-  const toggles = document.querySelectorAll('.dropdown__toggle')
-  for (let toggle of toggles) {
-    toggle.addEventListener('click', function (event) {
-      event.preventDefault()
-      const dropdown = event.target.parentNode
-      dropdown.classList.toggle('is-open')
-    })
-  }
+  const toggle = document.querySelector('.dropdown__toggle')
+  toggle.addEventListener('click', function (event) {
+    const dropdown = event.currentTarget.parentNode
+    dropdown.classList.toggle('is-open')
+  })
+
   window.onclick = function (event) {
-    if (!event.target.matches('.dropdown__toggle')) {
-      const dropDowns = document.querySelectorAll('.dropdown')
-      for (i = 0; i < dropDowns.length; i++) {
-        if (dropDowns[i].classList.contains('is-open'))
-          dropDowns[i].classList.remove('is-open')
-      }
+    console.log(!event.target)
+    if (!toggle.contains(event.target)) {
+      const dropDown = document.querySelector('.dropdown')
+      if (dropDown.classList.contains('is-open'))
+        dropDown.classList.remove('is-open')
     }
   }
   return
@@ -420,6 +417,10 @@ async function createCard(data) {
 
   useLeft.setAttribute('href', '#svg--left')
   useRight.setAttribute('href', '#svg--right')
+  svgLeft.setAttribute('width', '48')
+  svgRight.setAttribute('width', '48')
+  svgLeft.setAttribute('viewBox', '0 0 24 24')
+  svgRight.setAttribute('viewBox', '0 0 24 24')
   svgLeft.setAttribute('class', 'button--svg button--left hide')
   svgRight.setAttribute('class', 'button--svg button--right hide')
   svgLeft.appendChild(useLeft)

@@ -17,6 +17,7 @@
   --danger: #e75b68;
   --rating: #ffea37;
   --transparent: #ffffff00;
+  --dark-transparent: #0000007f;
   font-weight: 400;
 }
 
@@ -43,6 +44,11 @@ p,
 ul,
 form {
   margin: 0;
+}
+
+ul,
+li {
+  padding: 0;
 }
 
 img {
@@ -119,7 +125,8 @@ dialog .closeModal:hover {
 }
 
 .active {
-  display: block !important;
+  opacity: 1 !important;
+  max-height: 1000px !important;
 }
 
 .hide {
@@ -561,6 +568,7 @@ dialog .closeModal:hover {
   bottom: -4rem;
   left: 0;
   max-width: 100%;
+  width: 100%;
   height: 4rem;
   color: var(--light-text);
   transition: transform 0.5s, background-color 1s 0.5s;
@@ -588,6 +596,10 @@ dialog .closeModal:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.card--v2.card:hover .button--svg {
+  background-color: var(--dark-text);
+}
+
 .card--item {
   display: flex;
   flex-flow: row wrap;
@@ -599,6 +611,7 @@ dialog .closeModal:hover {
 .container {
   margin-inline: auto;
   width: min(60%, 60em);
+  max-width: 560px;
 }
 
 .container--narrow {
@@ -678,9 +691,12 @@ dialog .closeModal:hover {
   justify-content: center;
   position: absolute;
   width: 2em;
+  height: 2em;
   stroke: #fff;
   cursor: pointer;
   z-index: 20;
+  transition: transform 0.25s, background-color 1.5s;
+  border-radius: 100%;
 }
 
 .button--svg:hover {
@@ -721,7 +737,11 @@ dialog .closeModal:hover {
 }
 
 .carousel__image {
-  display: none;
+  transition: opacity 0.3s ease-out, max-height 0.3s ease-out;
+  opacity: 0;
+  height: auto;
+  max-height: 0;
+  overflow: hidden;
 }
 
 .carousel__top {
@@ -844,6 +864,14 @@ dialog .closeModal:hover {
 .masonry {
   fill: var(--secondary-2);
   stroke: var(--secondary-2);
+}
+
+.smallFill {
+  fill: var(--secondary-2);
+}
+
+.largeFill {
+  fill: var(--secondary-2);
 }
 
 .search {

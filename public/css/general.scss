@@ -17,6 +17,7 @@
   --danger: #e75b68;
   --rating: #ffea37;
   --transparent: #ffffff00;
+  --dark-transparent: #0000007f;
   font-weight: 400;
 }
 *,
@@ -37,6 +38,12 @@ ul,
 form {
   margin: 0;
 }
+
+ul,
+li {
+  padding: 0;
+}
+
 img {
   max-width: 100%;
 }
@@ -111,7 +118,8 @@ dialog {
   display: inline !important;
 }
 .active {
-  display: block !important;
+  opacity: 1 !important;
+  max-height: 1000px !important;
 }
 .hide {
   display: none !important;
@@ -526,6 +534,7 @@ dialog {
   bottom: -4rem;
   left: 0;
   max-width: 100%;
+  width: 100%;
   height: 4rem;
   color: var(--light-text);
   -webkit-transition: transform 0.5s, background-color 1s 0.5s;
@@ -549,6 +558,9 @@ dialog {
   transform: translateY(-4rem);
   background-color: rgba(0, 0, 0, 0.5);
 }
+.card--v2.card:hover .button--svg {
+  background-color: var(--dark-text);
+}
 
 .card--item {
   display: flex;
@@ -560,6 +572,7 @@ dialog {
 .container {
   margin-inline: auto;
   width: min(60%, 60em);
+  max-width: 560px;
 }
 .container--narrow {
   max-width: 30em;
@@ -627,9 +640,12 @@ dialog {
   justify-content: center;
   position: absolute;
   width: 2em;
+  height: 2em;
   stroke: #fff;
   cursor: pointer;
   z-index: 20;
+  transition: transform 0.25s, background-color 1.5s;
+  border-radius: 100%;
 }
 .button--svg:hover {
   transform: scale(1.2);
@@ -663,7 +679,11 @@ dialog {
   align-items: center;
 }
 .carousel__image {
-  display: none;
+  transition: opacity 0.3s ease-out, max-height 0.3s ease-out;
+  opacity: 0;
+  height: auto;
+  max-height: 0;
+  overflow: hidden;
 }
 .carousel__top {
   display: none;
@@ -773,6 +793,15 @@ dialog {
 .masonry {
   fill: var(--secondary-2);
   stroke: var(--secondary-2);
+}
+
+.smallFill {
+  fill: var(--secondary-2);
+  // stroke: var(--secondary-2);
+}
+
+.largeFill {
+  fill: var(--secondary-2);
 }
 
 .search {
