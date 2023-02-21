@@ -62,7 +62,7 @@ function aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo) {
         { transform: 'none' },
       ],
       {
-        duration: 250,
+        duration: 200,
         easing: 'ease-out',
       }
     )
@@ -259,7 +259,6 @@ function dropDown() {
   })
 
   window.onclick = function (event) {
-    console.log(!event.target)
     if (!toggle.contains(event.target)) {
       const dropDown = document.querySelector('.dropdown')
       if (dropDown.classList.contains('is-open'))
