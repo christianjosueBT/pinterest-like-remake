@@ -43,7 +43,7 @@ function getFlexItemsInfo(container) {
   })
 }
 
-function aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo) {
+function animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo) {
   for (const newFlexItemInfo of newFlexItemsInfo) {
     const oldFlexItemInfo = oldFlexItemsInfo.find(
       itemInfo => itemInfo.element === newFlexItemInfo.element
@@ -468,14 +468,12 @@ function changeIndexLeft(images) {
   for (let i = 0; i < images.length; i++) {
     if (active(images[i])) index = i
   }
-  for (let i = 0; i < images.length; i++) {
-    if (index === 0 && i === index) {
-      images[i].classList.toggle('active')
-      images[images.length - 1].classList.toggle('active')
-    } else if (i === index && index !== 0) {
-      images[i].classList.toggle('active')
-      images[i - 1].classList.toggle('active')
-    }
+  if (index === 0) {
+    images[index].classList.toggle('active')
+    images[images.length - 1].classList.toggle('active')
+  } else if (index !== 0) {
+    images[index].classList.toggle('active')
+    images[index - 1].classList.toggle('active')
   }
 }
 // changes which image is "active" to the right
@@ -485,14 +483,12 @@ function changeIndexRight(images) {
   for (let i = 0; i < images.length; i++) {
     if (active(images[i])) index = i
   }
-  for (let i = 0; i < images.length; i++) {
-    if (index === images.length - 1 && i === index) {
-      images[i].classList.toggle('active')
-      images[0].classList.toggle('active')
-    } else if (i === index && index !== images.length - 1) {
-      images[i].classList.toggle('active')
-      images[i + 1].classList.toggle('active')
-    }
+  if (index === images.length - 1) {
+    images[index].classList.toggle('active')
+    images[0].classList.toggle('active')
+  } else if (index !== images.length - 1) {
+    images[index].classList.toggle('active')
+    images[index + 1].classList.toggle('active')
   }
 }
 // displays hidden left and right buttons
@@ -524,7 +520,7 @@ function changePicture(carousel, images) {
     changeIndexRight(images)
     const newFlexItemsInfo = getFlexItemsInfo(col)
 
-    aminateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
+    animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
   })
   const leftButton = carousel.querySelector('.button--left')
   leftButton.addEventListener('click', function () {
