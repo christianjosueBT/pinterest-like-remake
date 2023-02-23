@@ -29,11 +29,12 @@ let simpleM = new SimpleMasonry({
   masonryColumn: '.grid',
 })
 
-// taken from https://stackoverflow.com/questions/11106876/is-it-possible-to-animate-flexbox-inserts-removes
+// taken from
 function getFlexItemsInfo(container) {
   return Array.from(container.children).map(item => {
     const rect = item.getBoundingClientRect()
     return {
+      // borderRadius: parseInt(getComputedStyle(item).borderRadius),
       element: item,
       x: rect.left,
       y: rect.top,
@@ -53,13 +54,21 @@ function animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo) {
     const translateY = oldFlexItemInfo.y - newFlexItemInfo.y
     const scaleX = oldFlexItemInfo.width / newFlexItemInfo.width
     const scaleY = oldFlexItemInfo.height / newFlexItemInfo.height
+    // const borderRadius = oldFlexItemInfo.borderRadius / scaleY
+
+    // console.log(`old: ${oldFlexItemInfo.borderRadius}`)
+    // console.log(`new: ${newFlexItemInfo.borderRadius}`)
 
     newFlexItemInfo.element.animate(
       [
         {
-          transform: `translate(${translateX}px, ${translateY}px)`,
+          transform: `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`,
+          // borderRadius: `${borderRadius}px`,
         },
-        { transform: 'none' },
+        {
+          transform: 'none',
+          // borderRadius: `${oldFlexItemInfo.borderRadius}px`,
+        },
       ],
       {
         duration: 200,

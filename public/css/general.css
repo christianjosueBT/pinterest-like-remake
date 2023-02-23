@@ -415,24 +415,11 @@ dialog .closeModal:hover {
 /* Default card used for masonry layout */
 .card {
   position: relative;
-  border-radius: 2.5em 2.5em 2.5em 2.5em;
+  border-radius: 20px;
   max-width: 20rem;
   background-color: var(--secondary-1);
   margin-top: 0.5em;
   transition: all 0.5s ease;
-}
-
-.card__title {
-  margin: 1em 1em 0;
-  text-align: center;
-}
-
-.card__body > * + * {
-  margin-top: 0.4em;
-}
-
-.card__body {
-  padding: 0.5em 2em 1.5em;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -537,6 +524,7 @@ dialog .closeModal:hover {
 .card--v2.card {
   overflow: hidden;
   margin: 1rem auto;
+  transform-origin: top;
 }
 
 .card__image__top {
