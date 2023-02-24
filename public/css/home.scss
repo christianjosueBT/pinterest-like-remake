@@ -35,6 +35,17 @@
 }
 .searchbar {
   z-index: 10;
+  height: auto;
+  width: 15rem;
+  height: 44px;
+
+  .searchbar__input__text {
+    font-size: 1rem;
+  }
+}
+.search {
+  fill: var(--light-text);
+  stroke: var(--light-text);
 }
 /****************************** LOADING ANIMATION MODULE ******************************/
 .loader-wrapper {

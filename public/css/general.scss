@@ -333,11 +333,10 @@ dialog {
       // styling the X button that appears when you type in the search input box
       &::-webkit-search-cancel-button {
         -webkit-appearance: none;
-        height: 1em;
-        width: 1em;
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23000" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>');
+        height: 24px;
+        width: 24px;
+        background: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.0912 5.63596L12 10.7271L6.90882 5.63596C6.68139 5.40853 6.34999 5.31976 6.03947 5.403C5.72894 5.48625 5.48631 5.72887 5.40307 6.0394C5.31983 6.34993 5.40861 6.68133 5.63603 6.90875L10.7272 11.9999L5.63603 17.0911C5.4086 17.3185 5.31982 17.6499 5.40307 17.9605C5.48631 18.271 5.72894 18.5136 6.03947 18.5969C6.34999 18.6801 6.6814 18.5913 6.90882 18.3639L12 13.2727L17.0912 18.3639C17.3186 18.5913 17.65 18.6801 17.9605 18.5969C18.2711 18.5136 18.5137 18.271 18.5969 17.9605C18.6802 17.6499 18.5914 17.3185 18.364 17.0911L13.2728 11.9999L18.364 6.90876C18.5914 6.68133 18.6802 6.34993 18.5969 6.0394C18.5137 5.72887 18.2711 5.48624 17.9605 5.403C17.65 5.31976 17.3186 5.40854 17.0912 5.63596Z" fill="lightpink"/></svg>'); //color is fill and only works with named colors
         background-size: contain;
-        pointer-events: none;
         cursor: pointer;
       }
       .searchbar__input__text:focus::-webkit-search-cancel-button {
@@ -378,10 +377,12 @@ dialog {
       }
 
       &::-webkit-search-cancel-button {
-        opacity: 1;
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" stroke="%23fff" stroke-width="5px" viewBox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30"></path></svg>')
-          no-repeat;
         color: var(--light-text);
+        height: 24px;
+        width: 24px;
+        background: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.0912 5.63596L12 10.7271L6.90882 5.63596C6.68139 5.40853 6.34999 5.31976 6.03947 5.403C5.72894 5.48625 5.48631 5.72887 5.40307 6.0394C5.31983 6.34993 5.40861 6.68133 5.63603 6.90875L10.7272 11.9999L5.63603 17.0911C5.4086 17.3185 5.31982 17.6499 5.40307 17.9605C5.48631 18.271 5.72894 18.5136 6.03947 18.5969C6.34999 18.6801 6.6814 18.5913 6.90882 18.3639L12 13.2727L17.0912 18.3639C17.3186 18.5913 17.65 18.6801 17.9605 18.5969C18.2711 18.5136 18.5137 18.271 18.5969 17.9605C18.6802 17.6499 18.5914 17.3185 18.364 17.0911L13.2728 11.9999L18.364 6.90876C18.5914 6.68133 18.6802 6.34993 18.5969 6.0394C18.5137 5.72887 18.2711 5.48624 17.9605 5.403C17.65 5.31976 17.3186 5.40854 17.0912 5.63596Z" fill="white"/></svg>'); //color is fill and only works with named colors
+        background-size: contain;
+        cursor: pointer;
       }
     }
 
@@ -572,7 +573,6 @@ dialog {
 .container {
   margin-inline: auto;
   width: min(60%, 60em);
-  max-width: 560px;
 }
 .container--narrow {
   max-width: 30em;
