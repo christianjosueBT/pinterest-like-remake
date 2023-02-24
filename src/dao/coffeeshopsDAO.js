@@ -112,12 +112,19 @@ export default class coffeeShopsDAO {
     //   if ('name' in filters)
     //     queryParams = this.textSearchQuery(filters['text']);
     // }
+
     let cursor
-    let aggregate = [
-      { $search: { text: { path: 'name', query: `${name}`, fuzzy: {} } } },
+    let pipeline = [
+      {
+        $search: {
+          index: 'default',
+          text: { path: 'name', query: `${name}`, fuzzy: {} },
+        },
+      },
+      { $project: p },
     ]
     try {
-      cursor = coffeeShops.aggregate(aggregate).project(p)
+      cursor = coffeeShops.aggregate(pipeline)
     } catch (e) {
       console.error(`Error in DAO nameSearch() function 😩😩😩\n${e}`)
       return { shopsList: [], totalNumShops: 0 }
@@ -126,10 +133,11 @@ export default class coffeeShopsDAO {
     const displayCursor = cursor.limit(entries).skip(page * entries)
     try {
       const shopsList = await displayCursor.toArray()
-      aggregate.push({ $count: 'count' })
+      pipeline.push({ $count: 'count' })
       // mongodb collection method that returns the number of items in the collection that match the query
-      let totalNumShops = await coffeeShops.aggregate(aggregate).toArray()
+      let totalNumShops = await coffeeShops.aggregate(pipeline).toArray()
       totalNumShops = totalNumShops[0].count
+
       return { shopsList, totalNumShops }
     } catch (e) {
       console.error(
