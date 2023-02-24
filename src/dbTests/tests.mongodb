@@ -5,7 +5,7 @@ use('practice');
 // const meta_score = { $meta: "textScore" };
 // const sort = [["score", meta_score]];
 // const project = { score: meta_score, name: 1 };
-db.coffeeshops.find({}, { _id: 0, images: 1 }).sort({ name: 1 }).limit(2);
+// db.coffeeshops.find({}, { _id: 0, images: 1 }).sort({ name: 1 }).limit(2);
 
 // const aggregation = [
 //   {
@@ -28,8 +28,39 @@ db.coffeeshops.find({}, { _id: 0, images: 1 }).sort({ name: 1 }).limit(2);
   // }
 // ];
 
+const search = { /**
+ * index: The name of the Search index.
+ * text: Analyzed search, with required fields of query and path, the analyzed field(s) to search.
+ * term: Un-analyzed search.
+ * compound: Combines ops.
+ * span: Find in text field regions.
+ * exists: Test for presence of a field.
+ * near: Find near number or date.
+ * range: Find in numeric or date range.
+ */
+  $search: {
+    index: 'default',
+    text: {
+      query: 'fresh',
+      path: 'name',
+      fuzzy: {}
+    }
+  }
+};
+const project = {/**
+ * specifications: The fields to
+ *   include or exclude.
+ */
+  /**
+   * specifications: The fields to
+   *   include or exclude.
+   */
+  $project: {
+    name: 1
+  }
+}
 // Run the aggregation and open a cursor to the results.
 // Use toArray() to exhaust the cursor to return the whole result set.
 // You can use hasNext()/next() to iterate through the cursor page by page.
-// db.coffeeshops.aggregate([ { $search: { text : { path : "name", query : "frwsh", fuzzy : {} } } }, { $count: 'matches'} ]);
+db.coffeeshops.aggregate([ search, project ]);
 // db.coffeeshops.countDocuments({ $search: { text : { path : "name", query : "frwsh", fuzzy : {} } } });
