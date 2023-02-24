@@ -171,7 +171,6 @@ async function getData() {
   try {
     let res = await fetch(str)
     let data = await res.json()
-    console.log(data)
     let items = []
 
     for (let i = 0; i < data.length; i++) {
@@ -179,7 +178,8 @@ async function getData() {
       simpleM.append(card)
     }
   } catch (e) {
-    console.log('error in getData()', e)
+    console.log('error in getData()')
+    console.log('e: ', e)
   }
   return
 }

@@ -1,70 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Accept-CH" content="DPR, Width">
-    <!-- Google Fonts! -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Sansita+Swashed:wght@300;400;500;600&display=swap"
-      rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <title>Find me Food Now!</title>
-    <!-- Customs Stylesheets -->
-    <link rel="stylesheet" href="/css/general.css">
-    <link rel="stylesheet" href=" /css/home.css">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Accept-CH" content="DPR, Width">
+  <!-- Google Fonts! -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Sansita+Swashed:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <title>Find me Food Now!</title>
+  <!-- Customs Stylesheets -->
+  <link rel="stylesheet" href="/css/general.css">
+  <link rel="stylesheet" href="/css/home.css">
+</head>
 
-  <body>
-    <!-- Responsible for setting the background images and a dark filter on them -->
-    <div class="background">
-      <!-- gettin images from the database -->
-      <% shops.forEach(el => { %>
-      <%for(let i = 0; i < el.images.length; i++) {%>
-      <img sizes="100vw"
-        src="<%=`https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_auto:100:400/coffeeShops/${el.images[i].filename}`%>"
-        srcset="<%=`https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_400/coffeeShops/${el.images[i].filename} 400w`%>,
+<body>
+  <!-- Responsible for setting the background images and a dark filter on them -->
+  <div class="background">
+    <!-- gettin images from the database -->
+    <% shops.forEach(el => { %>
+    <%for(let i = 0; i < el.images.length; i++) {%>
+    <img sizes="100vw" src="<%=`https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_auto:100:400/coffeeShops/${el.images[i].filename}`%>" srcset="<%=`https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_400/coffeeShops/${el.images[i].filename} 400w`%>,
                         <%=`https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_800/coffeeShops/${el.images[i].filename} 800w`%>,
                         <%=`https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_1200/coffeeShops/${el.images[i].filename} 1200w`%>,
-                        <%=`https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_1600/coffeeShops/${el.images[i].filename} 1600w`%>"
-        alt="">
-      <%}%>
+                        <%=`https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_1600/coffeeShops/${el.images[i].filename} 1600w`%>" alt="">
+    <%}%>
   <% }) %>
-      <!-- search box -->
-      <div class="searchbar searchbar--transparent basis-90">
-        <label for="searchbar__input" class="searchbar__wrapper">
-          <svg class="searchbar__wrapper__icon fill--white" xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512.005 512.005">
-            <path
-              d="M505.749,475.587l-145.6-145.6c28.203-34.837,45.184-79.104,45.184-127.317c0-111.744-90.923-202.667-202.667-202.667
-                    S0,90.925,0,202.669s90.923,202.667,202.667,202.667c48.213,0,92.48-16.981,127.317-45.184l145.6,145.6
-                    c4.16,4.16,9.621,6.251,15.083,6.251s10.923-2.091,15.083-6.251C514.091,497.411,514.091,483.928,505.749,475.587z
-                    M202.667,362.669c-88.235,0-160-71.765-160-160s71.765-160,160-160s160,71.765,160,160S290.901,362.669,202.667,362.669z" />
-          </svg>
-
-          <!-- <svg class="searchbar__wrapper__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path id="glass" fill-rule="evenodd" clip-rule="evenodd"
-                d="M11.1552 11.1527C12.5857 10.3269 13.0794 8.48556 12.2425 7.03592C11.4055 5.58629 9.56405 5.09322 8.13357 5.91911C6.70309 6.745 6.20936 8.58629 7.04631 10.0359C7.88326 11.4856 9.72472 11.9786 11.1552 11.1527ZM12.0727 11.7418C13.6578 10.541 14.1339 8.312 13.1085 6.53592C11.9979 4.61241 9.54674 3.94852 7.63357 5.05309C5.7204 6.15765 5.06974 8.61241 6.18028 10.5359C7.2057 12.312 9.37414 13.0142 11.2066 12.2418L11.4708 12.6994L11.7276 13.1442L12.0431 13.6907C11.8707 13.9899 11.8582 14.3703 12.0432 14.6909L13.3027 16.8723L14.5622 19.0538C14.8383 19.5321 15.4499 19.6959 15.9282 19.4198C16.4065 19.1437 16.5704 18.5321 16.2942 18.0538L15.0348 15.8723L13.7753 13.6909C13.5902 13.3703 13.2545 13.191 12.9092 13.1907L12.5936 12.6442L12.3369 12.1994L12.0727 11.7418Z"
-                fill="#D9D9D9" />
-              <circle id="outline" cx="12" cy="12" r="9.5" stroke="black" />
-            </svg> -->
-        </label>
-        <form class="searchbar__input" action="/coffeeshops" method="GET">
-          <input class="searchbar__input__text width--100 placeholder-light" type="search" name="search"
-            placeholder="Search for Restaurants">
-        </form>
-        <!-- <input type="search" class="searchbar__input" placeholder="Search for Restaurants" results> -->
-      </div>
+    <!-- search box -->
+    <div class="searchbar searchbar--transparent basis-90">
+      <label for="searchbar__input" class="searchbar__wrapper">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="search">
+          <path d="M20.6568 19.8083L16.7256 15.8771C17.9281 14.4555 18.5349 12.6243 18.4186 10.7661C18.3025 8.90785 17.4727 7.16644 16.1024 5.90576C14.7322 4.64507 12.9278 3.96285 11.0662 4.00156C9.20473 4.04027 7.4302 4.79709 6.11363 6.11363C4.79706 7.43017 4.04027 9.20456 4.00156 11.0662C3.96286 12.9277 4.6451 14.732 5.90576 16.1024C7.1663 17.4727 8.90778 18.3025 10.7661 18.4186C12.6244 18.5349 14.4556 17.9281 15.8771 16.7256L19.8083 20.6568C19.9607 20.804 20.1794 20.86 20.3838 20.804C20.588 20.7479 20.7476 20.5882 20.8038 20.384C20.8597 20.1796 20.8038 19.9609 20.6566 19.8085L20.6568 19.8083ZM5.23269 11.2324C5.23269 9.64105 5.86485 8.11492 6.99011 6.98987C8.11523 5.86461 9.64136 5.23245 11.2326 5.23245C12.8239 5.23245 14.3501 5.86461 15.4751 6.98987C16.6004 8.11499 17.2326 9.64112 17.2326 11.2324C17.2326 12.8237 16.6004 14.3498 15.4751 15.4749C14.35 16.6002 12.8239 17.2323 11.2326 17.2323C9.64184 17.2306 8.11677 16.5979 6.99182 15.473C5.86688 14.3482 5.23427 12.8231 5.23256 11.2322L5.23269 11.2324Z" />
+        </svg>
+      </label>
+      <form class="searchbar__input" action="/coffeeshops" method="GET">
+        <input class="searchbar__input__text width--100 placeholder-light" type="search" name="search" placeholder="Search for Restaurants">
+      </form>
     </div>
+  </div>
 
-    <!-- loading animation -->
-    <div class="loader-wrapper">
-      <span class="loader"><span class="loader-inner"></span></span>
-    </div>
+  <!-- loading animation -->
+  <div class="loader-wrapper">
+    <span class="loader"><span class="loader-inner"></span></span>
+  </div>
 
-    <script src="/js/home.js"></script>
-  </body>
+  <script src="/js/home.js"></script>
+</body>
 
 </html>
