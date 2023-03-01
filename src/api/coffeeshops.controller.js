@@ -170,7 +170,7 @@ export default class coffeeShopsController {
     // the stored session cookie contains the session _id along with some other stuff idk why
     // so we extract the session _id from the session cookie
     let sessionUserId = req.get('user')
-    let user = await UsersDAO.findById(sessionUserId)
+    let user = await usersDAO.findById(sessionUserId)
     if (!user) errors.author = 'The author of this shop does not exist.'
 
     let coffeeShop = await csDAO.findById({ id })
