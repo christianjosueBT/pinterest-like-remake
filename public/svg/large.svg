@@ -1,11 +1,11 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="items">
-<rect id="Rectangle 2" x="4" y="13" width="4" height="5" rx="1" stroke="#D9D9D9"/>
-<rect id="Rectangle 7" x="10" y="13" width="4" height="5" rx="1" stroke="#D9D9D9"/>
-<rect id="Rectangle 8" x="16" y="13" width="4" height="5" rx="1" stroke="#D9D9D9"/>
-<rect id="Rectangle 9" x="4" y="6" width="4" height="5" rx="1" stroke="#D9D9D9"/>
-<rect id="Rectangle 10" x="10" y="6" width="4" height="5" rx="1" stroke="#D9D9D9"/>
-<rect id="Rectangle 11" x="16" y="6" width="4" height="5" rx="1" stroke="#D9D9D9"/>
+<path d="M4 14C4 13.4477 4.44772 13 5 13H7C7.55228 13 8 13.4477 8 14V17C8 17.5523 7.55228 18 7 18H5C4.44772 18 4 17.5523 4 17V14Z" stroke="#D9D9D9"/>
+<path d="M10 14C10 13.4477 10.4477 13 11 13H13C13.5523 13 14 13.4477 14 14V17C14 17.5523 13.5523 18 13 18H11C10.4477 18 10 17.5523 10 17V14Z" stroke="#D9D9D9"/>
+<path d="M16 14C16 13.4477 16.4477 13 17 13H19C19.5523 13 20 13.4477 20 14V17C20 17.5523 19.5523 18 19 18H17C16.4477 18 16 17.5523 16 17V14Z" stroke="#D9D9D9"/>
+<path d="M4 7C4 6.44772 4.44772 6 5 6H7C7.55228 6 8 6.44772 8 7V10C8 10.5523 7.55228 11 7 11H5C4.44772 11 4 10.5523 4 10V7Z" stroke="#D9D9D9"/>
+<path d="M10 7C10 6.44772 10.4477 6 11 6H13C13.5523 6 14 6.44772 14 7V10C14 10.5523 13.5523 11 13 11H11C10.4477 11 10 10.5523 10 10V7Z" stroke="#D9D9D9"/>
+<path d="M16 7C16 6.44772 16.4477 6 17 6H19C19.5523 6 20 6.44772 20 7V10C20 10.5523 19.5523 11 19 11H17C16.4477 11 16 10.5523 16 10V7Z" stroke="#D9D9D9"/>
 </g>
-<rect id="outlines" x="2.5" y="4.5" width="19" height="15" rx="0.5" stroke="black"/>
+<rect id="outline" x="2.5" y="4.5" width="19" height="15" rx="0.5" stroke="black"/>
 </svg>
