@@ -9,6 +9,7 @@
   border-radius: 1em;
   border: none;
   height: 44px;
+  max-width: 584px;
 }
 
 /****************************** DROPDOWN BUTTON *******************************/
@@ -47,7 +48,7 @@
   min-width: 100%;
   background-color: inherit;
   z-index: 30;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 /* change the direction of the CSS border arrow if the dropdown menu is visible */
 .dropdown.is-open .arrowDown {
@@ -67,7 +68,7 @@
 .menu {
   margin: 0;
   box-shadow: 0 2px 4px 0;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   border-radius: inherit;
   position: relative;
   z-index: 30;
@@ -85,14 +86,14 @@
   z-index: 30;
 }
 .menu > li:first-child {
-  border-radius: 1rem 1rem 0 0;
+  border-radius: 0.5em 0.5em 0 0;
 }
 .menu > li:last-child {
-  border-radius: 0 0 1rem 1rem;
+  border-radius: 0 0 0.5em 0.5em;
 }
 .menu > li:hover {
-  background-color: var(--accent-primary);
-}
+  background-color: var(--main-3);
+} 
 /* SVG menu modifier */
 .menu--svg > li {
   display: flex;

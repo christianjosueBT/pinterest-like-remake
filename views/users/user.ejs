@@ -1,11 +1,10 @@
 <%- include('../partials/header', {title: 'User Page', stylesheet: "/stylesheets/user.css"}) %>
-<%- include('../partials/navbar', {nav: 'nav'}) %>
+<%- include('../partials/navbar', {nav: 'navbar'}) %>
 
 <div class="profileContainer">
   <div class="profile">
     <div class="userPicture">
-      <img
-        src="https://res.cloudinary.com/christianjosuebt/image/upload/coffeeShops/<%=userProfile.profilePicture.filename%>">
+      <img src="https://res.cloudinary.com/christianjosuebt/image/upload/coffeeShops/<%=userProfile.profilePicture.filename%>">
       </img>
     </div>
     <p class="username"><%=userProfile.username%></p>
@@ -22,8 +21,7 @@
     <% for(let i = 0; i < userProfile.reviews.length; i++) { %>
     <% if(i === 0) { %>
     <a href="/coffeeShops/<%=userProfile.reviews[i].coffeeshop._id%>">
-      <img class="active carousel__image" data-src="<%=userProfile.reviews[i].coffeeshop.images[0].filename%>"
-        alt="...">
+      <img class="active carousel__image" data-src="<%=userProfile.reviews[i].coffeeshop.images[0].filename%>" alt="...">
     </a>
     <% } else { %>
     <a href="/coffeeShops/<%=userProfile.reviews[i].coffeeshop._id%>">
@@ -34,26 +32,18 @@
       <div class="card card--item">
         <% for(let i = 0; i < userProfile.reviews.length; i++) { %>
         <% if(i === 0) { %>
-        <h3 class="carousel__text active"><a
-            href="/coffeeShops/<%=userProfile.reviews[i].coffeeshop._id%>"><%=userProfile.reviews[i].coffeeshop.name.split(/\s+/).slice(0,4).join(' ')%></a>
+        <h3 class="carousel__text active"><a href="/coffeeShops/<%=userProfile.reviews[i].coffeeshop._id%>"><%=userProfile.reviews[i].coffeeshop.name.split(/\s+/).slice(0,4).join(' ')%></a>
         </h3>
-        <svg class="stars--parent active" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com"
-          viewBox="0 0 2500 500" version="1.1">
-          <rect class="stars stars--outer" x="0" y="0" width="2500" height="500" fill="url(#pattern2)"
-            style="mask: url(#mask1)" />
-          <rect class="stars stars--inner" x="0" y="0" width="<%=userProfile.reviews[i].starRating%>" height="500"
-            style="mask: url(#mask5)" />
+        <svg class="stars--parent active" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com" viewBox="0 0 2500 500" version="1.1">
+          <rect class="stars stars--outer" x="0" y="0" width="2500" height="500" fill="url(#pattern2)" style="mask: url(#mask1)" />
+          <rect class="stars stars--inner" x="0" y="0" width="<%=userProfile.reviews[i].starRating%>" height="500" style="mask: url(#mask5)" />
         </svg>
         <% } else { %>
-        <h3 class="carousel__text"><a
-            href="/coffeeShops/<%=userProfile.reviews[i].coffeeshop._id%>"><%=userProfile.reviews[i].coffeeshop.name.split(/\s+/).slice(0,4).join(' ')%></a>
+        <h3 class="carousel__text"><a href="/coffeeShops/<%=userProfile.reviews[i].coffeeshop._id%>"><%=userProfile.reviews[i].coffeeshop.name.split(/\s+/).slice(0,4).join(' ')%></a>
         </h3>
-        <svg class="stars--parent" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com"
-          viewBox="0 0 2500 500" version="1.1">
-          <rect class="stars stars--outer" x="0" y="0" width="2500" height="500" fill="url(#pattern2)"
-            style="mask: url(#mask1)" />
-          <rect class="stars stars--inner" x="0" y="0" width="<%=userProfile.reviews[i].starRating%>" height="500"
-            style="mask: url(#mask5)" />
+        <svg class="stars--parent" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com" viewBox="0 0 2500 500" version="1.1">
+          <rect class="stars stars--outer" x="0" y="0" width="2500" height="500" fill="url(#pattern2)" style="mask: url(#mask1)" />
+          <rect class="stars stars--inner" x="0" y="0" width="<%=userProfile.reviews[i].starRating%>" height="500" style="mask: url(#mask5)" />
         </svg>
         <% }} %>
       </div>
@@ -73,23 +63,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com" viewBox="0 0 2500 500" version="1.1">
   <defs>
     <pattern id="pattern1" x="0" y="0" width="500" height="500" patternUnits="userSpaceOnUse">
-      <path
-        d="M 354.667 186.497 L 404.728 279.884 L 504.667 301.087 L 435.667 380.006 L 447.372 486.497 L 354.667 441.884 L 261.962 486.497 L 273.667 380.006 L 204.667 301.087 L 304.606 279.884 Z"
-        style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 8px; fill: rgb(255, 255, 255);"
-        transform="matrix(1, 0.000054, -0.000054, 1, -104.648837, -86.516146)"
-        bx:shape="star 354.667 352.333 157.719 165.836 0.54 5 1@aca9c76d" bx:origin="0.500924 0.494259" />
+      <path d="M 354.667 186.497 L 404.728 279.884 L 504.667 301.087 L 435.667 380.006 L 447.372 486.497 L 354.667 441.884 L 261.962 486.497 L 273.667 380.006 L 204.667 301.087 L 304.606 279.884 Z" style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 8px; fill: rgb(255, 255, 255);" transform="matrix(1, 0.000054, -0.000054, 1, -104.648837, -86.516146)" bx:shape="star 354.667 352.333 157.719 165.836 0.54 5 1@aca9c76d" bx:origin="0.500924 0.494259" />
     </pattern>
     <pattern id="pattern2" x="0" y="0" width="500" height="500" patternUnits="userSpaceOnUse">
-      <path
-        d="M 354.667 131.218 L 421.415 255.735 L 554.667 284.005 L 462.667 389.23 L 478.274 531.219 L 354.667 471.735 L 231.06 531.219 L 246.667 389.23 L 154.667 284.005 L 287.919 255.735 Z"
-        style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 8px; fill: rgb(255, 255, 255);"
-        transform="matrix(1, -0.000051, 0.000051, 1, -104.683894, -81.200404)"
-        bx:shape="star 354.667 352.333 210.292 221.115 0.54 5 1@4152cf12" bx:origin="0.5 0.5" />
-      <path
-        d="M 354.667 158.858 L 413.071 267.81 L 529.667 292.546 L 449.167 384.618 L 462.823 508.858 L 354.667 456.81 L 246.511 508.858 L 260.167 384.618 L 179.667 292.546 L 296.263 267.81 Z"
-        style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 8px;"
-        transform="matrix(1, 0.000054, -0.000054, 1, -104.648975, -83.877154)"
-        bx:shape="star 354.667 352.333 184.006 193.475 0.54 5 1@c125bbbd" bx:origin="0.5714 0.476826" />
+      <path d="M 354.667 131.218 L 421.415 255.735 L 554.667 284.005 L 462.667 389.23 L 478.274 531.219 L 354.667 471.735 L 231.06 531.219 L 246.667 389.23 L 154.667 284.005 L 287.919 255.735 Z" style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 8px; fill: rgb(255, 255, 255);" transform="matrix(1, -0.000051, 0.000051, 1, -104.683894, -81.200404)" bx:shape="star 354.667 352.333 210.292 221.115 0.54 5 1@4152cf12" bx:origin="0.5 0.5" />
+      <path d="M 354.667 158.858 L 413.071 267.81 L 529.667 292.546 L 449.167 384.618 L 462.823 508.858 L 354.667 456.81 L 246.511 508.858 L 260.167 384.618 L 179.667 292.546 L 296.263 267.81 Z" style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 8px;" transform="matrix(1, 0.000054, -0.000054, 1, -104.648975, -83.877154)" bx:shape="star 354.667 352.333 184.006 193.475 0.54 5 1@c125bbbd" bx:origin="0.5714 0.476826" />
     </pattern>
     <mask id="mask1" x="0" y="0" width="2500" height="500">
       <rect x="0" y="0" width="2500" height="500" style="stroke:none; fill: url(#pattern2)" />

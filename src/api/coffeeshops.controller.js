@@ -5,14 +5,12 @@ import { ObjectId } from 'bson'
 
 export default class coffeeShopsController {
   static async getCoffeeShops(req, res, next) {
-    let filters = {},
-      page,
-      project,
-      entries
+    let page, project, rating, entries
 
     try {
       page = req.query.page ? parseInt(req.query.page, 10) : 0
       project = req.query.project ? req.query.project.split(',') : []
+      rating = req.query.rating ? req.query.rating === 'true' : false
       entries = req.query.entries ? parseInt(req.query.entries, 10) : 10
     } catch (e) {
       console.error(`Got bad value for page, project, or entries: ${e}`)
@@ -20,10 +18,10 @@ export default class coffeeShopsController {
       project = []
       entries = 10
     }
-    const { shopsList, totalNumShops } = await csDAO.getCoffeeShops({
-      filters,
+    const { shopsList } = await csDAO.getCoffeeShops({
       page,
       project,
+      rating,
       entries,
     })
 
@@ -32,7 +30,6 @@ export default class coffeeShopsController {
       page: page,
       filters: {},
       entries,
-      total_results: totalNumShops,
     }
     return res.json(response)
   }
@@ -46,9 +43,9 @@ export default class coffeeShopsController {
         !shopFromBody.author ||
         !shopFromBody.name ||
         !shopFromBody.price ||
-        !shopFromBody.description
+        !shopFromBody.images
       ) {
-        errors.missingField = 'Expected author, name, price, and description'
+        errors.missingField = 'Expected author, name, price, and images'
       }
 
       let user = await UsersDAO.findById(shopFromBody.author)
@@ -68,14 +65,14 @@ export default class coffeeShopsController {
       if (!coffeeshopFromDB)
         errors.coffeeshop = 'Problem fetching the newly created coffee shop'
 
-      const updateObj = {
-        $push: { coffeeShops: insertResult._id },
-      }
+      // const updateObj = {
+      //   $push: { coffeeShops: insertResult._id },
+      // }
 
-      let updateResult = await UsersDAO.update(user._id, updateObj)
-      if (!updateResult.ok)
-        errors.updateUser =
-          'Problem updating the author of this new coffee shop'
+      // let updateResult = await UsersDAO.update(user._id, updateObj, true)
+      // if (!updateResult.ok)
+      //   errors.updateUser =
+      //     'Problem updating the author of this new coffee shop'
 
       if (Object.keys(errors).length > 0) {
         res.status(400).json(errors)
@@ -228,7 +225,6 @@ export default class coffeeShopsController {
       }
       res.json({ coffeeshop, ok: true })
     } catch (e) {
-      console.log(`api, ${e}`)
       res.status(500).json({ error: e })
     }
   }
@@ -253,36 +249,38 @@ export default class coffeeShopsController {
       return
     }
 
-    // we now want to iterate over the reviews of this coffeeshop
-    // we will fetch all authors and delete pull the review associated with this coffeeshop from their profiles
-    // we will also delete the review from the review collection as well
-    let reviews = await csDAO.findById({ id, populate: ['reviews'] })
-    reviews = reviews.reviews
-    for (const review of reviews) {
-      let reviewId = review._id
-      const updateDocument = {
-        $pull: { reviews: ObjectId(reviewId) },
-      }
+    // // we now want to iterate over the reviews of this coffeeshop
+    // // we will fetch all authors and pull the review associated with this coffeeshop from their profiles
+    // // we will also delete the review from the review collection as well
+    // let reviews = await csDAO.findById({ id, populate: ['reviews'] })
 
-      try {
-        let author = usersDAO.update(review.author, updateDocument)
-        csDAO.deleteReview(reviewId, author)
-      } catch (e) {
-        console.error('error deleting review', e)
-      }
-    }
+    // reviews = reviews.reviews
+    // for (const review of reviews) {
+    //   let reviewId = review._id
+    //   let coffeeShopId = review.coffeeShop
+    //   const updateDocument = {
+    //     $pull: { reviews: ObjectId(reviewId) },
+    //   }
 
-    // we now want to delete this coffee shop from the author's page
-    const updateObj = { $pull: { coffeeShops: ObjectId(id) } }
-    let updateUser = await usersDAO.update(user._id, updateObj)
-    if (!updateUser.ok)
-      errors.author = 'Problem updating the author of the deleted coffee shop'
-    if (Object.keys(errors).length > 0) {
-      res.status(400).json(errors)
-      return
-    }
+    //   try {
+    //     let author = usersDAO.update(review.author, updateDocument, false)
+    //     csDAO.deleteReview(reviewId, author, coffeeShopId)
+    //   } catch (e) {
+    //     console.error('error deleting review', e)
+    //   }
+    // }
 
-    // finally we want to delete the actual coffee shop
+    // // we now want to delete this coffee shop from the author's page
+    // const updateObj = { $pull: { coffeeShops: ObjectId(id) } }
+    // let updateUser = await usersDAO.update(user._id, updateObj, false)
+    // if (!updateUser.ok)
+    //   errors.author = 'Problem updating the author of the deleted coffee shop'
+    // if (Object.keys(errors).length > 0) {
+    //   res.status(400).json(errors)
+    //   return
+    // }
+
+    // now we delete the actual coffee shop
     let deleteResult = await csDAO.delete(id, user._id)
     if (!deleteResult.ok) errors.delete = 'Problem deleting coffee shop'
     if (Object.keys(errors).length > 0) {

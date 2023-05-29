@@ -1,5 +1,5 @@
 <%- include('../templates/header', {title: 'Coffee Shop Showpage', stylesheet: ""}) %>
-<%- include('../templates/navbar', {nav: 'nav margin-0'}) %>
+<%- include('../templates/navbar', {nav: 'navbar margin-0'}) %>
 
 
 <!-- Coffee Shop -->
@@ -24,7 +24,7 @@
 
 <!-- DESCRIPTION -->
 <div class="container margin-top">
-  <p class="font-small"><%=coffeeShop.description%></p>
+  <p class="font-small">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, magnam. Ipsa minima est commodi totam, excepturi distinctio possimus sequi porro quibusdam ipsam sunt aspernatur ad rerum unde optio doloremque iste?</p>
   <%if(user && String(user._id) === String(coffeeShop.author)) {%>
   <div class="container container--flex">
     <a class="button" href="/coffeeshops/<%=coffeeShop._id%>/edit">Edit</a>
@@ -59,14 +59,11 @@
   <form action="/coffeeShops/<%=coffeeShop._id%>/reviews" method="POST">
     <div class="comment">
       <div class="comment__picture">
-        <img
-          src="https://res.cloudinary.com/christianjosuebt/image/upload/w_200,h_200,c_limit,e_blur:400,o_90,b_black/l_text:arial_80:®,ar_1:1,c_lfill,o_60,co_rgb:ffffff,b_rgb:000000,r_max/v1619026522/coffeeShops/smile_bpkzip.svg"
-          alt="">
+        <img src="https://res.cloudinary.com/christianjosuebt/image/upload/w_200,h_200,c_limit,e_blur:400,o_90,b_black/l_text:arial_80:®,ar_1:1,c_lfill,o_60,co_rgb:ffffff,b_rgb:000000,r_max/v1619026522/coffeeShops/smile_bpkzip.svg" alt="">
       </div>
       <div class="comment__main">
         <div class="comment__main__body flex flex--column">
-          <a href="/users/login"><input class="input" type="text" name="review[body]" placeholder="Leave a review..."
-              required></a>
+          <a href="/users/login"><input class="input" type="text" name="review[body]" placeholder="Leave a review..." required></a>
           <svg xmlns="http://www.w3.org/2000/svg" class="line" viewBox="0 0 40 2" preserveAspectRatio="none">
             <path d="M0 1 L40 1"></path>
             <path d="M0 1 L40 1" class="focus"></path>
@@ -75,12 +72,9 @@
         </div>
         <div class="comment__aside hide">
           <div class="comment__aside__rating">
-            <svg class="stars--parent" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com"
-              viewBox="0 0 2500 500" version="1.1">
-              <rect class="stars stars--inner stars--custom" x="0" y="0" width="1250" height="500"
-                style="mask: url(#mask5)" />
-              <rect class="stars stars--outer stars--set" x="0" y="0" width="2500" height="500" fill="url(#pattern2)"
-                style="mask: url(#mask1)" />
+            <svg class="stars--parent" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com" viewBox="0 0 2500 500" version="1.1">
+              <rect class="stars stars--inner stars--custom" x="0" y="0" width="1250" height="500" style="mask: url(#mask5)" />
+              <rect class="stars stars--outer stars--set" x="0" y="0" width="2500" height="500" fill="url(#pattern2)" style="mask: url(#mask1)" />
             </svg>
             <input type="number" name="review[rating]" min="0" max="5" step="0.01" class="stars--rating label">
           </div>
@@ -109,12 +103,9 @@
         </div>
         <div class="comment__aside hide">
           <div class="comment__aside__rating">
-            <svg class="stars--parent" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com"
-              viewBox="0 0 2500 500" version="1.1">
-              <rect class="stars stars--inner stars--custom" x="0" y="0" width="1250" height="500"
-                style="mask: url(#mask5)" />
-              <rect class="stars stars--outer stars--set" x="0" y="0" width="2500" height="500" fill="url(#pattern2)"
-                style="mask: url(#mask1)" />
+            <svg class="stars--parent" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com" viewBox="0 0 2500 500" version="1.1">
+              <rect class="stars stars--inner stars--custom" x="0" y="0" width="1250" height="500" style="mask: url(#mask5)" />
+              <rect class="stars stars--outer stars--set" x="0" y="0" width="2500" height="500" fill="url(#pattern2)" style="mask: url(#mask1)" />
             </svg>
             <input type="number" name="review[rating]" min="0" max="5" step="0.01" class="stars--rating label">
           </div>
@@ -140,12 +131,9 @@
         <div class="comment__main__title">
           <%=coffeeShop.reviews[i].author[0].username%>
           <!-- SVG STARS -->
-          <svg class="stars--parent" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com"
-            viewBox="0 0 2500 500" version="1.1">
-            <rect class="stars stars--outer" x="0" y="0" width="2500" height="500" fill="url(#pattern2)"
-              style="mask: url(#mask1)" />
-            <rect class="stars stars--inner" x="0" y="0" data-rating="<%=coffeeShop.reviews[i].rating%>" width="1"
-              height="500" style="mask: url(#mask5)" />
+          <svg class="stars--parent" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com" viewBox="0 0 2500 500" version="1.1">
+            <rect class="stars stars--outer" x="0" y="0" width="2500" height="500" fill="url(#pattern2)" style="mask: url(#mask1)" />
+            <rect class="stars stars--inner" x="0" y="0" data-rating="<%=coffeeShop.reviews[i].rating%>" width="1" height="500" style="mask: url(#mask5)" />
           </svg>
         </div>
         <div class="comment__main__body">

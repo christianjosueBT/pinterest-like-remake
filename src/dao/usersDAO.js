@@ -4,6 +4,63 @@ import { ObjectId } from 'bson'
 let users, sessions
 
 export default class UsersDAO {
+  static async initialize(conn) {
+    await conn.db(db).createCollection('users', {
+      validator: {
+        $jsonSchema: {
+          bsonType: 'object',
+          title: 'User Object Validation',
+          required: ['username', 'password', 'email', 'profilePicture'],
+          properties: {
+            username: {
+              bsonType: 'string',
+              minLength: 3,
+            },
+            password: {
+              bsonType: 'string',
+              minLength: 8,
+            },
+            email: {
+              bsonType: 'string',
+            },
+            profilePicture: {
+              bsonType: 'object',
+              description:
+                "'profilePicture' must have url and filename properties",
+              required: ['url', 'filename'],
+              properties: {
+                url: {
+                  bsonType: 'string',
+                },
+                filename: {
+                  bsonType: 'string',
+                },
+              },
+            },
+            coffeeShops: {
+              bsonType: ['array'],
+              uniqueItems: true,
+              description:
+                "'coffeeShops' must be an array of objectIds, each one being a reference to the coffee shops the user is the author of",
+              items: {
+                bsonType: ['objectId'],
+              },
+            },
+            reviews: {
+              bsonType: ['array'],
+              uniqueItems: true,
+              description:
+                "'reviews' must be an array of objectIds, each one being a reference to the review",
+              items: {
+                bsonType: ['objectId'],
+              },
+            },
+          },
+        },
+      },
+    })
+  }
+
   static async injectDB(conn) {
     if (users || sessions) return
     try {
@@ -62,14 +119,14 @@ export default class UsersDAO {
    */
   static async addUser(userInfo) {
     try {
-      await users.insertOne(userInfo)
-      return { success: true }
+      const result = await users.insertOne(userInfo)
+      return { success: true, _id: result.insertedId }
     } catch (e) {
       if (String(e).startsWith('MongoError: E11000 duplicate key error')) {
         return { error: 'A user with the given email already exists.' }
       }
       console.error(`Error occurred while adding new user, ${e}.`)
-      return { error: e }
+      return { success: true, error: e }
     }
   }
 
@@ -112,9 +169,9 @@ export default class UsersDAO {
     }
   }
 
-  static async update(id, updateObj) {
+  static async update(id, updateObj, upsert) {
     try {
-      let user = await users.updateOne({ _id: id }, updateObj)
+      let user = await users.updateOne({ _id: id }, updateObj, {upsert: upsert})
       if (user.modifiedCount > 0) return { ok: true }
       else return { ok: false }
     } catch (e) {

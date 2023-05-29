@@ -32,7 +32,7 @@ router.post('/register', async (req, res) => {
   if (!result.ok)
     return res.status(400).json({ error: 'problem with registration' });
   req.session.user = result.user;
-  res.redirect('/colcade');
+  res.redirect('/coffeeShops');
 });
 
 router.get('/login', (req, res) => {
@@ -71,7 +71,7 @@ router.post('/login', async (req, res) => {
   }
   if (result && Object.keys(result).length > 0) {
     req.session.user = result.user;
-    res.redirect('/colcade');
+    res.redirect('/coffeeShops')
   } else {
     res.status(400).json({ error: 'problem logging in' });
   }
@@ -82,9 +82,9 @@ router.post('/logout', requireLogin, (req, res) => {
     req.session.destroy();
   } catch (err) {
     console.error('problem logging out', err);
-    res.redirect('/colcade');
+    res.redirect('/coffeeShops')
   }
-  res.redirect('/colcade');
+  res.redirect('/coffeeShops')
 });
 
 export default router;

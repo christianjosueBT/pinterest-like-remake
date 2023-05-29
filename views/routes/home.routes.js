@@ -17,37 +17,39 @@ router.route('/').get(async (req, res) => {
     )
     shops = await shops.json()
     shops = shops.shops
-    // console.log(shops);
     res.render('home.ejs', { shops })
   } catch (err) {
     console.error('error in side home.routes', err)
   }
 })
 
-router.route('/coffeeshops').get(async (req, res) => {
-  let shops = await fetch(
-    `http://${req.get(
-      'host'
-    )}/api/v1/coffeeshops?entries=10&project=images,name,description`
-  )
-  shops = await shops.json()
-  shops = shops.shops
+// router.route('/coffeeshops').get(async (req, res) => {
+//   let shops = await fetch(
+//     `http://${req.get(
+//       'host'
+//     )}/api/v1/coffeeshops?entries=10&project=images,name,description`
+//   )
+//   shops = await shops.json()
+//   shops = shops.shops
 
-  res.render('coffeeShops/index.ejs', { shops })
-  return
-})
+//   res.render('coffeeShops/index.ejs', { shops })
+//   return
+// })
 
-router.route('/colcade').get(async (req, res) => {
+router.route('/coffeeShops').get(async (req, res) => {
   let shops
   try {
     if (Object.keys(req.query).length > 0) {
+      // checking if this is a search query
       if (req.query.search && req.query.search !== '') {
         shops = await fetch(
           `http://${req.get('host')}/api/v1/coffeeshops/search?type=name&name=${
             req.query.search
-          }&project=images,name,description`
+          }&project=images,name&rating=true`
         )
-      } else {
+      }
+      // this is not a search query, but there are other query parameters
+      else {
         let str = `http://${req.get('host')}/api/v1/coffeeshops?`
         for (const el of Object.keys(req.query)) {
           str += `${el}=${req.query[el]}&`
@@ -56,11 +58,14 @@ router.route('/colcade').get(async (req, res) => {
         shops = await fetch(str)
         shops = await shops.text()
         shops = JSON.parse(shops).shops
-        // console.log(shops);
         return res.send(shops)
       }
     } else {
-      shops = await fetch(`http://${req.get('host')}/api/v1/coffeeshops`)
+      shops = await fetch(
+        `http://${req.get(
+          'host'
+        )}/api/v1/coffeeshops?project=images,name&rating=true`
+      )
     }
     shops = await shops.json()
     shops = shops.shops
@@ -68,8 +73,7 @@ router.route('/colcade').get(async (req, res) => {
     console.error('Problem fetching coffee shops', e.message)
   }
 
-  // console.log('render ran');
-  res.render('coffeeShops/colcade.ejs', { shops })
+  res.render('coffeeShops/index.ejs', { shops })
   return
 })
 
@@ -93,7 +97,6 @@ router
       author: req.session.user._id,
       name: req.body.coffeeshop.name,
       price: req.body.coffeeshop.price,
-      description: req.body.coffeeshop.description,
       images: files,
     }
 
@@ -157,7 +160,6 @@ router
       let coffeeShop = {
         name: req.body.coffeeshop.name,
         price: req.body.coffeeshop.price,
-        description: req.body.coffeeshop.description,
         images: files,
       }
 
@@ -206,15 +208,13 @@ router
 
     result = await result.json()
 
-    console.log('result:', result)
-
     if (!result.ok)
       return res.status(400).json({
         message: 'problem deleting  the coffeeshop ☹️☹️☹️',
         error: result.message,
       })
 
-    res.redirect(`/colcade`)
+    res.redirect(`/coffeeShops`)
   })
 
 router
