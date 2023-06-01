@@ -10,7 +10,13 @@ export default class UsersDAO {
         $jsonSchema: {
           bsonType: 'object',
           title: 'User Object Validation',
-          required: ['username', 'password', 'email', 'profilePicture'],
+          required: [
+            'username',
+            'password',
+            'email',
+            'profilePicture',
+            'createdDate',
+          ],
           properties: {
             username: {
               bsonType: 'string',
@@ -54,6 +60,10 @@ export default class UsersDAO {
               items: {
                 bsonType: ['objectId'],
               },
+            },
+            createdDate: {
+              bsonType: 'date',
+              description: 'date object of when this coffee shop was created',
             },
           },
         },
@@ -119,6 +129,7 @@ export default class UsersDAO {
    */
   static async addUser(userInfo) {
     try {
+      userInfo.createdDate = new Date()
       const result = await users.insertOne(userInfo)
       return { success: true, _id: result.insertedId }
     } catch (e) {
@@ -171,7 +182,9 @@ export default class UsersDAO {
 
   static async update(id, updateObj, upsert) {
     try {
-      let user = await users.updateOne({ _id: id }, updateObj, {upsert: upsert})
+      let user = await users.updateOne({ _id: id }, updateObj, {
+        upsert: upsert,
+      })
       if (user.modifiedCount > 0) return { ok: true }
       else return { ok: false }
     } catch (e) {

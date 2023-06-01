@@ -128,6 +128,8 @@ const seedDB = async num => {
       rating,
     }
 
+    console.log('reviewInfo:', reviewInfo)
+
     const reviewInsertResult = await csDAO.newReview(reviewInfo)
     let reviewId
 

@@ -12,7 +12,7 @@ export default class coffeeShopsDAO {
         $jsonSchema: {
           bsonType: 'object',
           title: 'Coffee Shop Object Validation',
-          required: ['author', 'name', 'price', 'images'],
+          required: ['author', 'name', 'price', 'images', 'createdDate'],
           properties: {
             author: {
               bsonType: 'objectId',
@@ -52,6 +52,10 @@ export default class coffeeShopsDAO {
                 },
               },
             },
+            createdDate: {
+              bsonType: 'date',
+              description: 'date object of when this coffee shop was created',
+            },
           },
         },
       },
@@ -62,7 +66,7 @@ export default class coffeeShopsDAO {
         $jsonSchema: {
           bsonType: 'object',
           title: 'Review Object Validation',
-          required: ['author', 'body', 'coffeeShop', 'rating'],
+          required: ['author', 'body', 'coffeeShop', 'rating', 'createdDate'],
           properties: {
             author: {
               bsonType: 'objectId',
@@ -79,6 +83,10 @@ export default class coffeeShopsDAO {
             rating: {
               bsonType: 'int',
               description: 'rating must be an integer value from 0 to 5',
+            },
+            createdDate: {
+              bsonType: 'date',
+              description: 'date object of when this coffee shop was created',
             },
           },
         },
@@ -100,8 +108,8 @@ export default class coffeeShopsDAO {
   }
 
   static async newCoffeeShop(shopInfo) {
-    if (!ObjectId.isValid(shopInfo.author))
-      shopInfo.author = ObjectId(shopInfo.author)
+    shopInfo.author = new ObjectId(shopInfo.author)
+    shopInfo.createdDate = new Date()
 
     try {
       // inserting a new coffee shop to the database
@@ -421,15 +429,16 @@ export default class coffeeShopsDAO {
    * @returns {Object} Either an object with success:true and the inserted review id or an error object
    */
   static async newReview(reviewInfo) {
-    if (!ObjectId.isValid(reviewInfo.author))
-      reviewInfo.author = ObjectId(reviewInfo.author)
-    if (!ObjectId.isValid(reviewInfo.coffeeShop))
-      reviewInfo.coffeeShop = ObjectId(reviewInfo.coffeeShop)
+    reviewInfo.author = new ObjectId(reviewInfo.author)
+    reviewInfo.coffeeShop = new ObjectId(reviewInfo.coffeeShop)
+    reviewInfo.createdDate = new Date()
+
     try {
       // inserting review to the database
       let result = await reviews.insertOne({
         ...reviewInfo,
       })
+      console.log('reviewInfo:', reviewInfo)
       // making the insertedId a valid ObjectId if it isnt
       if (!ObjectId.isValid(result.insertedId))
         result.insertedId = ObjectId(result.insertedId)

@@ -48,7 +48,7 @@ export default class coffeeShopsController {
         errors.missingField = 'Expected author, name, price, and images'
       }
 
-      let user = await UsersDAO.findById(shopFromBody.author)
+      let user = await usersDAO.findById(shopFromBody.author)
       if (!user) {
         errors.author = 'The author of this shop does not exist.'
       }
@@ -300,7 +300,7 @@ export default class coffeeShopsController {
         errors.missingField = 'Expected author, body, coffeeShop, and rating'
       }
 
-      let user = await UsersDAO.findById(reviewFromBody.author)
+      let user = await usersDAO.findById(reviewFromBody.author)
       if (!user) {
         errors.author = 'The author of this review does not exist.'
       }
@@ -309,11 +309,11 @@ export default class coffeeShopsController {
         return
       }
 
-      const insertResult = await csDAO.newCoffeeShop(reviewFromBody)
+      const insertResult = await csDAO.newReview(reviewFromBody)
       if (!insertResult.success || !insertResult._id) {
         errors.insert = insertResult.error
       }
-      const reviewFromDB = await csDAO.findById({ id: insertResult._id })
+      const reviewFromDB = await csDAO.findReviewById({ id: insertResult._id })
       if (!reviewFromDB)
         errors.reviewFromDB = 'Problem fetching the newly created review'
 
@@ -329,6 +329,7 @@ export default class coffeeShopsController {
         review: reviewFromDB,
       })
     } catch (e) {
+      console.log(e)
       res.status(500).json({ error: e })
     }
   }

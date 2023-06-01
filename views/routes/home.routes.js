@@ -237,11 +237,11 @@ router
   .post(requireLogin, async (req, res) => {
     const { id } = req.params
 
-    const review = {
+    const reviewInfo = {
       author: req.session.user._id,
       body: req.body.review.body,
       coffeeShop: id,
-      rating: req.body.review.coffeeShop,
+      rating: parseInt(req.body.review.rating, 10),
     }
 
     let result = await fetch(
@@ -249,11 +249,12 @@ router
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(review),
+        body: JSON.stringify(reviewInfo),
       }
     )
 
     result = await result.json()
+    console.log('result:', result)
     if (!result.ok)
       return res.status(400).json({
         message: 'problem making a new coffeeshop ☹️☹️☹️',
@@ -262,7 +263,7 @@ router
 
     let review = result.review
 
-    res.redirect(`/coffeeshops/${coffeeshop._ide}`)
+    res.redirect(`/coffeeshops/${id}`)
   })
   .delete(requireLogin, isAllowed, async (req, res) => {
     const { id } = req.params
