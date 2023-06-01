@@ -160,11 +160,11 @@ function changeRight(images) {
       parseFloat(images[i].style.left) >= width - images[i].scrollWidth
     ) {
       const rightMost = images[i]
-      console.log('index: i ', i)
-      console.log('left: ', rightMost.style.left)
-      console.log('scroll width: ', rightMost.scrollWidth)
-      console.log('window width: ', width)
-      console.log('w - scroll: ', width - rightMost.scrollWidth)
+      // console.log('index: i ', i)
+      // console.log('left: ', rightMost.style.left)
+      // console.log('scroll width: ', rightMost.scrollWidth)
+      // console.log('window width: ', width)
+      // console.log('w - scroll: ', width - rightMost.scrollWidth)
       if (
         i === length - 1 &&
         parseFloat(rightMost.style.left) === width - rightMost.scrollWidth
@@ -224,7 +224,6 @@ function loadRatings() {
   for (const review of reviews) {
     const rating = review.querySelector('.rating')
     const ratingNum = rating?.dataset.rating
-    console.log('ratingNum:', ratingNum)
     const ratingCups = rating?.children
     for (let i = 0; i < ratingNum; i++) {
       ratingCups[i].firstElementChild.href.baseVal = '#cupFill'
@@ -248,9 +247,9 @@ function ratingEventListener(event) {
     next.firstElementChild.href.baseVal = '#cup'
     next = next.nextElementSibling
   }
+
   if (next.tagName.toLowerCase() === 'input') next.value = curr.dataset.rating
-  console.log('curr.dataset.rating:', curr.dataset.rating)
-  console.log('next:', next)
+
   while (curr) {
     curr.firstElementChild.href.baseVal = '#cupFill'
     curr = curr.previousElementSibling
