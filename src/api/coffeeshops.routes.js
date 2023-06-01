@@ -7,6 +7,7 @@ router.route('/').get(csCtlr.getCoffeeShops)
 router.route('/new').post(csCtlr.newCoffeeShop)
 router.route('/search').get(csCtlr.searchCoffeeShops)
 router.route('/:id').get(csCtlr.findById)
+router.route('/:id/reviews').post(csCtlr.newReview)
 router.route('/:id/update').put(csCtlr.update)
 router.route('/:id/delete').delete(csCtlr.delete)
 

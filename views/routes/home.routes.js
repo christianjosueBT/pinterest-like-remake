@@ -79,7 +79,7 @@ router.route('/coffeeShops').get(async (req, res) => {
 
 // render 'make a new coffeeshop' form
 router
-  .route('/coffeeshops/new')
+  .route('/coffeeShops/new')
   .get(requireLogin, (req, res) => {
     res.render('coffeeshops/new.ejs')
     return
@@ -124,7 +124,7 @@ router
   })
 
 router
-  .route('/coffeeshops/:id')
+  .route('/coffeeShops/:id')
   .get(async (req, res) => {
     let coffeeShop,
       result,
@@ -190,6 +190,80 @@ router
       res.redirect(`/coffeeShops/${coffeeshop._id}`)
     }
   )
+  .delete(requireLogin, isAllowed, async (req, res) => {
+    const { id } = req.params
+    // sending a delete  request to the api delete route
+    let result = await fetch(
+      `http://${req.get(
+        'host'
+      )}/api/v1/coffeeshops/${id}/delete?_method=DELETE`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          user: req.session.user._id,
+        },
+      }
+    )
+
+    result = await result.json()
+
+    if (!result.ok)
+      return res.status(400).json({
+        message: 'problem deleting  the coffeeshop ☹️☹️☹️',
+        error: result.message,
+      })
+
+    res.redirect(`/coffeeShops`)
+  })
+
+router
+  .route('/coffeeShops/:id/reviews')
+  .get(async (req, res) => {
+    // let coffeeShop,
+    //   result,
+    //   id = req.params.id
+    // try {
+    //   result = await fetch(`http://${req.get('host')}/api/v1/coffeeshops/${id}`)
+    //   coffeeShop = await result.json()
+    //   coffeeShop = coffeeShop.coffeeshop
+    //   // if (!result.ok) return res.render('coffeeShops/notFound.ejs');
+    // } catch (e) {
+    //   console.error('error fetching coffeeshop with that id')
+    // }
+    // res.render('coffeeshops/showPage.ejs', { coffeeShop })
+    res.json({ reminder: 'I should make a get reviews page' })
+  })
+  .post(requireLogin, async (req, res) => {
+    const { id } = req.params
+
+    const review = {
+      author: req.session.user._id,
+      body: req.body.review.body,
+      coffeeShop: id,
+      rating: req.body.review.coffeeShop,
+    }
+
+    let result = await fetch(
+      `http://${req.get('host')}/api/v1/coffeeshops/${id}/reviews`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(review),
+      }
+    )
+
+    result = await result.json()
+    if (!result.ok)
+      return res.status(400).json({
+        message: 'problem making a new coffeeshop ☹️☹️☹️',
+        error: result,
+      })
+
+    let review = result.review
+
+    res.redirect(`/coffeeshops/${coffeeshop._ide}`)
+  })
   .delete(requireLogin, isAllowed, async (req, res) => {
     const { id } = req.params
     // sending a delete  request to the api delete route

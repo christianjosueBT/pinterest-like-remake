@@ -335,8 +335,6 @@ export default class coffeeShopsDAO {
   }
 
   static async findById({ id = null, populate = [] } = {}) {
-    // if (!ObjectId.isValid(id)) id = ObjectId(id)
-
     let lookup = {}
     const pipeline = [
       {
@@ -485,6 +483,50 @@ export default class coffeeShopsDAO {
     } catch (e) {
       console.error(`error deleting review, ${e.message}`)
       return { error: e.message, ok: false }
+    }
+  }
+
+  static async findReviewById({ id = null, populate = [] } = {}) {
+    let lookup = {}
+    const pipeline = [
+      {
+        $match: {
+          _id: new ObjectId(id),
+        },
+      },
+    ]
+
+    for (let el of populate) {
+      if (el === 'author') {
+        lookup = {
+          $lookup: {
+            from: 'users',
+            localField: 'author',
+            foreignField: '_id',
+            as: 'author',
+          },
+        }
+        pipeline.push(lookup)
+      } else if (el === 'coffeeShop') {
+        lookup = {
+          $lookup: {
+            from: 'coffeeshops',
+            localField: 'coffeeShop',
+            foreignField: '_id',
+            as: 'coffeeShop',
+          },
+        }
+        pipeline.push(lookup)
+      }
+    }
+
+    try {
+      let res = await reviews.aggregate(pipeline).next()
+      if (!res) throw new Error('Review not found')
+      return res
+    } catch (e) {
+      console.error(`Something went wrong in DAO findById: ${e}`)
+      throw e
     }
   }
 }

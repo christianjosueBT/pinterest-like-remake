@@ -65,15 +65,6 @@ export default class coffeeShopsController {
       if (!coffeeshopFromDB)
         errors.coffeeshop = 'Problem fetching the newly created coffee shop'
 
-      // const updateObj = {
-      //   $push: { coffeeShops: insertResult._id },
-      // }
-
-      // let updateResult = await UsersDAO.update(user._id, updateObj, true)
-      // if (!updateResult.ok)
-      //   errors.updateUser =
-      //     'Problem updating the author of this new coffee shop'
-
       if (Object.keys(errors).length > 0) {
         res.status(400).json(errors)
         return
@@ -282,6 +273,88 @@ export default class coffeeShopsController {
 
     // now we delete the actual coffee shop
     let deleteResult = await csDAO.delete(id, user._id)
+    if (!deleteResult.ok) errors.delete = 'Problem deleting coffee shop'
+    if (Object.keys(errors).length > 0) {
+      res.status(400).json(errors)
+      return
+    }
+
+    // sending sucscessful status and response
+    res.status(200).json({
+      message: 'successfully delete coffeeshop',
+      ok: true,
+    })
+  }
+
+  static async newReview(req, res, next) {
+    try {
+      // getting user info from request body and validating the info
+      const reviewFromBody = req.body
+      let errors = {}
+      if (
+        !reviewFromBody.author ||
+        !reviewFromBody.body ||
+        !reviewFromBody.coffeeShop ||
+        !reviewFromBody.rating
+      ) {
+        errors.missingField = 'Expected author, body, coffeeShop, and rating'
+      }
+
+      let user = await UsersDAO.findById(reviewFromBody.author)
+      if (!user) {
+        errors.author = 'The author of this review does not exist.'
+      }
+      if (Object.keys(errors).length > 0) {
+        res.status(400).json(errors)
+        return
+      }
+
+      const insertResult = await csDAO.newCoffeeShop(reviewFromBody)
+      if (!insertResult.success || !insertResult._id) {
+        errors.insert = insertResult.error
+      }
+      const reviewFromDB = await csDAO.findById({ id: insertResult._id })
+      if (!reviewFromDB)
+        errors.reviewFromDB = 'Problem fetching the newly created review'
+
+      if (Object.keys(errors).length > 0) {
+        res.status(400).json(errors)
+        return
+      }
+
+      // sending user, successful status and response
+      res.status(200).json({
+        message: 'successfully created a new review',
+        ok: true,
+        review: reviewFromDB,
+      })
+    } catch (e) {
+      res.status(500).json({ error: e })
+    }
+  }
+
+  static async deleteReview(req, res, next) {
+    let id,
+      errors = {}
+    try {
+      id = req.params.id
+    } catch (e) {
+      console.error(`no params id, ${e}`)
+    }
+
+    // the stored session cookie contains the session _id along with some other stuff (idk why)
+    // so we need to extract the session _id from the session cookie
+    let sessionUserId = req.get('user')
+    // we then use this _id to retrieve the user and check it exists
+    let user = await usersDAO.findById(sessionUserId)
+    if (!user) errors.author = 'The author of this coffee shop does not exist'
+    if (Object.keys(errors).length > 0) {
+      res.status(400).json(errors)
+      return
+    }
+
+    // now we delete the actual coffee shop
+    let deleteResult = await csDAO.deleteReview(reviewId, user._id, id)
     if (!deleteResult.ok) errors.delete = 'Problem deleting coffee shop'
     if (Object.keys(errors).length > 0) {
       res.status(400).json(errors)

@@ -39,10 +39,10 @@ function stars() {
   const svg = document.querySelector('.stars--parent')
   const label = document.querySelector('.label')
 
-  label.addEventListener('input', starsLabel)
-  svg.addEventListener('click', starsToggle)
-  svg.addEventListener('mousemove', starsMouse)
-  svg.setAttribute('listener', 'true')
+  // label.addEventListener('input', starsLabel)
+  // svg.addEventListener('click', starsToggle)
+  // svg.addEventListener('mousemove', starsMouse)
+  // svg.setAttribute('listener', 'true')
 }
 
 function starsToggle() {
@@ -89,20 +89,9 @@ function setStarsWidth() {
   const reviews = document.querySelectorAll('.comment__main__title')
   for (const review of reviews) {
     const inner = review.querySelector('.stars--inner')
-    let width = rating2Width(inner.dataset.rating)
     inner.setAttribute('width', width)
   }
   return
-}
-
-function rating2Width(rating) {
-  let num = 0
-  if (rating < 1) num = rating * 300 + 100
-  else if (rating < 2) num = (rating % 1) * 300 + 600
-  else if (rating < 3) num = (rating % 2) * 300 + 1100
-  else if (rating < 4) num = (rating % 3) * 300 + 1600
-  else if (rating <= 5) num = (rating % 4) * 300 + 2100
-  return num
 }
 
 function checkRating(value) {
@@ -230,13 +219,53 @@ function loadImages(images) {
   }
 }
 
+function loadRatings() {
+  const reviews = document.querySelectorAll('.comment__main__title')
+  for (const review of reviews) {
+    const rating = review.querySelector('.rating')
+    const ratingNum = rating?.dataset.rating
+    console.log('ratingNum:', ratingNum)
+    const ratingCups = rating?.children
+    for (let i = 0; i < ratingNum; i++) {
+      ratingCups[i].firstElementChild.href.baseVal = '#cupFill'
+    }
+  }
+}
+
+function setRating() {
+  const makeRating = document.querySelector('#makeRating')
+  const input = makeRating?.querySelector('input')
+
+  makeRating?.addEventListener('click', ratingEventListener)
+}
+
+function ratingEventListener(event) {
+  let target = event.target
+  let curr = target.tagName.toLowerCase() !== 'svg' ? target.parentNode : target
+  let next = curr.nextElementSibling
+
+  while (next && next.tagName.toLowerCase() === 'svg') {
+    next.firstElementChild.href.baseVal = '#cup'
+    next = next.nextElementSibling
+  }
+  if (next.tagName.toLowerCase() === 'input') next.value = curr.dataset.rating
+  console.log('curr.dataset.rating:', curr.dataset.rating)
+  console.log('next:', next)
+  while (curr) {
+    curr.firstElementChild.href.baseVal = '#cupFill'
+    curr = curr.previousElementSibling
+  }
+}
+
 document.addEventListener('readystatechange', event => {
   if (document.readyState === 'complete') {
     setImages()
-    stars()
+    // stars()
     buttons(images)
     toggleButtons()
-    setStarsWidth()
+    // setStarsWidth()
+    loadRatings()
+    setRating()
   }
 })
 
