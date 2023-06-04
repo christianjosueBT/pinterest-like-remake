@@ -577,7 +577,7 @@ input[type=file] {
   text-align: center;
   transition: top 0.5s, background-color 1s 0.5s;
 }
-.card__image__top h3 {
+.card__image__top h5 {
   white-space: wrap;
   line-height: 1;
   text-align: center;
@@ -589,21 +589,16 @@ input[type=file] {
 }
 
 .card__image__bottom {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
   position: absolute;
   bottom: -4rem;
   left: 0;
   width: 100%;
   color: var(--light-text);
-  transition: transform 0.5s, background-color 1s 0.5s;
   text-align: center;
-}
-
-.card__image__bottom p {
-  padding-inline: 1rem;
-  padding-block: 0.25rem;
-  font-size: 0.75em;
+  transition: transform 0.5s, background-color 1s 0.5s;
 }
 
 /* override shadow effect */
@@ -900,4 +895,27 @@ input[type=file] {
 .search {
   fill: var(--secondary-3);
   stroke: var(--secondary-3);
+}
+
+.cup {
+  stroke-width: 0.5;
+  stroke: var(--dark-text);
+}
+.cup.light {
+  stroke: var(--secondary-1);
+  stroke-width: 1;
+}
+
+.cupFill {
+  stroke-width: 0.5;
+  stroke: var(--dark-text);
+}
+.cupFill .lid {
+  fill: var(--secondary-2);
+}
+.cupFill .cupHolder {
+  fill: var(--secondary-2);
+}
+.cupFill .body {
+  fill: var(--main-2);
 }

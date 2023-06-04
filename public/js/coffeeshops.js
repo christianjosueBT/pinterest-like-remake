@@ -540,6 +540,24 @@ function changePicture(carousel, images) {
 
 // searchbar__input.addEventListener('submit', handleFormSubmit);
 
+function loadRatings() {
+  const avgRatings = document.querySelectorAll('.rating')
+  for (const avgRating of avgRatings) {
+    const ratingNum = avgRating?.dataset.rating
+    const ratingInteger = Math.floor(ratingNum)
+    const ratingRemainder = (Math.round(ratingNum * 10) / 10) % 1
+    const ratingCups = avgRating?.children
+    for (let i = 0; i < ratingInteger; i++) {
+      ratingCups[i].firstElementChild.href.baseVal = '#cupFill'
+    }
+    if (ratingRemainder !== 0) {
+      ratingCups[
+        ratingInteger
+      ].firstElementChild.href.baseVal = `#fill${ratingRemainder}`
+    }
+  }
+}
+
 loadImages(images)
 
 // waiting until everything has loaded to run the function that places cards where they
@@ -551,6 +569,7 @@ document.addEventListener('readystatechange', event => {
     const observer = new IntersectionObserver(handleIntersect, options)
     observer.observe(footer)
     carousel()
+    loadRatings()
   }
 })
 

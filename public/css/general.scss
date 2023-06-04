@@ -546,7 +546,7 @@ input[type='file'] {
   -webkit-transition: top 0.5s, background-color 1s 0.5s;
   transition: top 0.5s, background-color 1s 0.5s;
 
-  h3 {
+  h5 {
     white-space: wrap;
     line-height: 1;
     text-align: center;
@@ -557,22 +557,26 @@ input[type='file'] {
   font-size: 0.75em;
 }
 .card__image__bottom {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
   position: absolute;
   bottom: -4rem;
   left: 0;
   width: 100%;
+
   color: var(--light-text);
+  text-align: center;
   -webkit-transition: transform 0.5s, background-color 1s 0.5s;
   transition: transform 0.5s, background-color 1s 0.5s;
-  text-align: center;
 }
-.card__image__bottom p {
-  padding-inline: 1rem;
-  padding-block: 0.25rem;
-  font-size: 0.75em;
-}
+// Should maybe delete this now?
+// .card__image__bottom p {
+//   padding-inline: 1rem;
+//   padding-block: 0.25rem;
+//   font-size: 0.75em;
+// }
 /* override shadow effect */
 .card--v2.card:hover {
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
@@ -833,4 +837,36 @@ input[type='file'] {
 .search {
   fill: var(--secondary-3);
   stroke: var(--secondary-3);
+}
+
+.cup {
+  stroke-width: 0.5;
+  stroke: var(--dark-text);
+  &.light {
+    stroke: var(--secondary-1);
+    stroke-width: 1;
+  }
+  // .lid {
+  //   stroke-width: 0.5;
+  // }
+  // .cupHolder {
+  //   stroke-width: 0.5;
+  // }
+  // .body {
+  //   stroke-width: 0.5;
+  // }
+}
+
+.cupFill {
+  stroke-width: 0.5;
+  stroke: var(--dark-text);
+  .lid {
+    fill: var(--secondary-2);
+  }
+  .cupHolder {
+    fill: var(--secondary-2);
+  }
+  .body {
+    fill: var(--main-2);
+  }
 }
