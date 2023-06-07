@@ -302,7 +302,7 @@ dialog .closeModal:hover {
   position: absolute;
   bottom: -3rem;
   width: 100%;
-  background: var(--secondary-1);
+  background: var(--light-text);
   z-index: 30;
   height: 0;
   opacity: 0;
@@ -353,7 +353,7 @@ dialog .closeModal:hover {
 /*******************************************************************  SEARCHBAR SECTION START  *******************************************************************/
 .searchbar {
   display: flex;
-  background-color: var(--secondary-1);
+  background-color: var(--light-text);
   cursor: text;
   border-radius: 1em;
   position: relative;
@@ -368,7 +368,7 @@ dialog .closeModal:hover {
   padding: 0 0 0 0.5em;
   width: 100%;
   height: 100%;
-  background-color: var(--secondary-1);
+  background-color: var(--light-text);
   border: none;
   line-height: 2.75em;
   margin: auto 0;
@@ -577,7 +577,8 @@ input[type=file] {
   text-align: center;
   transition: top 0.5s, background-color 1s 0.5s;
 }
-.card__image__top h5 {
+.card__image__top h6 {
+  color: var(--light-text);
   white-space: wrap;
   line-height: 1;
   text-align: center;
@@ -879,16 +880,26 @@ input[type=file] {
   fill: var(--main-3);
 }
 
-.masonry {
+.masonryFill .g1 {
+  fill: var(--main-3);
+  stroke: var(--main-3);
+}
+.masonryFill .g2 {
   fill: var(--secondary-3);
   stroke: var(--secondary-3);
 }
 
-.smallFill {
+.smallFill .g1 {
+  fill: var(--main-3);
+}
+.smallFill .g2 {
   fill: var(--secondary-3);
 }
 
-.largeFill {
+.largeFill .g1 {
+  fill: var(--main-3);
+}
+.largeFill .g2 {
   fill: var(--secondary-3);
 }
 
@@ -903,7 +914,6 @@ input[type=file] {
 }
 .cup.light {
   stroke: var(--secondary-1);
-  stroke-width: 1;
 }
 
 .cupFill {
