@@ -28,7 +28,6 @@ export default class coffeeShopsController {
     let response = {
       shops: shopsList,
       page: page,
-      filters: {},
       entries,
     }
     return res.json(response)

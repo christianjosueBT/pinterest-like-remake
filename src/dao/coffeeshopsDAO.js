@@ -241,6 +241,7 @@ export default class coffeeShopsDAO {
         addFields = {
           $addFields: {
             avgRating: { $avg: '$reviews.rating' },
+            reviewsCount: { $size: '$reviews' },
           },
         }
 
