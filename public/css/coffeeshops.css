@@ -40,14 +40,20 @@
 
 /* dropdown container */
 .dropdown__drawer {
-  display: none;
+  width: 0;
+  opacity: 0;
+  pointer-events: none;
   position: absolute;
   left: 0;
   top: 2.1em;
-  min-width: 100%;
   background-color: inherit;
   z-index: 30;
   border-radius: 0.5rem;
+}
+.dropdown__drawer:focus-within {
+  width: unset;
+  opacity: 1;
+  pointer-events: unset;
 }
 
 /* change the direction of the CSS border arrow if the dropdown menu is visible */
@@ -56,7 +62,9 @@
 }
 
 .dropdown.is-open .dropdown__drawer {
-  display: block;
+  width: unset;
+  opacity: 1;
+  pointer-events: unset;
 }
 
 /* SVG class modifier */
@@ -69,18 +77,12 @@
 /* Default menu */
 .menu {
   margin: 0;
-  box-shadow: 0 2px 4px 0;
-  border-radius: 0.5rem;
   border-radius: inherit;
   position: relative;
   z-index: 30;
+  padding: 0.25rem;
 }
-
-.menu > li + li {
-  border-top: 1px solid var(--accent-primary);
-}
-
-.menu > li {
+.menu li {
   display: block;
   padding: 0.5em 1.5em;
   background-color: inherit;
@@ -88,18 +90,11 @@
   cursor: pointer;
   position: relative;
   z-index: 30;
+  border-radius: 0.5em;
 }
-
-.menu > li:first-child {
-  border-radius: 0.5em 0.5em 0 0;
-}
-
-.menu > li:last-child {
-  border-radius: 0 0 0.5em 0.5em;
-}
-
-.menu > li:hover {
-  background-color: var(--main-3);
+.menu li:hover,
+.menu li:focus {
+  background-color: var(--secondary-1);
 }
 
 /* SVG menu modifier */

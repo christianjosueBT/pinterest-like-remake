@@ -273,6 +273,7 @@ function dropDown() {
   })
 
   window.onclick = function (event) {
+    console.log('event:', event)
     if (!toggle.contains(event.target)) {
       const dropDown = document.querySelector('.dropdown')
       if (dropDown.classList.contains('is-open'))
@@ -282,7 +283,11 @@ function dropDown() {
   return
 }
 // Functions that change the layout of the page
-function masonryLayout() {
+function masonryLayout(e) {
+  if (e.type === 'keyup') {
+    if (e.key !== 'Enter') return
+  }
+
   state = 'masonry'
   const shops = document.querySelector('.container-fluid')
   shops.classList.remove('container--layout')
@@ -295,7 +300,11 @@ function masonryLayout() {
   }
   return
 }
-function largeLayout() {
+function largeLayout(e) {
+  if (e.type === 'keyup') {
+    if (e.key !== 'Enter') return
+  }
+
   state = 'large'
   const shops = document.querySelector('.container-fluid')
   shops.classList.add('container--layout')
@@ -308,7 +317,11 @@ function largeLayout() {
   }
   return
 }
-function smallLayout() {
+function smallLayout(e) {
+  if (e.type === 'keyup') {
+    if (e.key !== 'Enter') return
+  }
+
   state = 'small'
   const shops = document.querySelector('.container-fluid')
   shops.classList.add('container--layout')
@@ -326,10 +339,14 @@ function smallLayout() {
 document.querySelector('#masonry-grid').addEventListener('click', masonryLayout)
 document.querySelector('#large-grid').addEventListener('click', largeLayout)
 document.querySelector('#small-grid').addEventListener('click', smallLayout)
+document.querySelector('#masonry-grid').addEventListener('keyup', masonryLayout)
+document.querySelector('#large-grid').addEventListener('keyup', largeLayout)
+document.querySelector('#small-grid').addEventListener('keyup', smallLayout)
+
 for (block of blocks) {
   block.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
-      event.target.querySelector('a').click()
+      event.target.querySelector('a')?.click()
     }
   })
 }
@@ -537,30 +554,26 @@ function carousel() {
 function changePicture(carousel, images) {
   const rightButton = carousel.querySelector('.button--right')
   rightButton.addEventListener('click', handleButtonClickCurried(images))
-  // rightButton.addEventListener('keyup', function () {
-  //   if (event.key === 'Enter') {
-  //     let col = this.parentElement.parentElement.parentElement
-  //     const oldFlexItemsInfo = getFlexItemsInfo(col)
-  //     changeIndexRight(images)
-  //     const newFlexItemsInfo = getFlexItemsInfo(col)
+  rightButton.addEventListener('keyup', handleButtonClickCurried(images))
 
-  //     animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
-  //   }
-  // })
   const leftButton = carousel.querySelector('.button--left')
-  leftButton.addEventListener('click', function () {
-    changeIndexLeft(images)
-  })
+  leftButton.addEventListener('click', handleButtonClickCurried(images))
+  leftButton.addEventListener('keyup', handleButtonClickCurried(images))
 }
 
 function handleButtonClickCurried(images) {
   return function handleButtonClick(event) {
-    console.log(this.parentElement.parentElement.parentElement)
+    if (event.type === 'keyup') {
+      if (event.key !== 'Enter') return
+    }
+
     let col = this.parentElement.parentElement.parentElement
     const oldFlexItemsInfo = getFlexItemsInfo(col)
-    changeIndexRight(images)
-    const newFlexItemsInfo = getFlexItemsInfo(col)
 
+    if (this.classList.contains('button--right')) changeIndexRight(images)
+    else changeIndexLeft(images)
+
+    const newFlexItemsInfo = getFlexItemsInfo(col)
     animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
   }
 }
@@ -585,6 +598,17 @@ function loadRatings() {
   }
 }
 
+function stopPropagation() {
+  let elements = document.querySelectorAll('.stopPropagation')
+  for (el of elements) {
+    el.addEventListener('keyup', function (e) {
+      e.stopPropagation()
+      e.preventDefault()
+    })
+  }
+}
+
+stopPropagation()
 loadImages(images)
 
 // waiting until everything has loaded to run the function that places cards where they
