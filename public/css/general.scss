@@ -420,7 +420,7 @@ dialog {
   max-width: 20rem;
   background-color: var(--secondary-1);
   margin-top: 0.5em;
-  transition: all 0.5s ease;
+  // transition: all 0.5s ease;
 }
 .card__title {
   margin: 1em 1em 0;
@@ -435,7 +435,6 @@ dialog {
 
 /* On mouse-over, add a deeper shadow */
 .card:hover {
-  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); */
   transition: none;
 }
 
@@ -531,6 +530,34 @@ input[type='file'] {
   overflow: hidden;
   margin: 1rem auto;
   transform-origin: top;
+
+  &:focus {
+    outline: 2px solid var(--dark-text);
+    outline-offset: 2px;
+  }
+
+  &:hover .card__image__top,
+  &:focus .card__image__top,
+  &:focus-within .card__image__top {
+    opacity: 1;
+    // this is actually very hard to do so I am using the "brute force" approach because it was actually impossible to do it properly
+    // transform: translateY(50%);
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  &:hover .card__image__bottom,
+  &:focus .card__image__bottom,
+  &:focus-within .card__image__bottom {
+    opacity: 1;
+    transform: translateY(-4rem);
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  &:hover .button--svg,
+  &:focus .button--svg,
+  &:focus-within .button--svg {
+    background-color: var(--dark-text);
+  }
 }
 
 .card__image__top {
@@ -552,10 +579,10 @@ input[type='file'] {
     line-height: 1;
     text-align: center;
   }
-}
-.card__image__top a {
-  color: var(--light-text);
-  font-size: 0.75em;
+  a {
+    color: var(--light-text);
+    font-size: 0.75em;
+  }
 }
 .card__image__bottom {
   display: flex;
@@ -571,30 +598,6 @@ input[type='file'] {
   text-align: center;
   -webkit-transition: transform 0.5s, background-color 1s 0.5s;
   transition: transform 0.5s, background-color 1s 0.5s;
-}
-// Should maybe delete this now?
-// .card__image__bottom p {
-//   padding-inline: 1rem;
-//   padding-block: 0.25rem;
-//   font-size: 0.75em;
-// }
-/* override shadow effect */
-.card--v2.card:hover {
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-}
-.card--v2.card:hover .card__image__top {
-  opacity: 1;
-  // transform: translateY(50%);
-  top: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.card--v2.card:hover .card__image__bottom {
-  opacity: 1;
-  transform: translateY(-4rem);
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.card--v2.card:hover .button--svg {
-  background-color: var(--dark-text);
 }
 
 .card--item {
@@ -680,9 +683,11 @@ input[type='file'] {
   z-index: 20;
   transition: transform 0.25s, background-color 1.5s;
   border-radius: 100%;
-}
-.button--svg:hover {
-  transform: scale(1.2);
+
+  &:hover,
+  &:focus {
+    transform: scale(1.2);
+  }
 }
 .button--right {
   right: 1em;

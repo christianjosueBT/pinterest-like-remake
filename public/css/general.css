@@ -438,7 +438,6 @@ dialog .closeModal:hover {
   max-width: 20rem;
   background-color: var(--secondary-1);
   margin-top: 0.5em;
-  transition: all 0.5s ease;
 }
 
 .card__title {
@@ -456,7 +455,6 @@ dialog .closeModal:hover {
 
 /* On mouse-over, add a deeper shadow */
 .card:hover {
-  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); */
   transition: none;
 }
 
@@ -565,6 +563,23 @@ input[type=file] {
   margin: 1rem auto;
   transform-origin: top;
 }
+.card--v2.card:focus {
+  outline: 2px solid var(--dark-text);
+  outline-offset: 2px;
+}
+.card--v2.card:hover .card__image__top, .card--v2.card:focus .card__image__top, .card--v2.card:focus-within .card__image__top {
+  opacity: 1;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.card--v2.card:hover .card__image__bottom, .card--v2.card:focus .card__image__bottom, .card--v2.card:focus-within .card__image__bottom {
+  opacity: 1;
+  transform: translateY(-4rem);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.card--v2.card:hover .button--svg, .card--v2.card:focus .button--svg, .card--v2.card:focus-within .button--svg {
+  background-color: var(--dark-text);
+}
 
 .card__image__top {
   display: grid;
@@ -583,7 +598,6 @@ input[type=file] {
   line-height: 1;
   text-align: center;
 }
-
 .card__image__top a {
   color: var(--light-text);
   font-size: 0.75em;
@@ -600,27 +614,6 @@ input[type=file] {
   color: var(--light-text);
   text-align: center;
   transition: transform 0.5s, background-color 1s 0.5s;
-}
-
-/* override shadow effect */
-.card--v2.card:hover {
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-}
-
-.card--v2.card:hover .card__image__top {
-  opacity: 1;
-  top: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.card--v2.card:hover .card__image__bottom {
-  opacity: 1;
-  transform: translateY(-4rem);
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.card--v2.card:hover .button--svg {
-  background-color: var(--dark-text);
 }
 
 .card--item {
@@ -720,8 +713,7 @@ input[type=file] {
   transition: transform 0.25s, background-color 1.5s;
   border-radius: 100%;
 }
-
-.button--svg:hover {
+.button--svg:hover, .button--svg:focus {
   transform: scale(1.2);
 }
 

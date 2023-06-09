@@ -235,7 +235,6 @@ async function getData() {
 //     blocks[0].style.top = '0px';
 //     heights.push(blocks[0].offsetHeight + margin);
 //   }
-
 //   // placing the remainder of the cards
 //   for (let i = colCount; i < blocks.length; i++) {
 //     // calculating the smallest value in the array of heights
@@ -265,6 +264,12 @@ function dropDown() {
   toggle.addEventListener('click', function (event) {
     const dropdown = event.currentTarget.parentNode
     dropdown.classList.toggle('is-open')
+  })
+  toggle.addEventListener('keyup', function (event) {
+    if (event.key === 'Enter') {
+      const dropdown = event.currentTarget.parentNode
+      dropdown.classList.toggle('is-open')
+    }
   })
 
   window.onclick = function (event) {
@@ -321,6 +326,13 @@ function smallLayout() {
 document.querySelector('#masonry-grid').addEventListener('click', masonryLayout)
 document.querySelector('#large-grid').addEventListener('click', largeLayout)
 document.querySelector('#small-grid').addEventListener('click', smallLayout)
+for (block of blocks) {
+  block.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      event.target.querySelector('a').click()
+    }
+  })
+}
 
 // ********************************************************************
 // loading images, creating new cards, changing displayed images
@@ -524,18 +536,33 @@ function carousel() {
 // change the picture being displayed
 function changePicture(carousel, images) {
   const rightButton = carousel.querySelector('.button--right')
-  rightButton.addEventListener('click', function () {
+  rightButton.addEventListener('click', handleButtonClickCurried(images))
+  // rightButton.addEventListener('keyup', function () {
+  //   if (event.key === 'Enter') {
+  //     let col = this.parentElement.parentElement.parentElement
+  //     const oldFlexItemsInfo = getFlexItemsInfo(col)
+  //     changeIndexRight(images)
+  //     const newFlexItemsInfo = getFlexItemsInfo(col)
+
+  //     animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
+  //   }
+  // })
+  const leftButton = carousel.querySelector('.button--left')
+  leftButton.addEventListener('click', function () {
+    changeIndexLeft(images)
+  })
+}
+
+function handleButtonClickCurried(images) {
+  return function handleButtonClick(event) {
+    console.log(this.parentElement.parentElement.parentElement)
     let col = this.parentElement.parentElement.parentElement
     const oldFlexItemsInfo = getFlexItemsInfo(col)
     changeIndexRight(images)
     const newFlexItemsInfo = getFlexItemsInfo(col)
 
     animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
-  })
-  const leftButton = carousel.querySelector('.button--left')
-  leftButton.addEventListener('click', function () {
-    changeIndexLeft(images)
-  })
+  }
 }
 
 // searchbar__input.addEventListener('submit', handleFormSubmit);
@@ -570,6 +597,7 @@ document.addEventListener('readystatechange', event => {
     observer.observe(footer)
     carousel()
     loadRatings()
+    document.activeElement
   }
 })
 
