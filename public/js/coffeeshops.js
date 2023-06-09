@@ -56,9 +56,6 @@ function animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo) {
     const scaleY = oldFlexItemInfo.height / newFlexItemInfo.height
     // const borderRadius = oldFlexItemInfo.borderRadius / scaleY
 
-    // console.log(`old: ${oldFlexItemInfo.borderRadius}`)
-    // console.log(`new: ${newFlexItemInfo.borderRadius}`)
-
     newFlexItemInfo.element.animate(
       [
         {
@@ -273,7 +270,6 @@ function dropDown() {
   })
 
   window.onclick = function (event) {
-    console.log('event:', event)
     if (!toggle.contains(event.target)) {
       const dropDown = document.querySelector('.dropdown')
       if (dropDown.classList.contains('is-open'))
