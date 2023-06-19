@@ -527,9 +527,13 @@ input[type='file'] {
 }
 /* V2 */
 .card--v2.card {
+  position: absolute;
   overflow: hidden;
   margin: 1rem auto;
   transform-origin: top;
+  -webkit-transition: transform 0.25s;
+  transition: transform 0.25s, height 0.25s;
+  transition-timing-function: ease-out;
 
   &:focus {
     outline: 2px solid var(--dark-text);
@@ -575,7 +579,6 @@ input[type='file'] {
 
   h6 {
     color: var(--light-text);
-    white-space: wrap;
     line-height: 1;
     text-align: center;
   }
@@ -617,8 +620,10 @@ input[type='file'] {
 .container--100 {
   margin: 0;
   width: 100%;
-  position: relative;
-  padding: 0;
+}
+.container--90 {
+  margin: 0 auto;
+  width: 90%;
 }
 .container--layout {
   position: static;

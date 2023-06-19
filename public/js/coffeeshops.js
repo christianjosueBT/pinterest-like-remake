@@ -2,12 +2,11 @@
 const heights = []
 const images = document.querySelectorAll('.carousel__image')
 const footer = document.querySelector('footer')
-const container = document.querySelector('.container--100')
 const grid = document.querySelector('.grid')
 const searchbar__input = document.querySelector('.searchbar__input')
 let blocks = document.querySelectorAll('.card')
 let state = 'masonry'
-let margin = 0
+let margin = 24
 let windowWidth = 0
 let colWidth =
   parseInt(
@@ -20,18 +19,16 @@ let min = 0
 let index = 0
 let page = 0
 let user = {}
+let masonry
 
-// ********************************************************************
-// simple masonry
-// ********************************************************************
-let simpleM = new SimpleMasonry({
-  masonryBox: '.row',
-  masonryColumn: '.grid',
-})
-
-// taken from
-function getFlexItemsInfo(container) {
-  return Array.from(container.children).map(item => {
+// taken from https://stackoverflow.com/questions/11106876/is-it-possible-to-animate-flexbox-inserts-removes
+/**
+ * Generates and returns an array of objects containing the size and location of a node element's children
+ * @param {Node} container parent node element containing all the children to be animated
+ * @returns {Array of Objects} array containing size and location information of the parent's children
+ */
+function getFlexItemsInfo(elements) {
+  return Array.from(elements).map(item => {
     const rect = item.getBoundingClientRect()
     return {
       // borderRadius: parseInt(getComputedStyle(item).borderRadius),
@@ -43,7 +40,76 @@ function getFlexItemsInfo(container) {
     }
   })
 }
+/**
+ * Generates and returns an array of objects containing the size and location of a node element's children
+ * @param {Node} container parent node element containing all the children to be animated
+ * @returns {Array of Objects} array containing size and location information of the parent's children
+ */
+function getItemInfo(element) {
+  const rect = element.getBoundingClientRect()
+  return {
+    borderRadius: parseInt(getComputedStyle(element).borderRadius),
+    element: element,
+    x: rect.left,
+    y: rect.top,
+    width: rect.right - rect.left,
+    height: rect.bottom - rect.top,
+  }
+}
 
+function getTransform(element) {
+  const transform = element.style.transform
+  const re = /translate3d\((?<x>.*?)px, (?<y>.*?)px, (?<z>.*?)px/
+  const results = re.exec(transform)
+  return {
+    x: Number(results?.groups.x),
+    y: Number(results?.groups.y),
+    z: Number(results?.groups.z),
+  }
+}
+
+function scaleElement(element, oldItemInfo, newItemInfo) {
+  console.log('Element from scaleElement', element)
+
+  let coords = getTransform(element)
+  console.log('coords', coords)
+
+  const scaleX = oldItemInfo.width / newItemInfo.width
+  const scaleY = oldItemInfo.height / newItemInfo.height
+  console.log('scaleX', scaleX)
+  console.log('scaleY', scaleY)
+  console.log('oldItemInfo.borderRadius', oldItemInfo.borderRadius)
+  console.log('newItemInfo.borderRadius', newItemInfo.borderRadius)
+
+  element.style.removeProperty('transform')
+  element.animate(
+    [
+      {
+        transform: `translate3d(${coords.x}px, ${coords.y}px,0) scale(${scaleX}, ${scaleY})`,
+        borderRadius: `${oldItemInfo.borderRadius}px`,
+      },
+      {
+        transform: `translate3d(${coords.x}px, ${coords.y}px,0)`,
+        borderRadius: `${newItemInfo.borderRadius}px`,
+      },
+    ],
+    {
+      duration: 250,
+      easing: 'ease-out',
+    }
+  )
+
+  element.style.transform = `translate3d(${coords.x}px, ${coords.y}px,0)`
+
+  console.log('Element from scaleElement', element)
+}
+
+/**
+ * Animates the transition between the old position and size of some elements, and their future position and size
+ * @param {Array of Objects} oldFlexItemsInfo contains the past location and size information of the items of interest
+ * @param {Array of Objects} newFlexItemsInfo contains the new location and size information of the items of interest
+ * @returns {void}
+ */
 function animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo) {
   for (const newFlexItemInfo of newFlexItemsInfo) {
     const oldFlexItemInfo = oldFlexItemsInfo.find(
@@ -68,11 +134,15 @@ function animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo) {
         },
       ],
       {
-        duration: 200,
+        duration: 250,
         easing: 'ease-out',
       }
     )
   }
+}
+
+function animateItems(previousItem, items) {
+  let transform = parseInt(previousItem.style.getPropertyValue('top'))
 }
 
 // ********************************************************************
@@ -84,7 +154,10 @@ let options = {
   rootMargins: '0px',
   threshold: 0.5,
 }
-// handles what happens when an intersection happens
+/**
+ * Function to be passed to an intersection observer. It runs when an intersection is detected. If the first object of the list is intersecting, we fetch data
+ * @param {Array} entries List of node elements we will be observing
+ */
 function handleIntersect(entries) {
   if (entries[0].isIntersecting) {
     getData()
@@ -155,6 +228,10 @@ const handleFormSubmit = async event => {
 }
 
 // if footer comes into view, get more cards
+/**
+ * Fetch data necessary for more cards, creates new card elements, and appends them onto our site
+ * @returns {Void}
+ */
 async function getData() {
   page++
   colWidth =
@@ -255,10 +332,13 @@ async function getData() {
 // and different layout options
 // ********************************************************************
 
-// toggles dropdown toggling, closes dropdown if user clicks anywhere on the window
+/**
+ * Toggles dropdown opening and closing. Closes dropdown if user pointerdowns anywhere outside the dropdown.
+ * @returns {Void}
+ */
 function dropDown() {
   const toggle = document.querySelector('.dropdown__toggle')
-  toggle.addEventListener('click', function (event) {
+  toggle.addEventListener('pointerdown', function (event) {
     const dropdown = event.currentTarget.parentNode
     dropdown.classList.toggle('is-open')
   })
@@ -269,7 +349,7 @@ function dropDown() {
     }
   })
 
-  window.onclick = function (event) {
+  window.click = function (event) {
     if (!toggle.contains(event.target)) {
       const dropDown = document.querySelector('.dropdown')
       if (dropDown.classList.contains('is-open'))
@@ -278,14 +358,19 @@ function dropDown() {
   }
   return
 }
+
 // Functions that change the layout of the page
+/**
+ * Changes the state of the page to 'masonry' and changes all cards to the masonry layout style by removing and adding css classes and replacing the images of the cards for more suitable ones
+ * @returns {Void}
+ */
 function masonryLayout(e) {
   if (e.type === 'keyup') {
     if (e.key !== 'Enter') return
   }
 
   state = 'masonry'
-  const shops = document.querySelector('.container-fluid')
+  const shops = document.querySelector('#macyContainer')
   shops.classList.remove('container--layout')
   const cards = document.querySelectorAll('.card')
   for (let card of cards) {
@@ -296,13 +381,17 @@ function masonryLayout(e) {
   }
   return
 }
+/**
+ * Changes the state of the page to 'large' and changes all cards to the large layout style by removing and adding css classes and replacing the images of the cards for more suitable ones
+ * @returns {Void}
+ */
 function largeLayout(e) {
   if (e.type === 'keyup') {
     if (e.key !== 'Enter') return
   }
 
   state = 'large'
-  const shops = document.querySelector('.container-fluid')
+  const shops = document.querySelector('#macyContainer')
   shops.classList.add('container--layout')
   const cards = document.querySelectorAll('.card')
   for (let card of cards) {
@@ -313,13 +402,17 @@ function largeLayout(e) {
   }
   return
 }
+/**
+ * Changes the state of the page to 'small' and changes all cards to the small layout style by removing and adding css classes and replacing the images of the cards for more suitable ones
+ * @returns {Void}
+ */
 function smallLayout(e) {
   if (e.type === 'keyup') {
     if (e.key !== 'Enter') return
   }
 
   state = 'small'
-  const shops = document.querySelector('.container-fluid')
+  const shops = document.querySelector('#macyContainer')
   shops.classList.add('container--layout')
   const cards = document.querySelectorAll('.card')
   for (let card of cards) {
@@ -331,10 +424,16 @@ function smallLayout(e) {
   return
 }
 
-// attaching click event listeners to the dropdown options: masonry, large, and small
-document.querySelector('#masonry-grid').addEventListener('click', masonryLayout)
-document.querySelector('#large-grid').addEventListener('click', largeLayout)
-document.querySelector('#small-grid').addEventListener('click', smallLayout)
+// attaching pointerdown event listeners to the dropdown options: masonry, large, and small
+document
+  .querySelector('#masonry-grid')
+  .addEventListener('pointerdown', masonryLayout)
+document
+  .querySelector('#large-grid')
+  .addEventListener('pointerdown', largeLayout)
+document
+  .querySelector('#small-grid')
+  .addEventListener('pointerdown', smallLayout)
 document.querySelector('#masonry-grid').addEventListener('keyup', masonryLayout)
 document.querySelector('#large-grid').addEventListener('keyup', largeLayout)
 document.querySelector('#small-grid').addEventListener('keyup', smallLayout)
@@ -342,6 +441,7 @@ document.querySelector('#small-grid').addEventListener('keyup', smallLayout)
 for (block of blocks) {
   block.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
+      console.log('THIS IS WEIRD')
       event.target.querySelector('a')?.click()
     }
   })
@@ -351,7 +451,11 @@ for (block of blocks) {
 // loading images, creating new cards, changing displayed images
 // ********************************************************************
 
-// calculates ideal image sizes then loads them in
+/**
+ * Given a list of images to load and the dimensions of the viewport, calculates ideal image sizes and dynamically loads them in to the page
+ * @param {nodeList} images list of images to be loaded
+ * @returns {Void}
+ */
 function loadImages(images) {
   colWidth =
     parseInt(
@@ -368,7 +472,14 @@ function loadImages(images) {
     images[i].src = `${str}/${images[i].dataset.src}`
   }
 }
-// sets the images sources for a card, accounts for device pixel ratio and size of the rendered element to deliver images optimized for data size
+
+/**
+ * sets the images sources for a card, accounts for device pixel ratio and size of the rendered element to deliver images optimized for data size
+ * @param {*} a
+ * @param {*} images
+ * @param {*} cardWidth
+ * @param {*} id
+ */
 async function setImages(card__image, images, colWidth, id) {
   const pixelRatio = window.devicePixelRatio || 1.0
   let str = ''
@@ -405,7 +516,13 @@ async function setImages(card__image, images, colWidth, id) {
     return
   })
 }
-// changes the already loaded images sources to new ones that display the chosen aspect ratio
+
+/**
+ * changes the already loaded images sources to new ones that display the chosen aspect ratio
+ * @param {Node} card Card whose images are to be changed
+ * @param {*} cardWidth
+ * @returns
+ */
 function changeImages(card, colWidth) {
   const pixelRatio = window.devicePixelRatio || 1.0
   let str = ''
@@ -545,36 +662,46 @@ function carousel() {
   }
   return
 }
-// adds event listeneres to the left and right buttons on images so the user can click on them and
+// adds event listeneres to the left and right buttons on images so the user can pointerdown on them and
 // change the picture being displayed
 function changePicture(carousel, images) {
   const rightButton = carousel.querySelector('.button--right')
-  rightButton.addEventListener('click', handleButtonClickCurried(images))
-  rightButton.addEventListener('keyup', handleButtonClickCurried(images))
+  rightButton.addEventListener(
+    'pointerdown',
+    handleButtonpointerdownCurried(images)
+  )
+  rightButton.addEventListener('keyup', handleButtonpointerdownCurried(images))
 
   const leftButton = carousel.querySelector('.button--left')
-  leftButton.addEventListener('click', handleButtonClickCurried(images))
-  leftButton.addEventListener('keyup', handleButtonClickCurried(images))
+  leftButton.addEventListener(
+    'pointerdown',
+    handleButtonpointerdownCurried(images)
+  )
+  leftButton.addEventListener('keyup', handleButtonpointerdownCurried(images))
 }
 
-function handleButtonClickCurried(images) {
-  return function handleButtonClick(event) {
+function handleButtonpointerdownCurried(images) {
+  return function handleButtonpointerdown(event) {
     if (event.type === 'keyup') {
       if (event.key !== 'Enter') return
     }
 
-    let col = this.parentElement.parentElement.parentElement
-    const oldFlexItemsInfo = getFlexItemsInfo(col)
+    const oldItemInfo = getItemInfo(this.parentElement.parentElement)
 
     if (this.classList.contains('button--right')) changeIndexRight(images)
     else changeIndexLeft(images)
 
-    const newFlexItemsInfo = getFlexItemsInfo(col)
-    animateFlexItems(oldFlexItemsInfo, newFlexItemsInfo)
+    const newItemInfo = getItemInfo(this.parentElement.parentElement)
+
+    console.log('olditeminfo', oldItemInfo)
+    console.log('newiteminfo', newItemInfo)
+
+    masonry.layoutCol(this.parentElement.parentElement)
+    // scaleElement(this.parentElement.parentElement, oldItemInfo, newItemInfo)
   }
 }
 
-// searchbar__input.addEventListener('submit', handleFormSubmit);
+// searchbar__input.addEventListener('submit', handleFormSubmit)
 
 function loadRatings() {
   const avgRatings = document.querySelectorAll('.rating')
@@ -612,12 +739,15 @@ loadImages(images)
 document.addEventListener('readystatechange', event => {
   if (document.readyState === 'complete') {
     dropDown()
-    simpleM.init()
     const observer = new IntersectionObserver(handleIntersect, options)
     observer.observe(footer)
     carousel()
     loadRatings()
-    document.activeElement
+
+    // https://spope.github.io/MiniMasonry.js/
+    masonry = new MiniMasonry({
+      container: '#macyContainer',
+    })
   }
 })
 
