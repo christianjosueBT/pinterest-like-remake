@@ -3,7 +3,7 @@ const heights = []
 const images = document.querySelectorAll('.carousel__image')
 const footer = document.querySelector('footer')
 const grid = document.querySelector('.grid')
-const searchbar__input = document.querySelector('.searchbar__input')
+const searchbar__form = document.querySelector('.searchbar__form')
 let blocks = document.querySelectorAll('.card')
 let state = 'masonry'
 let margin = 24
@@ -57,52 +57,45 @@ function getItemInfo(element) {
   }
 }
 
-function getTransform(element) {
-  const transform = element.style.transform
-  const re = /translate3d\((?<x>.*?)px, (?<y>.*?)px, (?<z>.*?)px/
-  const results = re.exec(transform)
-  return {
-    x: Number(results?.groups.x),
-    y: Number(results?.groups.y),
-    z: Number(results?.groups.z),
-  }
-}
+// function getTransform(element) {
+//   const transform = element.style.transform
+//   const re = /translate3d\((?<x>.*?)px, (?<y>.*?)px, (?<z>.*?)px/
+//   const results = re.exec(transform)
+//   return {
+//     x: Number(results?.groups.x),
+//     y: Number(results?.groups.y),
+//     z: Number(results?.groups.z),
+//   }
+// }
 
-function scaleElement(element, oldItemInfo, newItemInfo) {
-  console.log('Element from scaleElement', element)
+// function scaleElement(element, oldItemInfo, newItemInfo) {
 
-  let coords = getTransform(element)
-  console.log('coords', coords)
+//   let coords = getTransform(element)
 
-  const scaleX = oldItemInfo.width / newItemInfo.width
-  const scaleY = oldItemInfo.height / newItemInfo.height
-  console.log('scaleX', scaleX)
-  console.log('scaleY', scaleY)
-  console.log('oldItemInfo.borderRadius', oldItemInfo.borderRadius)
-  console.log('newItemInfo.borderRadius', newItemInfo.borderRadius)
+//   const scaleX = oldItemInfo.width / newItemInfo.width
+//   const scaleY = oldItemInfo.height / newItemInfo.height
 
-  element.style.removeProperty('transform')
-  element.animate(
-    [
-      {
-        transform: `translate3d(${coords.x}px, ${coords.y}px,0) scale(${scaleX}, ${scaleY})`,
-        borderRadius: `${oldItemInfo.borderRadius}px`,
-      },
-      {
-        transform: `translate3d(${coords.x}px, ${coords.y}px,0)`,
-        borderRadius: `${newItemInfo.borderRadius}px`,
-      },
-    ],
-    {
-      duration: 250,
-      easing: 'ease-out',
-    }
-  )
+//   element.style.removeProperty('transform')
+//   element.animate(
+//     [
+//       {
+//         transform: `translate3d(${coords.x}px, ${coords.y}px,0) scale(${scaleX}, ${scaleY})`,
+//         borderRadius: `${oldItemInfo.borderRadius}px`,
+//       },
+//       {
+//         transform: `translate3d(${coords.x}px, ${coords.y}px,0)`,
+//         borderRadius: `${newItemInfo.borderRadius}px`,
+//       },
+//     ],
+//     {
+//       duration: 250,
+//       easing: 'ease-out',
+//     }
+//   )
 
-  element.style.transform = `translate3d(${coords.x}px, ${coords.y}px,0)`
+//   element.style.transform = `translate3d(${coords.x}px, ${coords.y}px,0)`
 
-  console.log('Element from scaleElement', element)
-}
+// }
 
 /**
  * Animates the transition between the old position and size of some elements, and their future position and size
@@ -252,8 +245,7 @@ async function getData() {
       simpleM.append(card)
     }
   } catch (e) {
-    console.log('error in getData()')
-    console.log('e: ', e)
+    console.log('error in getData()', e)
   }
   return
 }
@@ -349,13 +341,13 @@ function dropDown() {
     }
   })
 
-  window.click = function (event) {
+  document.addEventListener('pointerdown', function (event) {
     if (!toggle.contains(event.target)) {
       const dropDown = document.querySelector('.dropdown')
       if (dropDown.classList.contains('is-open'))
         dropDown.classList.remove('is-open')
     }
-  }
+  })
   return
 }
 
@@ -379,6 +371,12 @@ function masonryLayout(e) {
     card.classList.remove('card--layout')
     changeImages(card, colWidth)
   }
+
+  masonry = new MiniMasonry({
+    container: '#macyContainer',
+    images: '.carousel__image',
+  })
+
   return
 }
 /**
@@ -400,6 +398,7 @@ function largeLayout(e) {
     card.classList.remove('card--small')
     changeImages(card, colWidth)
   }
+  masonry.destroy()
   return
 }
 /**
@@ -421,6 +420,7 @@ function smallLayout(e) {
     card.classList.remove('card--large')
     changeImages(card, colWidth)
   }
+  masonry.destroy()
   return
 }
 
@@ -441,7 +441,6 @@ document.querySelector('#small-grid').addEventListener('keyup', smallLayout)
 for (block of blocks) {
   block.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
-      console.log('THIS IS WEIRD')
       event.target.querySelector('a')?.click()
     }
   })
@@ -456,22 +455,21 @@ for (block of blocks) {
  * @param {nodeList} images list of images to be loaded
  * @returns {Void}
  */
-function loadImages(images) {
-  colWidth =
-    parseInt(
-      window.getComputedStyle(document.body).getPropertyValue('font-size')
-    ) * 20
-  const pixelRatio = window.devicePixelRatio || 1.0
+// function loadImages(images, width) {
+//   colWidth = width
+//     ? width
+//     : parseInt(
+//         window.getComputedStyle(document.body).getPropertyValue('font-size')
+//       ) * 20
+//   const pixelRatio = window.devicePixelRatio || 1.0
 
-  console.log(`pixel ratio is: ${pixelRatio}`)
-
-  let str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-    colWidth * pixelRatio
-  )}/coffeeShops`
-  for (let i = 0; i < images.length; i++) {
-    images[i].src = `${str}/${images[i].dataset.src}`
-  }
-}
+//   let str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
+//     colWidth * pixelRatio
+//   )}/coffeeShops`
+//   for (let i = 0; i < images.length; i++) {
+//     images[i].src = `${str}/${images[i].dataset.src}`
+//   }
+// }
 
 /**
  * sets the images sources for a card, accounts for device pixel ratio and size of the rendered element to deliver images optimized for data size
@@ -549,7 +547,7 @@ function changeImages(card, colWidth) {
 }
 // creates all elements a card needs, then puts them together and adds them to the page
 async function createCard(data) {
-  let className = 'card card--v2'
+  let className = 'card'
   if (state === 'large') className += ' card--layout card--large'
   else if (state === 'small') className += ' card--layout card--small'
 
@@ -692,23 +690,21 @@ function handleButtonpointerdownCurried(images) {
     else changeIndexLeft(images)
 
     const newItemInfo = getItemInfo(this.parentElement.parentElement)
-
-    console.log('olditeminfo', oldItemInfo)
-    console.log('newiteminfo', newItemInfo)
-
-    masonry.layoutCol(this.parentElement.parentElement)
+ 
+    // only update the position of the columns if state is set to masonry
+    if (state === 'masonry') masonry.layoutCol(this.parentElement.parentElement)
     // scaleElement(this.parentElement.parentElement, oldItemInfo, newItemInfo)
   }
 }
 
-// searchbar__input.addEventListener('submit', handleFormSubmit)
+// searchbar__form.addEventListener('submit', handleFormSubmit)
 
 function loadRatings() {
   const avgRatings = document.querySelectorAll('.rating')
   for (const avgRating of avgRatings) {
     const ratingNum = avgRating?.dataset.rating
     const ratingInteger = Math.floor(ratingNum)
-    const ratingRemainder = (Math.round(ratingNum * 10) / 10) % 1
+    const ratingRemainder = Math.round((ratingNum % 1) * 10) / 10
     const ratingCups = avgRating?.children
     for (let i = 0; i < ratingInteger; i++) {
       ratingCups[i].firstElementChild.href.baseVal = '#cupFill'
@@ -731,23 +727,24 @@ function stopPropagation() {
   }
 }
 
+// https://spope.github.io/MiniMasonry.js/
+masonry = new MiniMasonry({
+  container: '#macyContainer',
+  images: '.carousel__image',
+})
 stopPropagation()
-loadImages(images)
+// loadImages(, masonry._width)
 
 // waiting until everything has loaded to run the function that places cards where they
 // should be
 document.addEventListener('readystatechange', event => {
   if (document.readyState === 'complete') {
+    // masonry.layout()
     dropDown()
     const observer = new IntersectionObserver(handleIntersect, options)
     observer.observe(footer)
     carousel()
     loadRatings()
-
-    // https://spope.github.io/MiniMasonry.js/
-    masonry = new MiniMasonry({
-      container: '#macyContainer',
-    })
   }
 })
 
