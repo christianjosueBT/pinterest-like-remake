@@ -16,11 +16,12 @@ function loadUserData(user) {
   if (user && Object.keys(user).length > 0) {
     // user = JSON.parse(user);
     const nav = document.querySelector('.nav__user__div')
+    document.querySelector('.nav__user__a')?.remove()
     const userVar = nav.querySelector('.user')
     const username = nav.querySelector('.username')
     const profile = nav.querySelector('.dropdown--profile')
-    const form = nav.querySelector('.dropdown--logout')
-    const logout = nav.querySelector('.submit')
+    const form = nav.querySelector('#navForm')
+    const logout = nav.querySelector('#submit')
 
     nav.classList.remove('hide')
     userVar.classList.remove('hide')
@@ -35,7 +36,7 @@ function loadUserData(user) {
     picture.appendChild(img)
     nav.appendChild(picture)
     profile.href = `/user/${user._id}`
-    logout.addEventListener('click', () => form.submit())
+    logout.addEventListener('pointerdown', () => form.submit())
     logout.addEventListener('keypress', function (e) {
       const key = e.keyCode || e.which
       if (key === 13) {
@@ -44,6 +45,7 @@ function loadUserData(user) {
     })
   } else {
     const nav = document.querySelector('.nav__user__a')
+    document.querySelector('.nav__user__div')?.remove()
     const login = nav.querySelector('.login')
 
     nav.classList.remove('hide')
@@ -57,7 +59,7 @@ function loadUserData(user) {
     picture.className = 'picture order-1'
     picture.appendChild(img)
     nav.appendChild(picture)
-    nav.classList.add('border', 'height--80')
+    nav.classList.add('height--80')
     nav.href = '/users/login'
   }
   return

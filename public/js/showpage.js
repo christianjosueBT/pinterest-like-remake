@@ -24,12 +24,12 @@ closeButtons.forEach(button => {
 function toggleButtons() {
   const input = document.querySelector('.comment .input')
   const aside = document.querySelector('.comment__aside')
-  const transparent = document.querySelector('.comment .cancel')
+  const cancelBtn = document.querySelector('#cancel')
 
   input.addEventListener('focus', function () {
     aside.classList.remove('hide')
   })
-  transparent.addEventListener('click', function () {
+  cancelBtn.addEventListener('click', function () {
     aside.classList.add('hide')
     input.value = ''
   })
@@ -248,7 +248,8 @@ function ratingEventListener(event) {
     next = next.nextElementSibling
   }
 
-  if (next.tagName.toLowerCase() === 'input') next.value = curr.dataset.rating
+  if (next && next.tagName.toLowerCase() === 'input')
+    next.value = curr.dataset.rating
 
   while (curr) {
     curr.firstElementChild.href.baseVal = '#cupFill'
