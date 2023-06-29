@@ -3,9 +3,11 @@
 .widgetBar {
   display: flex;
   align-items: center;
-  padding: 0.25em;
   justify-content: flex-start;
-  background-color: var(--light-text);
+  gap: 0.1em;
+
+  padding: 0.25em;
+  background-color: var(--main-2);
   border-radius: 1em;
   border: none;
   height: 44px;
@@ -20,11 +22,23 @@
   justify-content: center;
 
   position: relative;
-  background-color: var(--light-text);
+  background-color: inherit;
   border-radius: 1em;
   height: 44px;
-  z-index: 30;
+
+  /* change the direction of the CSS border arrow if the dropdown menu is visible */
+  &.is-open {
+    .arrowDown {
+      transform: rotate(180deg);
+    }
+    .dropdown__drawer {
+      width: unset;
+      opacity: 1;
+      pointer-events: unset;
+    }
+  }
 }
+
 .dropdown__toggle {
   // padding: 0.5em 2em 0.5em 1.5em;
   display: flex;
@@ -59,15 +73,6 @@
     pointer-events: unset;
   }
 }
-/* change the direction of the CSS border arrow if the dropdown menu is visible */
-.dropdown.is-open .arrowDown {
-  transform: rotate(180deg);
-}
-.dropdown.is-open .dropdown__drawer {
-  width: unset;
-  opacity: 1;
-  pointer-events: unset;
-}
 /* SVG class modifier */
 .dropdown--svg svg {
   width: 24px;
@@ -97,21 +102,26 @@
 
   li:hover,
   li:focus {
-    background-color: var(--secondary-1);
+    backdrop-filter: brightness(150%);
   }
 }
 /* SVG menu modifier */
-.menu--svg > li {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  padding: 0.25rem 0.5rem;
+.menu--svg {
+  > li {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+  }
+  svg {
+    vertical-align: middle;
+  }
+  p {
+    font-weight: 400;
+  }
 }
 
-.menu--svg > li > svg {
-  vertical-align: middle;
-}
-
-.menu--svg > li > p {
-  font-weight: 400;
+// need to make images 100% for index page
+.carousel__image {
+  width: 100%;
 }

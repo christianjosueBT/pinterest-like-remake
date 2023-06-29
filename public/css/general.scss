@@ -3,13 +3,31 @@
 :root {
   box-sizing: border-box;
   font-size: calc(1vw + 0.6em);
-  font-family: 'Montserrat', sans-serif;
-  --main-1: #cdb4db;
-  --main-2: #ffc8dd;
-  --main-3: #ffafcc;
-  --secondary-1: #dae0e6;
-  --secondary-2: #a2d2ff;
-  --secondary-3: #4285f4;
+  font-family: 'Mulish', sans-serif;
+  // --main-1: #cdb4db;
+  // --main-2: #ffc8dd;
+  // --main-3: #ffafcc;
+  // --secondary-1: #dae0e6;
+  // --secondary-2: #a2d2ff;
+  // --secondary-3: #4285f4;
+  --main-1: #edf2f4;
+  --main-2: #dbe0e6;
+  --main-3: #8d99ae;
+  --main-4: #2b2d42;
+  --secondary-1: #ee8b98;
+  --secondary-2: #ef233c;
+  --secondary-3: #d90429;
+  --success: #248232;
+  --info: #084887;
+  // --main-1: #eae4e9;
+  // --main-2: #fff1e6;
+  // --main-3: #fde2e4;
+  // --secondary-1: #fad2e1;
+  // --secondary-2: #e2ece9;
+  // --secondary-3: #bee1e6;
+  // --tertiary-1: #f0efeb;
+  // --tertiary-2: #dfe7fd;
+  // --tertiary-3: #cddafd;
   --accent-primary: #999;
   --accent-secondary: #2d2e2f;
   --light-text: #fff;
@@ -25,9 +43,23 @@
 ::before,
 ::after {
   box-sizing: inherit;
+  font-family: 'Mulish', sans-serif;
 }
 ::placeholder {
   color: var(--grey-text);
+}
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 2px solid var(--success) !important;
+  // transition: background-color 5000s ease-in-out 0s;
 }
 body,
 h1,
@@ -48,7 +80,11 @@ li {
 img {
   max-width: 100%;
 }
-/* setting some general properties */
+// hiding inputs that are type file, method i learned from colt steele or something i think i dont remember
+input[type='file'] {
+  display: none;
+}
+// setting some general properties
 html,
 body {
   padding: 0;
@@ -187,7 +223,8 @@ dialog {
 // position: absolute;
 // }
 .navFont {
-  font-family: 'Sansita Swashed', cursive !important;
+  font-family: 'Lobster', cursive !important;
+  color: var(--main-4);
 }
 .font-small {
   font-size: 0.75rem !important;
@@ -216,6 +253,19 @@ dialog {
 .text-center {
   text-align: center !important;
 }
+.border {
+  border: 1.5px solid var(--main-2);
+  border-radius: 0.2em;
+}
+.white {
+  color: var(--light-text);
+}
+.picture {
+  display: flex;
+  width: 2rem;
+  border: 2px solid var(--secondary-1);
+  border-radius: 1em;
+}
 
 /*******************************************************************  NAVBAR SECTION START  *******************************************************************/
 
@@ -224,24 +274,26 @@ dialog {
   height: 2.5rem;
   width: 100%;
   line-height: 1.6;
-  background-color: var(--main-1);
+  background-color: var(--main-3);
   margin-bottom: 2rem;
   display: block;
-}
-/* Remove bullets, margin and padding */
-.navbar ul {
-  display: flex;
-  align-items: center;
-  height: 100%;
+
+  ul {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
 }
 /* Define the block styling for the links */
 .nav__el {
   padding: 0 1em;
   color: var(--dark-text);
-}
-/* This is optional, however if you want to display the active link differently apply a background to it */
-.nav__el.active {
-  background-color: var(--main-2);
+  font-weight: 400;
+
+  /* This is optional, however if you want to display the active link differently apply a background to it */
+  &.active {
+    background-color: var(--main-2);
+  }
 }
 
 .nav__user {
@@ -259,11 +311,11 @@ dialog {
     gap: 0.3em;
   }
 
-  // .user::after {
-  //   content: url('../svg/downArrow.svg');
-  //   height: 24px;
-  //   vertical-align: middle;
-  // }
+  &:hover .dropdown--content,
+  &:focus-within .dropdown--content {
+    height: min-content;
+    opacity: 1;
+  }
 }
 
 .dropdown--content {
@@ -271,7 +323,9 @@ dialog {
   flex-flow: column wrap;
   align-items: stretch;
   justify-content: center;
-  border-radius: 0.5em;
+
+  padding: 0.2em;
+  border-radius: 0.5rem;
   position: absolute;
   bottom: -3rem;
   width: 100%;
@@ -280,66 +334,44 @@ dialog {
 
   height: 0;
   opacity: 0;
-  overflow: hidden;
-  transition: 10ms opacity 250ms;
+
+  * {
+    border-radius: 0.4rem;
+  }
+
+  *:hover {
+    backdrop-filter: brightness(80%);
+  }
+
+  *:focus {
+    border: 1.5px solid var(--main-2);
+    backdrop-filter: brightness(80%);
+  }
 }
 
 .dropdown__toggle {
   padding: 0;
 }
-
-.dropdown--content > *:hover {
-  background-color: var(--main-3);
-}
-
-.submit {
-  text-align: center;
-  cursor: pointer;
-}
-
-.nav__user:hover .dropdown--content {
-  height: min-content;
-  opacity: 1;
-}
-
-/* miscellaneous */
-.border {
-  border: 1.5px solid var(--main-2);
-  border-radius: 0.2em;
-}
-.picture {
-  display: flex;
-  width: 2rem;
-  border: 2px solid var(--secondary-2);
-  border-radius: 1em;
-}
-.footer {
-  text-align: center;
-}
-.white {
-  color: var(--light-text);
-}
-
 /*******************************************************************  SEARCHBAR SECTION START  *******************************************************************/
 .searchbar {
   display: flex;
-  background-color: var(--light-text);
+  background-color: inherit;
   cursor: text;
   border-radius: 1em;
   position: relative;
   height: inherit;
 
   // searchbar input styles
-  .searchbar__input {
+  .searchbar__form {
     flex: 1;
 
-    .searchbar__input__text {
+    .searchbar__input {
       flex: 1;
       margin: 0;
       padding: 0 0 0 0.5em;
       width: 100%;
       height: 100%;
-      background-color: var(--light-text);
+      background-color: inherit;
       border: none;
       line-height: 2.75em;
       margin: auto 0;
@@ -355,11 +387,11 @@ dialog {
         -webkit-appearance: none;
         height: 24px;
         width: 24px;
-        background: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.0912 5.63596L12 10.7271L6.90882 5.63596C6.68139 5.40853 6.34999 5.31976 6.03947 5.403C5.72894 5.48625 5.48631 5.72887 5.40307 6.0394C5.31983 6.34993 5.40861 6.68133 5.63603 6.90875L10.7272 11.9999L5.63603 17.0911C5.4086 17.3185 5.31982 17.6499 5.40307 17.9605C5.48631 18.271 5.72894 18.5136 6.03947 18.5969C6.34999 18.6801 6.6814 18.5913 6.90882 18.3639L12 13.2727L17.0912 18.3639C17.3186 18.5913 17.65 18.6801 17.9605 18.5969C18.2711 18.5136 18.5137 18.271 18.5969 17.9605C18.6802 17.6499 18.5914 17.3185 18.364 17.0911L13.2728 11.9999L18.364 6.90876C18.5914 6.68133 18.6802 6.34993 18.5969 6.0394C18.5137 5.72887 18.2711 5.48624 17.9605 5.403C17.65 5.31976 17.3186 5.40854 17.0912 5.63596Z" fill="lightpink"/></svg>'); //color is fill and only works with named colors
+        background: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.0912 5.63596L12 10.7271L6.90882 5.63596C6.68139 5.40853 6.34999 5.31976 6.03947 5.403C5.72894 5.48625 5.48631 5.72887 5.40307 6.0394C5.31983 6.34993 5.40861 6.68133 5.63603 6.90875L10.7272 11.9999L5.63603 17.0911C5.4086 17.3185 5.31982 17.6499 5.40307 17.9605C5.48631 18.271 5.72894 18.5136 6.03947 18.5969C6.34999 18.6801 6.6814 18.5913 6.90882 18.3639L12 13.2727L17.0912 18.3639C17.3186 18.5913 17.65 18.6801 17.9605 18.5969C18.2711 18.5136 18.5137 18.271 18.5969 17.9605C18.6802 17.6499 18.5914 17.3185 18.364 17.0911L13.2728 11.9999L18.364 6.90876C18.5914 6.68133 18.6802 6.34993 18.5969 6.0394C18.5137 5.72887 18.2711 5.48624 17.9605 5.403C17.65 5.31976 17.3186 5.40854 17.0912 5.63596Z" fill="%23ee8b98"/></svg>'); //color is fill and only works with named colors
         background-size: contain;
         cursor: pointer;
       }
-      .searchbar__input__text:focus::-webkit-search-cancel-button {
+      &:focus::-webkit-search-cancel-button {
         pointer-events: all;
       }
     }
@@ -385,7 +417,7 @@ dialog {
     border-radius: 1em;
     color: var(--light-text);
 
-    .searchbar__input__text {
+    .searchbar__input {
       background-color: transparent;
       color: var(--light-text);
       border: none;
@@ -413,123 +445,14 @@ dialog {
 }
 
 /*******************************************************************  CARD SECTION START  *******************************************************************/
+
 /* Default card used for masonry layout */
 .card {
-  position: relative;
+  position: absolute;
+  overflow: hidden;
+  margin: 0.5rem 0;
   border-radius: 20px;
-  max-width: 20rem;
-  background-color: var(--secondary-1);
-  margin-top: 0.5em;
-  // transition: all 0.5s ease;
-}
-.card__title {
-  margin: 1em 1em 0;
-  text-align: center;
-}
-.card__body > * + * {
-  margin-top: 0.4em;
-}
-.card__body {
-  padding: 0.5em 2em 1.5em;
-}
 
-/* On mouse-over, add a deeper shadow */
-.card:hover {
-  transition: none;
-}
-
-/* Modifier card of set size used in non-masonry flex layout */
-.card--layout {
-  display: inline-flex;
-  flex-flow: row wrap;
-  position: static;
-}
-.card--layout > .card__image > a > img {
-  object-fit: cover;
-  width: 16em;
-}
-
-/* modifier for the large layout  */
-.card--large > .card__image > a > img {
-  height: 20em;
-}
-/* modifier for the small layout  */
-.card--small > .card__image > a > img {
-  height: 16em;
-}
-
-/* Form Card */
-.card--form {
-  display: inline-block;
-  position: static;
-  /* height: 50vh; */
-}
-.card--form .card__body {
-  padding: 0.5em 1.5em 2em;
-}
-.card--form form {
-  display: flex;
-  flex-flow: row wrap;
-}
-.card--form form > * {
-  border: none;
-  max-width: 100%;
-  padding: 1em;
-  border-radius: 1em;
-  flex: 1 0 100%;
-  font-family: inherit;
-  font-size: 0.75rem;
-  background-color: var(--light-text);
-  vertical-align: baseline;
-}
-input[type='file'] {
-  display: none;
-}
-.card--form * + * {
-  margin-top: 0.5em;
-}
-
-/* Showpage modifier */
-.card--showpage {
-  margin: 0;
-  display: inline-block;
-  position: relative;
-  max-width: 100%;
-  height: 80vh;
-  border-radius: 0;
-  overflow: hidden;
-}
-.card--showpage img {
-  position: absolute;
-  height: 100%;
-  max-width: none;
-  transition: all 0.5s ease;
-  z-index: 10;
-  /* object-fit: cover; */
-}
-.card--showpage .card__title {
-  position: absolute;
-  bottom: 2em;
-  color: var(--light-text);
-  font-size: 1.5em;
-  font-weight: 800;
-  z-index: 20;
-}
-.card--showpage::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
-  z-index: 10;
-}
-/* V2 */
-.card--v2.card {
-  position: absolute;
-  overflow: hidden;
-  margin: 1rem auto;
   transform-origin: top;
   -webkit-transition: transform 0.25s;
   transition: transform 0.25s, height 0.25s;
@@ -560,10 +483,9 @@ input[type='file'] {
   &:hover .button--svg,
   &:focus .button--svg,
   &:focus-within .button--svg {
-    background-color: var(--dark-text);
+    background-color: var(--main-4);
   }
 }
-
 .card__image__top {
   display: grid;
   place-items: center;
@@ -571,16 +493,21 @@ input[type='file'] {
   top: -50%;
   left: 0;
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 1em;
   text-align: center;
 
   -webkit-transition: top 0.5s, background-color 1s 0.5s;
   transition: top 0.5s, background-color 1s 0.5s;
 
-  h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     color: var(--light-text);
     line-height: 1;
     text-align: center;
+    margin: 0;
   }
   a {
     color: var(--light-text);
@@ -591,6 +518,8 @@ input[type='file'] {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+  align-items: center;
+  gap: 0.5em;
 
   position: absolute;
   bottom: -4rem;
@@ -598,16 +527,115 @@ input[type='file'] {
   width: 100%;
 
   color: var(--light-text);
-  text-align: center;
   -webkit-transition: transform 0.5s, background-color 1s 0.5s;
   transition: transform 0.5s, background-color 1s 0.5s;
 }
-
 .card--item {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   background: var(--secondary-1);
+}
+
+/* Modifier card of set size used in non-masonry flex layout */
+.card--layout {
+  display: inline-flex;
+  flex-flow: row wrap;
+  position: static;
+
+  img {
+    object-fit: cover;
+  }
+}
+
+/* modifier for the large layout  */
+.card--large img {
+  height: 20em;
+}
+/* modifier for the small layout  */
+.card--small img {
+  height: 16em;
+}
+
+/* Form Card */
+.card--form {
+  display: inline-block;
+  position: static;
+  background-color: var(--main-3);
+  padding: 1em;
+  text-align: center;
+
+  * + * {
+    margin-top: 0.5em;
+  }
+
+  .card__body {
+    padding: 0.5em 1.5em 2em;
+  }
+
+  form {
+    display: flex;
+    flex-flow: row wrap;
+
+    > * {
+      border: none;
+      max-width: 100%;
+      padding: 1em;
+      border-radius: 1em;
+      flex: 1 0 100%;
+      font-family: inherit;
+      font-size: 0.75rem;
+      background-color: var(--light-text);
+      vertical-align: baseline;
+      text-align: center;
+    }
+  }
+}
+
+/* Showpage modifier */
+.card--showpage {
+  margin: 0;
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
+  height: 80vh;
+  border-radius: 0;
+  overflow: hidden;
+
+  .card__title {
+    position: absolute;
+    bottom: 2em;
+    color: var(--light-text);
+    font-size: 1.5em;
+    font-weight: 800;
+    z-index: 20;
+    margin: 1em 1em 0;
+    text-align: center;
+  }
+
+  img {
+    position: absolute;
+    height: 100%;
+    max-width: none;
+    transition: all 0.5s ease;
+    z-index: 10;
+    object-fit: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.6)
+    );
+    z-index: 10;
+  }
 }
 /*******************************************************************  CONTAINER SECTION START  *******************************************************************/
 .container {
@@ -631,6 +659,10 @@ input[type='file'] {
   flex-flow: row wrap;
   justify-content: center;
   column-gap: 0.75rem;
+
+  * {
+    flex-shrink: 1;
+  }
 }
 .container--center {
   display: flex;
@@ -654,10 +686,15 @@ input[type='file'] {
   padding: 1em;
   font-size: initial;
   font-family: inherit;
-  background-color: var(--secondary-2);
+  background-color: var(--main-2);
   border: none;
   cursor: pointer;
   color: var(--dark-text);
+
+  &:hover,
+  &:focus {
+    filter: brightness(80%);
+  }
 }
 .button--none {
   background-color: var(--transparent);
@@ -673,8 +710,15 @@ input[type='file'] {
   padding: 0;
   margin: 1;
 }
-.button--delete {
+.button--danger {
   background-color: var(--danger);
+}
+.button--dark {
+  background-color: var(--main-4);
+  color: var(--light-text);
+}
+.button--success {
+  background-color: var(--success);
 }
 .button--svg {
   display: flex;
@@ -683,7 +727,6 @@ input[type='file'] {
   position: absolute;
   width: 2em;
   height: 2em;
-  stroke: #fff;
   cursor: pointer;
   z-index: 20;
   transition: transform 0.25s, background-color 1.5s;
@@ -702,12 +745,22 @@ input[type='file'] {
 }
 .button--transparent {
   background: none;
+
+  &:hover,
+  &:focus {
+    backdrop-filter: brightness(150%);
+    filter: none;
+  }
 }
 .button--small {
   padding-block: 0.85em;
 }
-:invalid .button {
-  background-color: var(--grey-text);
+// ok so this is weird, basically chrome applies invalid styles to all buttons inside a form that is invalid and I dont know why
+// so this by passes that and only apply invalid styles to buttons that are NOT type button
+:invalid button:not([type='button']) {
+  background-color: var(--accent-primary);
+  color: var(--light-text);
+  border: 2px solid var(--secondary-1);
 }
 
 /*******************************************************************  CAROUSEL SECTION START  *******************************************************************/
@@ -716,6 +769,7 @@ input[type='file'] {
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: stretch;
 }
 .carousel--linked {
   position: relative;
@@ -740,16 +794,23 @@ input[type='file'] {
 .comment {
   display: flex;
   flex-flow: row wrap;
+  justify-content: space-evenly;
+
   color: var(--dark-text);
+  background-color: var(--main-2);
+  border-radius: 1em;
+  padding: 0.5rem;
+  margin-top: 1rem;
 }
 .comment__picture {
   width: 3em;
 
   img {
-    border: 2px solid var(--secondary-2);
+    border: 2px solid var(--secondary-1);
     border-radius: 2em;
   }
 }
+
 .comment__main {
   display: flex;
   flex-flow: column nowrap;
@@ -792,37 +853,13 @@ input[type='file'] {
   padding-left: 0;
   color: var(--dark-text);
   font-family: inherit;
-}
-.input:focus {
-  outline: none;
-}
-
-/* SVGs */
-.line {
-  width: 100%;
-  height: 2px;
-  padding: 0;
-  stroke: var(--accent-primary);
-}
-.focus {
-  stroke: var(--dark-text);
-  transition: all 0.3s;
-  stroke-dasharray: 0, 20;
-  stroke-dashoffset: -20;
-}
-.input:focus ~ .line .focus {
-  stroke-dasharray: 40;
-  stroke-dashoffset: 0;
-}
-.stars {
-  fill: var(--rating);
-}
-.stars--parent {
-  width: 6em;
-  height: 1.5em;
-}
-.stars--outer {
-  fill: var(--dark-text);
+  &:focus {
+    outline: none;
+  }
+  &:focus ~ .line .hidden {
+    stroke-dasharray: 40;
+    stroke-dashoffset: 0;
+  }
 }
 
 /*******************************************************************  SVG SECTION  *******************************************************************/
@@ -837,8 +874,8 @@ input[type='file'] {
     stroke: var(--main-3);
   }
   .g2 {
-    fill: var(--secondary-3);
-    stroke: var(--secondary-3);
+    fill: var(--secondary-1);
+    stroke: var(--secondary-1);
   }
 }
 
@@ -847,7 +884,7 @@ input[type='file'] {
     fill: var(--main-3);
   }
   .g2 {
-    fill: var(--secondary-3);
+    fill: var(--secondary-1);
   }
 }
 
@@ -856,43 +893,89 @@ input[type='file'] {
     fill: var(--main-3);
   }
   .g2 {
-    fill: var(--secondary-3);
+    fill: var(--secondary-1);
   }
 }
 
 .search {
-  fill: var(--secondary-3);
-  stroke: var(--secondary-3);
+  fill: var(--secondary-1);
+  stroke: var(--secondary-1);
 }
 
 .cup {
   stroke-width: 0.5;
   stroke: var(--dark-text);
+
   &.light {
-    stroke: var(--secondary-1);
-    // stroke-width: 1;
+    stroke: var(--main-1);
   }
-  // .lid {
-  //   stroke-width: 0.5;
-  // }
-  // .cupHolder {
-  //   stroke-width: 0.5;
-  // }
-  // .body {
-  //   stroke-width: 0.5;
-  // }
 }
 
 .cupFill {
   stroke-width: 0.5;
   stroke: var(--dark-text);
   .lid {
-    fill: var(--secondary-2);
+    fill: var(--main-1);
   }
   .cupHolder {
-    fill: var(--secondary-2);
+    fill: var(--main-1);
   }
   .body {
-    fill: var(--main-2);
+    fill: var(--secondary-1);
   }
+}
+
+.buttonSVG {
+  .circle {
+    stroke: var(--main-2);
+  }
+  .arrow {
+    stroke: var(--secondary-1);
+  }
+}
+
+.checkmark {
+  .arrow {
+    fill: var(--dark-text);
+  }
+  .circle {
+    stroke: var(--dark-text);
+  }
+}
+
+.upload {
+  .arrow {
+    fill: var(--dark-text);
+  }
+  .bottom {
+    fill: var(--dark-text);
+  }
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+  padding: 0;
+
+  .default {
+    stroke: var(--main-1);
+  }
+  .hidden {
+    stroke: var(--secondary-2);
+    transition: all 0.3s;
+    stroke-dasharray: 0, 20;
+    stroke-dashoffset: -20;
+  }
+}
+
+// idk if i should keep these
+.stars {
+  fill: var(--rating);
+}
+.stars--parent {
+  width: 6em;
+  height: 1.5em;
+}
+.stars--outer {
+  fill: var(--dark-text);
 }

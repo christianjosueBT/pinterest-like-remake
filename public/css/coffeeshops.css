@@ -3,9 +3,10 @@
 .widgetBar {
   display: flex;
   align-items: center;
-  padding: 0.25em;
   justify-content: flex-start;
-  background-color: var(--light-text);
+  gap: 0.1em;
+  padding: 0.25em;
+  background-color: var(--main-2);
   border-radius: 1em;
   border: none;
   height: 44px;
@@ -19,10 +20,18 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
-  background-color: var(--light-text);
+  background-color: inherit;
   border-radius: 1em;
   height: 44px;
-  z-index: 30;
+  /* change the direction of the CSS border arrow if the dropdown menu is visible */
+}
+.dropdown.is-open .arrowDown {
+  transform: rotate(180deg);
+}
+.dropdown.is-open .dropdown__drawer {
+  width: unset;
+  opacity: 1;
+  pointer-events: unset;
 }
 
 .dropdown__toggle {
@@ -56,17 +65,6 @@
   pointer-events: unset;
 }
 
-/* change the direction of the CSS border arrow if the dropdown menu is visible */
-.dropdown.is-open .arrowDown {
-  transform: rotate(180deg);
-}
-
-.dropdown.is-open .dropdown__drawer {
-  width: unset;
-  opacity: 1;
-  pointer-events: unset;
-}
-
 /* SVG class modifier */
 .dropdown--svg svg {
   width: 24px;
@@ -94,7 +92,8 @@
 }
 .menu li:hover,
 .menu li:focus {
-  background-color: var(--secondary-1);
+  -webkit-backdrop-filter: brightness(150%);
+          backdrop-filter: brightness(150%);
 }
 
 /* SVG menu modifier */
@@ -104,11 +103,13 @@
   align-items: center;
   padding: 0.25rem 0.5rem;
 }
-
-.menu--svg > li > svg {
+.menu--svg svg {
   vertical-align: middle;
 }
-
-.menu--svg > li > p {
+.menu--svg p {
   font-weight: 400;
+}
+
+.carousel__image {
+  width: 100%;
 }
