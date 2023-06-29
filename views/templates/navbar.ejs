@@ -1,9 +1,9 @@
 <nav class="<%- nav %>">
   <ul>
     <li><a class="nav__el" href="/">
-        <h3 class="inline navFont">Find Me Food Now!</h3>
+        <h1 class="inline navFont">Plates</h1>
       </a></li>
-    <li><a class="nav__el" href="/coffeeShops">Home</a></li>
+    <li><a class="nav__el" href="/coffeeshops">Home</a></li>
     <li class="justify-end margin-right">
       <a class="nav__user nav__user__a hide">
         <div class="login hide">Login</div>
@@ -17,8 +17,8 @@
         </div>
         <div class="dropdown--content">
           <a class="dropdown--profile flex--centerAll">Profile</a>
-          <form class="dropdown--logout flex--centerAll" action="/users/logout" method="POST">
-            <div class="submit">Logout</div>
+          <form id="navForm" class="dropdown--logout flex--centerAll" action="/users/logout" method="POST" tabindex="0">
+            <div id="submit" class="pointer text-center">Logout</div>
           </form>
         </div>
       </div>
