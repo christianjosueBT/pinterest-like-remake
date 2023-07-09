@@ -229,6 +229,15 @@ export default class coffeeShopsDAO {
     let cursor
     let pipeline = []
 
+    let skip = {
+        $skip: page * entries,
+      },
+      limit = {
+        $limit: entries,
+      }
+
+    pipeline.push(skip, limit)
+
     if (rating) {
       let lookup = {
           $lookup: {
@@ -248,17 +257,23 @@ export default class coffeeShopsDAO {
       pipeline.push(lookup, addFields)
     }
 
+    // console.log('rating', rating)
+    // console.log('page', page)
+    // console.log('project', project)
+    // console.log('entries', entries)
+    // console.log('page * entries', page * entries)
+
     try {
       cursor = await coffeeShops.aggregate(pipeline)
     } catch (e) {
       console.error(`Error in DAO nameSearch() function 😩😩😩\n${e}`)
       return { shopsList: [] }
     }
-    // Paging implementation
-    const displayCursor = cursor.limit(entries).skip(page * entries)
+    // // Paging implementation
+    // const displayCursor = cursor.limit(entries).skip(1)
     try {
       // const shopsList = await displayCursor.toArray()
-      const shopsList = await displayCursor.toArray()
+      const shopsList = await cursor.toArray()
 
       return { shopsList }
     } catch (e) {
