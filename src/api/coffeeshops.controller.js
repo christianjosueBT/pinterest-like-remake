@@ -18,6 +18,12 @@ export default class coffeeShopsController {
       project = []
       entries = 10
     }
+
+    // console.log('page', page)
+    // console.log('project', project)
+    // console.log('rating', rating)
+    // console.log('entries', entries)
+
     const { shopsList } = await csDAO.getCoffeeShops({
       page,
       project,

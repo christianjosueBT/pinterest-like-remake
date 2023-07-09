@@ -19,7 +19,7 @@ let min = 0
 let index = 0
 let page = 0
 let user = {}
-let masonry
+let masonry, observer
 
 // taken from https://stackoverflow.com/questions/11106876/is-it-possible-to-animate-flexbox-inserts-removes
 /**
@@ -226,98 +226,30 @@ const handleFormSubmit = async event => {
  * @returns {Void}
  */
 async function getData() {
+  console.log('getdata is running')
+
   page++
-  colWidth =
-    parseInt(
-      window.getComputedStyle(document.body).getPropertyValue('font-size')
-    ) * 20
   let str = window.location.href.includes('?')
     ? `${window.location.href}&page=${page}`
-    : `/coffeeShops?page=${page}`
+    : `/coffeeShops?page=${page}&project=images,name&rating=true`
 
   try {
     let res = await fetch(str)
     let data = await res.json()
-    let items = []
+    let container = document.getElementById('macyContainer')
 
     for (let i = 0; i < data.length; i++) {
       let card = await createCard(data[i])
-      simpleM.append(card)
+      container?.appendChild(card)
     }
   } catch (e) {
     console.log('error in getData()', e)
   }
+
+  if (state === 'masonry') masonry.layout()
+  masonry.reveal()
   return
 }
-
-// ********************************************************************
-// updating the location of everything in the page
-// ********************************************************************
-
-// places cards where they should be to get a pinterest like layout
-// function setupBlocks() {
-//   colWidth =
-//     parseInt(
-//       window.getComputedStyle(document.body).getPropertyValue('font-size')
-//     ) * 16;
-//   blocks = document.querySelectorAll('.card');
-//   // getting window width, width of a card, and setting the margin to be equal to one rem
-//   windowWidth = window.innerWidth;
-//   margin = parseInt(
-//     window.getComputedStyle(document.body).getPropertyValue('font-size')
-//   );
-//   // calculating how many cards fit in a "row" of the viewport
-//   colCount = Math.floor(windowWidth / (colWidth + margin));
-//   // calculating the space the cards will take (including the margin I want between them as well as the
-//   // minimum margin between the cards and the left and right side of the page)
-//   cardsSpace = colCount * (colWidth + margin);
-//   // calculating the whitespace that will remain
-//   whiteSpace = windowWidth - cardsSpace;
-//   // only placing the cards that fit in the first row in their appropriate places
-//   if (blocks.length >= colCount) {
-//     for (let i = 0; i < colCount; i++) {
-//       // I want the white space to be divided evenly on the left and right side of the page
-//       blocks[i].style.left = `${
-//         (whiteSpace + margin) / 2 + (colWidth + margin) * i
-//       }px`;
-//       // placing the cards at the top of their container and letting top margin take care of the rest
-//       blocks[i].style.top = '0px';
-//       // storing height of each of these cards in an array called "heights"
-//       heights.push(blocks[i].offsetHeight + margin);
-//     }
-//   } else if (blocks.length !== 1) {
-//     for (let i = 0; i < blocks.length; i++) {
-//       // I want the white space to be divided evenly on the left and right side of the page
-//       blocks[i].style.left = `${
-//         (whiteSpace + margin) / 2 + (colWidth + margin) * i
-//       }px`;
-//       // placing the cards at the top of their container and letting top margin take care of the rest
-//       blocks[i].style.top = '0px';
-//       // storing height of each of these cards in an array called "heights"
-//       heights.push(blocks[i].offsetHeight + margin);
-//     }
-//   } else if (blocks.length === 1) {
-//     blocks[0].style.left = `${(windowWidth - colWidth) / 2}px`;
-//     blocks[0].style.top = '0px';
-//     heights.push(blocks[0].offsetHeight + margin);
-//   }
-//   // placing the remainder of the cards
-//   for (let i = colCount; i < blocks.length; i++) {
-//     // calculating the smallest value in the array of heights
-//     min = Math.min(...heights);
-//     // calculating the index of this of this smallest value
-//     index = heights.findIndex(n => n === min);
-//     // placing a card below the shortest card column
-//     blocks[i].style.left = `${blocks[index].offsetLeft}px`;
-//     blocks[i].style.top = `${heights[index]}px`;
-//     // updating the heights array to reflect the new height of the column
-//     heights[index] += blocks[i].offsetHeight + margin;
-//   }
-//   footer.style.top = `${Math.max(...heights) + 20}px`;
-//   // resetting the heights array to reuse this function if needed
-//   heights.length = [];
-//   return;
-// }
 
 // ********************************************************************
 // dropwdown for changing the layout of the page observer
@@ -356,12 +288,14 @@ function dropDown() {
  * Changes the state of the page to 'masonry' and changes all cards to the masonry layout style by removing and adding css classes and replacing the images of the cards for more suitable ones
  * @returns {Void}
  */
-function masonryLayout(e) {
-  if (e.type === 'keyup') {
-    if (e.key !== 'Enter') return
+async function masonryLayout(e) {
+  if (e.type === 'keyup' || state === 'masonry') {
+    if (e.key !== 'Enter' || state === 'masonry') return
   }
 
   state = 'masonry'
+  observer.unobserve(footer)
+
   const shops = document.querySelector('#macyContainer')
   shops.classList.remove('container--layout')
   const cards = document.querySelectorAll('.card')
@@ -372,10 +306,14 @@ function masonryLayout(e) {
     changeImages(card, colWidth)
   }
 
-  masonry = new MiniMasonry({
+  masonry = await MiniMasonry.initialize({
     container: '#macyContainer',
     images: '.carousel__image',
   })
+
+  setTimeout(() => {
+    observer.observe(footer)
+  }, 500)
 
   return
 }
@@ -383,11 +321,12 @@ function masonryLayout(e) {
  * Changes the state of the page to 'large' and changes all cards to the large layout style by removing and adding css classes and replacing the images of the cards for more suitable ones
  * @returns {Void}
  */
-function largeLayout(e) {
-  if (e.type === 'keyup') {
-    if (e.key !== 'Enter') return
+async function largeLayout(e) {
+  if (e.type === 'keyup' || state === 'large') {
+    if (e.key !== 'Enter' || state === 'large') return
   }
 
+  observer.unobserve(footer)
   state = 'large'
   const shops = document.querySelector('#macyContainer')
   shops.classList.add('container--layout')
@@ -398,18 +337,23 @@ function largeLayout(e) {
     card.classList.remove('card--small')
     changeImages(card, colWidth)
   }
-  masonry.destroy()
+  await masonry.destroy()
+
+  setTimeout(() => {
+    observer.observe(footer)
+  }, 500)
   return
 }
 /**
  * Changes the state of the page to 'small' and changes all cards to the small layout style by removing and adding css classes and replacing the images of the cards for more suitable ones
  * @returns {Void}
  */
-function smallLayout(e) {
-  if (e.type === 'keyup') {
-    if (e.key !== 'Enter') return
+async function smallLayout(e) {
+  if (e.type === 'keyup' || state === 'small') {
+    if (e.key !== 'Enter' || state === 'small') return
   }
 
+  observer.unobserve(footer)
   state = 'small'
   const shops = document.querySelector('#macyContainer')
   shops.classList.add('container--layout')
@@ -420,7 +364,11 @@ function smallLayout(e) {
     card.classList.remove('card--large')
     changeImages(card, colWidth)
   }
-  masonry.destroy()
+  await masonry.destroy()
+
+  setTimeout(() => {
+    observer.observe(footer)
+  }, 500)
   return
 }
 
@@ -501,18 +449,45 @@ async function setImages(card__image, images, colWidth, id) {
     const src = [`${str}/${images[i].filename}`, images[i].filename]
     sources.push(src)
   }
-  Promise.all(sources.map(loadImage)).then(imgs => {
-    for (let i = 0; i < imgs.length; i++) {
-      if (i === 0) imgs[i].className = 'active carousel__image'
-      else imgs[i].className = 'carousel__image'
-      let a = document.createElement('a')
-      a.setAttribute('href', `/coffeeShops/${id}`)
-      a.appendChild(imgs[i])
-      card__image.appendChild(a)
-    }
+
+  return Promise.all(sources.map(loadImage)).then(imgs => {
+    let a
+    imgs.forEach((img, i) => {
+      if (i === 0) {
+        a = document.createElement('a')
+        a.setAttribute('href', `/coffeeshops/${id}`)
+        a.setAttribute('tabindex', '-1')
+        img.className = 'active carousel__image'
+      } else {
+        img.className = 'carousel__image'
+      }
+      a.appendChild(img)
+    })
+
+    card__image.prepend(a)
     changePicture(card__image, imgs)
     return
   })
+  // return Promise.allSettled(sources.map(loadImage)).then(imgs => {
+  //   let a
+  //   imgs
+  //     .filter(img => img.status === 'fulfilled')
+  //     .forEach((img, i) => {
+  //       console.log('img:', img)
+  //       if (i === 0) {
+  //         a = document.createElement('a')
+  //         a.setAttribute('href', `/coffeeShops/${id}`)
+  //         img.className = 'active carousel__image'
+  //       } else {
+  //         img.className = 'carousel__image'
+  //       }
+  //       a.appendChild(img)
+  //     })
+
+  //   card__image.appendChild(a)
+  //   changePicture(card__image, imgs)
+  //   return
+  // })
 }
 
 /**
@@ -547,49 +522,96 @@ function changeImages(card, colWidth) {
 }
 // creates all elements a card needs, then puts them together and adds them to the page
 async function createCard(data) {
-  let className = 'card'
+  let className = 'card hide'
   if (state === 'large') className += ' card--layout card--large'
   else if (state === 'small') className += ' card--layout card--small'
 
   let card = document.createElement('div')
   let card__image = document.createElement('div')
   let card__image__top = document.createElement('div')
+  let title = document.createElement('h5')
   let card__image__bottom = document.createElement('div')
-  let h3 = document.createElement('h3')
-  let h3__a = document.createElement('a')
-  let p = document.createElement('p')
+  let rating = document.createElement('p')
+  let ratingDiv = document.createElement('div')
+  let rating1 = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  let use1 = document.createElementNS('http://www.w3.org/2000/svg', 'use')
+  let rating2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  let use2 = document.createElementNS('http://www.w3.org/2000/svg', 'use')
+  let rating3 = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  let use3 = document.createElementNS('http://www.w3.org/2000/svg', 'use')
+  let rating4 = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  let use4 = document.createElementNS('http://www.w3.org/2000/svg', 'use')
+  let rating5 = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  let use5 = document.createElementNS('http://www.w3.org/2000/svg', 'use')
+  let numRatings = document.createElement('p')
+
   let svgLeft = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
   let useLeft = document.createElementNS('http://www.w3.org/2000/svg', 'use')
   let svgRight = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
   let useRight = document.createElementNS('http://www.w3.org/2000/svg', 'use')
 
-  useLeft.setAttribute('href', '#svg--left')
-  useRight.setAttribute('href', '#svg--right')
+  card.className = className
+  card__image.className = 'card__image carousel'
+  card__image__top.className = 'card__image__top'
+  title.textContent = data.name
+  card__image__top.appendChild(title)
+  card__image.appendChild(card__image__top)
+
+  card__image__bottom.className = 'card__image__bottom'
+  ratingDiv.className = 'rating flex--center'
+  ratingDiv.dataset.rating = Math.round(data.avgRating * 10) / 10
+  rating.textContent = Math.round(data.avgRating * 10) / 10
+
+  rating1.setAttribute('width', '24')
+  rating1.setAttribute('height', '30')
+  use1.setAttribute('href', '#cup')
+  rating1.appendChild(use1)
+
+  rating2.setAttribute('width', '24')
+  rating2.setAttribute('height', '30')
+  use2.setAttribute('href', '#cup')
+  rating2.appendChild(use2)
+
+  rating3.setAttribute('width', '24')
+  rating3.setAttribute('height', '30')
+  use3.setAttribute('href', '#cup')
+  rating3.appendChild(use3)
+
+  rating4.setAttribute('width', '24')
+  rating4.setAttribute('height', '30')
+  use4.setAttribute('href', '#cup')
+  rating4.appendChild(use4)
+
+  rating5.setAttribute('width', '24')
+  rating5.setAttribute('height', '30')
+  use5.setAttribute('href', '#cup')
+  rating5.appendChild(use5)
+
+  ratingDiv.appendChild(rating1)
+  ratingDiv.appendChild(rating2)
+  ratingDiv.appendChild(rating3)
+  ratingDiv.appendChild(rating4)
+  ratingDiv.appendChild(rating5)
+
+  numRatings.textContent = `(${data.reviewsCount})`
+  card__image__bottom.appendChild(rating)
+  card__image__bottom.appendChild(ratingDiv)
+  card__image__bottom.appendChild(numRatings)
+  card__image.appendChild(card__image__bottom)
+
   svgLeft.setAttribute('width', '48')
   svgRight.setAttribute('width', '48')
   svgLeft.setAttribute('viewBox', '0 0 24 24')
   svgRight.setAttribute('viewBox', '0 0 24 24')
+  svgLeft.setAttribute('tabindex', '0')
+  svgRight.setAttribute('tabindex', '0')
   svgLeft.setAttribute('class', 'button--svg button--left hide')
   svgRight.setAttribute('class', 'button--svg button--right hide')
+  useLeft.setAttribute('href', '#svg--left')
+  useRight.setAttribute('href', '#svg--right')
   svgLeft.appendChild(useLeft)
   svgRight.appendChild(useRight)
 
-  card.className = className
-  card__image.className = 'card__image carousel'
-  card__image__top.className = 'card__image__top'
-  card__image__bottom.className = 'card__image__bottom'
-
-  h3__a.textContent = data.name.split(/\s+/).slice(0, 4).join(' ')
-  h3__a.setAttribute('href', `/coffeeShops/${data._id}`)
-  p.textContent =
-    'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium perspiciatis harum totam voluptatibus dolore recusandae laboriosam reiciendis ex autem eum, veniam, beatae, debitis ipsa in! Est laborum molestias ratione nesciunt!'
-
-  h3.appendChild(h3__a)
-
-  card__image__top.appendChild(h3)
-  card__image__bottom.appendChild(p)
-  card__image.appendChild(card__image__top)
-  card__image.appendChild(card__image__bottom)
   card__image.appendChild(svgLeft)
   card__image.appendChild(svgRight)
 
@@ -604,12 +626,16 @@ async function createCard(data) {
 // loads the images using promises
 const loadImage = src =>
   new Promise((resolve, reject) => {
-    const img = new Image()
+    let img = new Image()
     img.onload = () => resolve(img)
-    img.onerror = reject
+    img.onerror = error => {
+      console.log('Error loading image:', error)
+      reject('Error loading image')
+    }
     img.src = src[0]
     img.dataset.src = src[1]
   })
+
 // checks if element passed to it is "active" or not. Returns a boolean value
 const active = element => element.classList.contains('active')
 // changes which image is "active" to the left
@@ -690,7 +716,7 @@ function handleButtonpointerdownCurried(images) {
     else changeIndexLeft(images)
 
     const newItemInfo = getItemInfo(this.parentElement.parentElement)
- 
+
     // only update the position of the columns if state is set to masonry
     if (state === 'masonry') masonry.layoutCol(this.parentElement.parentElement)
     // scaleElement(this.parentElement.parentElement, oldItemInfo, newItemInfo)
@@ -728,11 +754,16 @@ function stopPropagation() {
 }
 
 // https://spope.github.io/MiniMasonry.js/
-masonry = new MiniMasonry({
-  container: '#macyContainer',
-  images: '.carousel__image',
-})
-stopPropagation()
+
+async function initialize() {
+  masonry = await MiniMasonry.initialize({
+    container: '#macyContainer',
+    images: '.carousel__image',
+  })
+  stopPropagation()
+}
+
+initialize()
 // loadImages(, masonry._width)
 
 // waiting until everything has loaded to run the function that places cards where they
@@ -741,7 +772,7 @@ document.addEventListener('readystatechange', event => {
   if (document.readyState === 'complete') {
     // masonry.layout()
     dropDown()
-    const observer = new IntersectionObserver(handleIntersect, options)
+    observer = new IntersectionObserver(handleIntersect, options)
     observer.observe(footer)
     carousel()
     loadRatings()
