@@ -830,10 +830,10 @@ dialog .closeModal:hover {
 }
 
 .comment__main__body {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  font-size: 0.75rem;
+  flex-basis: 100%;
+  overflow-wrap: break-word;
+  -webkit-hyphens: manual;
+          hyphens: manual;
 }
 
 /* Label module */

@@ -834,10 +834,15 @@ dialog {
   flex-flow: row nowrap;
 }
 .comment__main__body {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  font-size: 0.75rem;
+  // container-type: inline-size;
+  flex-basis: 100%;
+
+  overflow-wrap: break-word;
+  hyphens: manual;
+
+  // p {
+  //   font-size: clamp(1cqi, 2cqi, 2rem);
+  // }
 }
 
 /* Label module */
