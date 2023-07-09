@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <circle style="fill: #ee8b98;" cx="250" cy="250" r="200"/>
+  <circle style="fill: white;" cx="150" cy="250" r="10"/>
+  <circle style="fill: white;" cx="350" cy="250" r="10"/>
+  <path style="fill:none; stroke: white; stroke-width: 3px;" d="M 230.032 306.617 C 253.266 306.617 272.762 289.078 275.232 265.952" transform="matrix(0.743144, 0.669131, -0.669131, 0.743144, 254.207573, -102.028125)" bx:origin="0.663004 0.347969"/>
+</svg>
