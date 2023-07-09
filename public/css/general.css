@@ -201,6 +201,10 @@ dialog .closeModal:hover {
   padding: 0 !important;
 }
 
+.padding-25 {
+  padding: 0.25em !important;
+}
+
 .grow-2 {
   flex: 2 !important;
 }
@@ -510,6 +514,7 @@ dialog .closeModal:hover {
   bottom: -4rem;
   left: 0;
   width: 100%;
+  vertical-align: middle;
   color: var(--light-text);
   transition: transform 0.5s, background-color 1s 0.5s;
 }
@@ -804,7 +809,7 @@ dialog .closeModal:hover {
 
 .comment__main {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row wrap;
   flex-basis: 80%;
 }
 
@@ -825,7 +830,9 @@ dialog .closeModal:hover {
 }
 
 .comment__main__body {
-  flex-basis: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
   font-size: 0.75rem;
 }
 
