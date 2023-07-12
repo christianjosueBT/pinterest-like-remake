@@ -48,6 +48,9 @@
 ::placeholder {
   color: var(--grey-text);
 }
+input {
+  font-size: inherit;
+}
 /* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -819,9 +822,15 @@ dialog {
   display: flex;
   flex-flow: row wrap;
   flex-basis: 80%;
+  justify-content: space-between;
 }
 .comment__aside {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  flex-basis: 100%;
+
   margin-top: 0.25em;
 }
 .comment__aside__rating {
@@ -829,22 +838,58 @@ dialog {
   align-items: center;
   gap: 1em;
 }
-.comment__main__title {
+.comment__aside__buttons {
   display: flex;
   flex-flow: row nowrap;
+  justify-content: flex-end;
+  gap: 0.2em;
+  flex-basis: 100%;
+}
+.comment__main__title {
+  display: flex;
+  flex-flow: row wrap;
+
+  width: 100%;
 }
 .comment__main__body {
-  // container-type: inline-size;
   flex-basis: 100%;
+  width: 100%;
 
   overflow-wrap: break-word;
   hyphens: manual;
-
-  // p {
-  //   font-size: clamp(1cqi, 2cqi, 2rem);
-  // }
+  word-wrap: break-word;
 }
 
+@media (max-width: 439px) {
+  .rating {
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+@media (max-width: 308px) {
+  .rating {
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  .button {
+    font-size: unset;
+  }
+}
+@media (max-width: 234px) {
+  .rating {
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  .button {
+    font-size: 0.5rem;
+  }
+}
 /* Label module */
 .label {
   background: none;

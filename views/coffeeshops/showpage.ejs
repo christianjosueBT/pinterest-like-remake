@@ -21,7 +21,6 @@
 
 <!-- DESCRIPTION -->
 <div class="container margin-top">
-  <p class="font-small">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, magnam. Ipsa minima est commodi totam, excepturi distinctio possimus sequi porro quibusdam ipsam sunt aspernatur ad rerum unde optio doloremque iste?</p>
   <%if(user && String(user._id) === String(coffeeShop.author)) {%>
   <div class="container container--flex">
     <a class="button" href="/coffeeshops/<%=coffeeShop._id%>/edit">Edit</a>
@@ -94,7 +93,7 @@
         </div>
         <!-- <input type="number" name="review[rating]" min="0" max="5" step="1" class="stars--rating label"> -->
       </div>
-      <div class="comment__aside__buttons justify-end">
+      <div class="comment__aside__buttons">
         <button id="cancel" type="button" class="button button--danger">Cancel</button>
         <button class="button button--success">Submit</button>
       </div>
@@ -111,7 +110,7 @@
       </div>
       <div class="comment__main">
         <div class="comment__main__title">
-          <%=coffeeShop.reviews[i].author[0].username%>
+          <p><%=coffeeShop.reviews[i].author[0].username%></p>
           <!-- SVG STARS -->
           <div id="rating" class="flex rating" data-rating="<%=coffeeShop.reviews[i].rating%>">
             <svg viewBox="0 0 16 32" width="48" height="48">
