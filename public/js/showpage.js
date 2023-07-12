@@ -5,33 +5,53 @@ const length = images.length
 let user = {}
 
 // functionality that lets us show and close dialog modalBtns
-const modalBtns = document.querySelectorAll('.openModal')
-modalBtns.forEach(button => {
-  button.addEventListener('click', event => {
-    const modal = document.querySelector(`#${event.target.dataset.modal}`)
-    modal.showModal()
+function modalBtns() {
+  const modalBtns = document.querySelectorAll('.openModal')
+  modalBtns.forEach(button => {
+    button.addEventListener('pointerdown', event => {
+      const modal = document.querySelector(`#${event.target.dataset.modal}`)
+      modal.showModal()
+    })
+    button.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        const modal = document.querySelector(`#${event.target.dataset.modal}`)
+        modal.showModal()
+      }
+    })
   })
-})
-const closeButtons = document.querySelectorAll('.closeModal')
-closeButtons.forEach(button => {
-  button.addEventListener('click', event => {
-    const modal = event.target.closest('dialog')
-    modal.close()
+  const closeButtons = document.querySelectorAll('.closeModal')
+  closeButtons.forEach(button => {
+    button.addEventListener('pointerdown', event => {
+      const modal = event.target.closest('dialog')
+      modal.close()
+    })
+    button.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        const modal = event.target.closest('dialog')
+        modal.close()
+      }
+    })
   })
-})
+}
 
 // Function that shows form buttons when relevant input is focused
 function toggleButtons() {
-  const input = document.querySelector('.comment .input')
+  const input = document.querySelector('#formInput')
   const aside = document.querySelector('.comment__aside')
   const cancelBtn = document.querySelector('#cancel')
 
   input.addEventListener('focus', function () {
     aside.classList.remove('hide')
   })
-  cancelBtn.addEventListener('click', function () {
+  cancelBtn.addEventListener('pointerdown', function () {
     aside.classList.add('hide')
     input.value = ''
+  })
+  cancelBtn.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      aside.classList.add('hide')
+      input.value = ''
+    }
   })
 }
 
@@ -199,11 +219,21 @@ function buttons(images) {
   const left = document.querySelector('.button--left')
   const right = document.querySelector('.button--right')
 
-  left.addEventListener('click', function () {
+  left.addEventListener('pointerdown', function () {
     changeLeft(images)
   })
-  right.addEventListener('click', function () {
+  left.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      changeLeft(images)
+    }
+  })
+  right.addEventListener('pointerdown', function () {
     changeRight(images)
+  })
+  right.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      changeRight(images)
+    }
   })
 }
 
@@ -231,14 +261,31 @@ function loadRatings() {
   }
 }
 
+function autoExpandTextArea() {
+  document.body.addEventListener('keydown', expandTextArea)
+  document.body.addEventListener('input', expandTextArea)
+  document.body.addEventListener('mousedown', expandTextArea)
+  document.body.addEventListener('focus', expandTextArea)
+
+  function expandTextArea(event) {
+    if (event.target.matches('textarea[data-expandable]')) {
+      event.target.style.removeProperty('height')
+      event.target.style.height = event.target.scrollHeight + 2 + 'px'
+    }
+  }
+}
+
 function setRating() {
   const makeRating = document.querySelector('#makeRating')
   const input = makeRating?.querySelector('input')
 
-  makeRating?.addEventListener('click', ratingEventListener)
+  makeRating?.addEventListener('pointerdown', ratingEventListener)
+  makeRating?.addEventListener('keydown', ratingEventListener)
 }
 
 function ratingEventListener(event) {
+  if (event.type === 'keydown') if (event.key !== 'Enter') return
+
   let target = event.target
   let curr = target.tagName.toLowerCase() !== 'svg' ? target.parentNode : target
   let next = curr.nextElementSibling
@@ -259,6 +306,8 @@ function ratingEventListener(event) {
 
 document.addEventListener('readystatechange', event => {
   if (document.readyState === 'complete') {
+    autoExpandTextArea()
+    modalBtns()
     setImages()
     // stars()
     buttons(images)

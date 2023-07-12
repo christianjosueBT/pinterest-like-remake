@@ -52,7 +52,7 @@
 
     <!-- Slightly different "make a comment" template shown depending on if the user is logged in or not -->
   
-  <form action="/coffeeShops/<%=coffeeShop._id%>/reviews" method="POST" class="comment">
+  <form class="comment" action="/coffeeShops/<%=coffeeShop._id%>/reviews" method="POST">
   <div class="comment__picture">
     <img src="<%- !user ? 'https://res.cloudinary.com/christianjosuebt/image/upload/w_200,h_200,c_limit,e_blur:400,o_90,b_black/l_text:arial_80:®,ar_1:1,c_lfill,o_60,co_rgb:ffffff,b_rgb:000000,r_max/v1619026522/coffeeShops/smile_bpkzip.svg' : user.profilePicture.url %>" alt="">
   </div>
@@ -60,10 +60,10 @@
     <div class="comment__main__body flex flex--column">
       <%if(!user) {%>
       <a href="/users/login">
-        <input class="input" type="text" name="review[body]" placeholder="Leave a review..." required>
+        <textarea id="formInput" rows="1" class="input" name="review[body]" placeholder="Leave a review..." required data-expandable></textarea>
       </a>
       <% } else { %>
-      <input class="input" type="text" name="review[body]" placeholder="Leave a review..." required>
+      <textarea id="formInput" rows="1" class="input" name="review[body]" placeholder="Leave a review..." required data-expandable></textarea>
       <% } %>
       <svg class="line" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 2" preserveAspectRatio="none">
         <path class="default" d="M0 1 L40 1"></path>
@@ -74,19 +74,19 @@
     <div class="comment__aside hide">
       <div class="comment__aside__rating">
         <div id="makeRating" class="flex rating">
-          <svg viewBox="0 0 16 32" width="48" height="48" data-rating="1">
+          <svg viewBox="0 0 24 30" width="48" height="48" data-rating="1" tabindex="0">
             <use href="#cup"></use>
           </svg>
-          <svg viewBox="0 0 16 32" width="48" height="48" data-rating="2">
+          <svg viewBox="0 0 24 30" width="48" height="48" data-rating="2" tabindex="0">
             <use href="#cup"></use>
           </svg>
-          <svg viewBox="0 0 16 32" width="48" height="48" data-rating="3">
+          <svg viewBox="0 0 24 30" width="48" height="48" data-rating="3" tabindex="0">
             <use href="#cup"></use>
           </svg>
-          <svg viewBox="0 0 16 32" width="48" height="48" data-rating="4">
+          <svg viewBox="0 0 24 30" width="48" height="48" data-rating="4" tabindex="0">
             <use href="#cup"></use>
           </svg>
-          <svg viewBox="0 0 16 32" width="48" height="48" data-rating="5">
+          <svg viewBox="0 0 24 30" width="48" height="48" data-rating="5" tabindex="0">
             <use href="#cup"></use>
           </svg>
           <input type="hidden" name="review[rating]" min="0" max="5" step="1">
@@ -113,19 +113,19 @@
           <p><%=coffeeShop.reviews[i].author[0].username%></p>
           <!-- SVG STARS -->
           <div id="rating" class="flex rating" data-rating="<%=coffeeShop.reviews[i].rating%>">
-            <svg viewBox="0 0 16 32" width="48" height="48">
+            <svg viewBox="0 0 24 30" width="48" height="48">
               <use href="#cup"></use>
             </svg>
-            <svg viewBox="0 0 16 32" width="48" height="48">
+            <svg viewBox="0 0 24 30" width="48" height="48">
               <use href="#cup"></use>
             </svg>
-            <svg viewBox="0 0 16 32" width="48" height="48">
+            <svg viewBox="0 0 24 30" width="48" height="48">
               <use href="#cup"></use>
             </svg>
-            <svg viewBox="0 0 16 32" width="48" height="48">
+            <svg viewBox="0 0 24 30" width="48" height="48">
               <use href="#cup"></use>
             </svg>
-            <svg viewBox="0 0 16 32" width="48" height="48">
+            <svg viewBox="0 0 24 30" width="48" height="48">
               <use href="#cup"></use>
             </svg>
           </div>
