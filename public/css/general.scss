@@ -2,7 +2,7 @@
 /* color palette and general fonts */
 :root {
   box-sizing: border-box;
-  font-size: calc(1vw + 0.6em);
+  font-size: min(calc(1vw + 0.6em), 1.25rem);
   font-family: 'Mulish', sans-serif;
   // --main-1: #cdb4db;
   // --main-2: #ffc8dd;
@@ -48,7 +48,8 @@
 ::placeholder {
   color: var(--grey-text);
 }
-input {
+input,
+textarea {
   font-size: inherit;
 }
 /* Change Autocomplete styles in Chrome*/
@@ -277,7 +278,7 @@ dialog {
 
 /* Define the main Navigation block */
 .navbar {
-  height: 2.5rem;
+  height: max(2.5rem, 50px);
   width: 100%;
   line-height: 1.6;
   background-color: var(--main-3);
@@ -489,7 +490,7 @@ dialog {
   &:hover .button--svg,
   &:focus .button--svg,
   &:focus-within .button--svg {
-    background-color: var(--main-4);
+    background-color: rgba(0, 0, 0, 0.5);
   }
 }
 .card__image__top {
@@ -808,6 +809,8 @@ dialog {
   border-radius: 1em;
   padding: 0.5rem;
   margin-top: 1rem;
+  max-width: 30rem;
+  margin-inline: auto;
 }
 .comment__picture {
   width: 3em;
@@ -905,10 +908,11 @@ dialog {
   background: none;
   border: none;
   width: 100%;
-  padding: 0.5em 0.5em 0.25em;
+  padding: 0.5em 0.5em 0em;
   padding-left: 0;
   color: var(--dark-text);
   font-family: inherit;
+
   &:focus {
     outline: none;
   }

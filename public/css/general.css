@@ -2,7 +2,7 @@
 /* color palette and general fonts */
 :root {
   box-sizing: border-box;
-  font-size: calc(1vw + 0.6em);
+  font-size: min(1vw + 0.6em, 1.25rem);
   font-family: "Mulish", sans-serif;
   --main-1: #edf2f4;
   --main-2: #dbe0e6;
@@ -40,7 +40,8 @@
   color: var(--grey-text);
 }
 
-input {
+input,
+textarea {
   font-size: inherit;
 }
 
@@ -297,7 +298,7 @@ dialog .closeModal:hover {
 /*******************************************************************  NAVBAR SECTION START  *******************************************************************/
 /* Define the main Navigation block */
 .navbar {
-  height: 2.5rem;
+  height: max(2.5rem, 50px);
   width: 100%;
   line-height: 1.6;
   background-color: var(--main-3);
@@ -479,7 +480,7 @@ dialog .closeModal:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
 .card:hover .button--svg, .card:focus .button--svg, .card:focus-within .button--svg {
-  background-color: var(--main-4);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .card__image__top {
@@ -801,6 +802,8 @@ dialog .closeModal:hover {
   border-radius: 1em;
   padding: 0.5rem;
   margin-top: 1rem;
+  max-width: 30rem;
+  margin-inline: auto;
 }
 
 .comment__picture {
@@ -895,7 +898,7 @@ dialog .closeModal:hover {
   background: none;
   border: none;
   width: 100%;
-  padding: 0.5em 0.5em 0.25em;
+  padding: 0.5em 0.5em 0em;
   padding-left: 0;
   color: var(--dark-text);
   font-family: inherit;
