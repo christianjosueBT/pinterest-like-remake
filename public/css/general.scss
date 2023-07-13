@@ -727,6 +727,7 @@ dialog {
 }
 .button--success {
   background-color: var(--success);
+  color: var(--light-text);
 }
 .button--svg {
   display: flex;
@@ -767,7 +768,7 @@ dialog {
 // so this by passes that and only apply invalid styles to buttons that are NOT type button
 :invalid button:not([type='button']) {
   background-color: var(--accent-primary);
-  color: var(--light-text);
+  color: var(--dark-text);
   border: 2px solid var(--secondary-1);
 }
 

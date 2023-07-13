@@ -716,6 +716,7 @@ dialog .closeModal:hover {
 
 .button--success {
   background-color: var(--success);
+  color: var(--light-text);
 }
 
 .button--svg {
@@ -757,7 +758,7 @@ dialog .closeModal:hover {
 
 :invalid button:not([type=button]) {
   background-color: var(--accent-primary);
-  color: var(--light-text);
+  color: var(--dark-text);
   border: 2px solid var(--secondary-1);
 }
 
