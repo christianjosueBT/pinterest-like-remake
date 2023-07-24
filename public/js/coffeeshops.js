@@ -372,52 +372,35 @@ async function smallLayout(e) {
   return
 }
 
-// attaching pointerdown event listeners to the dropdown options: masonry, large, and small
-document
-  .querySelector('#masonry-grid')
-  .addEventListener('pointerdown', masonryLayout)
-document
-  .querySelector('#large-grid')
-  .addEventListener('pointerdown', largeLayout)
-document
-  .querySelector('#small-grid')
-  .addEventListener('pointerdown', smallLayout)
-document.querySelector('#masonry-grid').addEventListener('keyup', masonryLayout)
-document.querySelector('#large-grid').addEventListener('keyup', largeLayout)
-document.querySelector('#small-grid').addEventListener('keyup', smallLayout)
+function setLayoutListeners() {
+  // attaching pointerdown event listeners to the dropdown options: masonry, large, and small
+  document
+    .querySelector('#masonry-grid')
+    .addEventListener('pointerdown', masonryLayout)
+  document
+    .querySelector('#large-grid')
+    .addEventListener('pointerdown', largeLayout)
+  document
+    .querySelector('#small-grid')
+    .addEventListener('pointerdown', smallLayout)
+  document
+    .querySelector('#masonry-grid')
+    .addEventListener('keyup', masonryLayout)
+  document.querySelector('#large-grid').addEventListener('keyup', largeLayout)
+  document.querySelector('#small-grid').addEventListener('keyup', smallLayout)
 
-for (block of blocks) {
-  block.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-      event.target.querySelector('a')?.click()
-    }
-  })
+  for (block of blocks) {
+    block.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        event.target.querySelector('a')?.click()
+      }
+    })
+  }
 }
 
 // ********************************************************************
 // loading images, creating new cards, changing displayed images
 // ********************************************************************
-
-/**
- * Given a list of images to load and the dimensions of the viewport, calculates ideal image sizes and dynamically loads them in to the page
- * @param {nodeList} images list of images to be loaded
- * @returns {Void}
- */
-// function loadImages(images, width) {
-//   colWidth = width
-//     ? width
-//     : parseInt(
-//         window.getComputedStyle(document.body).getPropertyValue('font-size')
-//       ) * 20
-//   const pixelRatio = window.devicePixelRatio || 1.0
-
-//   let str = `https://res.cloudinary.com/christianjosuebt/image/upload/q_auto,f_auto,fl_lossy,w_${Math.round(
-//     colWidth * pixelRatio
-//   )}/coffeeShops`
-//   for (let i = 0; i < images.length; i++) {
-//     images[i].src = `${str}/${images[i].dataset.src}`
-//   }
-// }
 
 /**
  * sets the images sources for a card, accounts for device pixel ratio and size of the rendered element to deliver images optimized for data size
@@ -468,26 +451,6 @@ async function setImages(card__image, images, colWidth, id) {
     changePicture(card__image, imgs)
     return
   })
-  // return Promise.allSettled(sources.map(loadImage)).then(imgs => {
-  //   let a
-  //   imgs
-  //     .filter(img => img.status === 'fulfilled')
-  //     .forEach((img, i) => {
-  //       console.log('img:', img)
-  //       if (i === 0) {
-  //         a = document.createElement('a')
-  //         a.setAttribute('href', `/coffeeShops/${id}`)
-  //         img.className = 'active carousel__image'
-  //       } else {
-  //         img.className = 'carousel__image'
-  //       }
-  //       a.appendChild(img)
-  //     })
-
-  //   card__image.appendChild(a)
-  //   changePicture(card__image, imgs)
-  //   return
-  // })
 }
 
 /**
@@ -761,6 +724,7 @@ async function initialize() {
     images: '.carousel__image',
   })
   stopPropagation()
+  setLayoutListeners()
 }
 
 initialize()

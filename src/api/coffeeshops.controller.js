@@ -19,11 +19,6 @@ export default class coffeeShopsController {
       entries = 10
     }
 
-    // console.log('page', page)
-    // console.log('project', project)
-    // console.log('rating', rating)
-    // console.log('entries', entries)
-
     const { shopsList } = await csDAO.getCoffeeShops({
       page,
       project,
@@ -221,6 +216,7 @@ export default class coffeeShopsController {
       }
       res.json({ coffeeshop, ok: true })
     } catch (e) {
+      console.log('Error in csDAO findById', e)
       res.status(500).json({ error: e })
     }
   }

@@ -23,19 +23,6 @@ router.route('/').get(async (req, res) => {
   }
 })
 
-// router.route('/coffeeshops').get(async (req, res) => {
-//   let shops = await fetch(
-//     `http://${req.get(
-//       'host'
-//     )}/api/v1/coffeeshops?entries=10&project=images,name,description`
-//   )
-//   shops = await shops.json()
-//   shops = shops.shops
-
-//   res.render('coffeeShops/index.ejs', { shops })
-//   return
-// })
-
 router.route('/coffeeShops').get(async (req, res) => {
   let shops
   try {
@@ -132,6 +119,7 @@ router
     try {
       result = await fetch(`http://${req.get('host')}/api/v1/coffeeshops/${id}`)
       coffeeShop = await result.json()
+      console.log('home routes js coffeeShop:', coffeeShop)
       coffeeShop = coffeeShop.coffeeshop
       // if (!result.ok) return res.render('coffeeShops/notFound.ejs');
     } catch (e) {
