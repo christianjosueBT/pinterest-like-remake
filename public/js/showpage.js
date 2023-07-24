@@ -250,13 +250,21 @@ function loadImages(images) {
 }
 
 function loadRatings() {
-  const reviews = document.querySelectorAll('.comment__main__title')
-  for (const review of reviews) {
-    const rating = review.querySelector('.rating')
-    const ratingNum = rating?.dataset.rating
-    const ratingCups = rating?.children
-    for (let i = 0; i < ratingNum; i++) {
+  const avgRatings = document.querySelectorAll('.rating')
+  for (const avgRating of avgRatings) {
+    if (avgRating.id === 'makeRating') continue
+
+    const ratingNum = avgRating?.dataset.rating
+    const ratingInteger = Math.floor(ratingNum)
+    const ratingRemainder = Math.round((ratingNum % 1) * 10) / 10
+    const ratingCups = avgRating?.children
+    for (let i = 0; i < ratingInteger; i++) {
       ratingCups[i].firstElementChild.href.baseVal = '#cupFill'
+    }
+    if (ratingRemainder !== 0) {
+      ratingCups[
+        ratingInteger
+      ].firstElementChild.href.baseVal = `#fill${ratingRemainder}`
     }
   }
 }
@@ -309,10 +317,8 @@ document.addEventListener('readystatechange', event => {
     autoExpandTextArea()
     modalBtns()
     setImages()
-    // stars()
     buttons(images)
     toggleButtons()
-    // setStarsWidth()
     loadRatings()
     setRating()
   }
