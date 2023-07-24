@@ -610,8 +610,11 @@ dialog {
   border-radius: 0;
   overflow: hidden;
 
-  .card__title {
+  .card__content {
     position: absolute;
+    display: flex;
+    flex-flow: column wrap;
+
     bottom: 2em;
     color: var(--light-text);
     font-size: 1.5em;
@@ -619,6 +622,11 @@ dialog {
     z-index: 20;
     margin: 1em 1em 0;
     text-align: center;
+
+    .card__rating {
+      display: flex;
+      flex-flow: row;
+    }
   }
 
   img {

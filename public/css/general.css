@@ -593,8 +593,10 @@ dialog .closeModal:hover {
   border-radius: 0;
   overflow: hidden;
 }
-.card--showpage .card__title {
+.card--showpage .card__content {
   position: absolute;
+  display: flex;
+  flex-flow: column wrap;
   bottom: 2em;
   color: var(--light-text);
   font-size: 1.5em;
@@ -602,6 +604,10 @@ dialog .closeModal:hover {
   z-index: 20;
   margin: 1em 1em 0;
   text-align: center;
+}
+.card--showpage .card__content .card__rating {
+  display: flex;
+  flex-flow: row;
 }
 .card--showpage img {
   position: absolute;
