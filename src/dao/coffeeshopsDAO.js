@@ -138,67 +138,6 @@ export default class coffeeShopsDAO {
     }
   }
 
-  // /**
-  //  * Finds and returns shops
-  //  * Can be used with or without a query
-  //  * ONLY TEXT QUERYS ON NAME FIELD SUPPORTED RN
-  //  * @param {Object} filters search parameters used in the query
-  //  * @param {number} page Page
-  //  * @param {number} entries number of shops per page
-  //  * @returns {GetCoffeeShopsResult} object with the matched shop results
-  //  */
-  // static async getCoffeeShops({
-  //   // default parameters
-  //   filters = null,
-  //   page = 0,
-  //   project = [],
-  //   rating = false,
-  //   entries = 10,
-  // } = {}) {
-  //   let p = {}
-  //   let queryParams = {}
-
-  //   for (const key of project) {
-  //     key.includes('id') ? (p._id = 0) : (p[key] = 1)
-  //   }
-  //   if (rating) {
-  //     p.reviews = 1
-  //     p.rating = { $avg: '$' }
-  //   }
-  //   // if (filters) {
-  //   //   if ('name' in filters)
-  //   //     queryParams = this.textSearchQuery(filters['text']);
-  //   // }
-  //   let { query = {}, sort = DEFAULT_SORT } = queryParams
-  //   let cursor
-  //   try {
-  //     cursor = await coffeeShops.find(query).project(p).sort(sort)
-  //   } catch (e) {
-  //     console.error(
-  //       `Unable to find coffee shops in DAO getCoffeeShops() function 😩😩😩\n${e}`
-  //     )
-  //     console.error(
-  //       `Unable to find coffee shops in DAO getCoffeeShops() function 😩😩😩\n${e}`
-  //     )
-  //     return { shopsList: [], totalNumShops: 0 }
-  //   }
-  //   // Paging implementation
-  //   const displayCursor = cursor.limit(entries).skip(page * entries)
-  //   try {
-  //     const shopsList = await displayCursor.toArray()
-  //     // mongodb collection method that returns the number of items in the collection
-  //     // that match the query
-  //     const totalNumShops =
-  //       shopsList.length > 0 ? await coffeeShops.countDocuments(query) : 0
-  //     return { shopsList, totalNumShops }
-  //   } catch (e) {
-  //     console.error(
-  //       `Unable to convert cursor to array or problem counting documents in getCoffeeShops function 😩😩😩\n${e}`
-  //     )
-  //     return { shopsList: [], totalNumShops: 0 }
-  //   }
-  // }
-
   /**
    * Finds and returns shops
    * Can be used with or without a query
@@ -256,12 +195,6 @@ export default class coffeeShopsDAO {
 
       pipeline.push(lookup, addFields)
     }
-
-    // console.log('rating', rating)
-    // console.log('page', page)
-    // console.log('project', project)
-    // console.log('entries', entries)
-    // console.log('page * entries', page * entries)
 
     try {
       cursor = await coffeeShops.aggregate(pipeline)
@@ -359,7 +292,8 @@ export default class coffeeShopsDAO {
   }
 
   static async findById({ id = null, populate = [] } = {}) {
-    let lookup = {}
+    let lookup = {},
+      addFields
     const pipeline = [
       {
         $match: {
@@ -400,11 +334,28 @@ export default class coffeeShopsDAO {
             },
           ]
       }
+    } else {
+      lookup = {
+        $lookup: {
+          from: 'reviews',
+          localField: 'reviews',
+          foreignField: '_id',
+          as: 'reviews',
+        },
+      }
     }
-    if (Object.keys(lookup).length > 0) pipeline.push(lookup)
+
+    addFields = {
+      $addFields: {
+        avgRating: { $avg: '$reviews.rating' },
+        reviewsCount: { $size: '$reviews' },
+      },
+    }
+    pipeline.push(lookup, addFields)
 
     try {
       let res = await coffeeShops.aggregate(pipeline).next()
+      console.log('csDAO res:', res)
       if (!res) throw new Error('Coffee shop not found')
       return res
     } catch (e) {
