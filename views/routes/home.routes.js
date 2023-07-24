@@ -119,7 +119,6 @@ router
     try {
       result = await fetch(`http://${req.get('host')}/api/v1/coffeeshops/${id}`)
       coffeeShop = await result.json()
-      console.log('home routes js coffeeShop:', coffeeShop)
       coffeeShop = coffeeShop.coffeeshop
       // if (!result.ok) return res.render('coffeeShops/notFound.ejs');
     } catch (e) {
@@ -137,6 +136,7 @@ router
       let files = {}
       const { id } = req.params
 
+      console.log('req.files from home routes:', req.files)
       // if there are images in the request, we change them to a valid format to upload to our database
       if (req.files && req.files.length > 0)
         files = req.files.map(f => ({
@@ -169,7 +169,7 @@ router
       result = await result.json()
       if (!result.ok)
         return res.status(400).json({
-          message: 'problem updating the  coffeeshop ☹️☹️☹️',
+          message: 'problem updating the coffeeshop ☹️☹️☹️',
           error: result,
         })
 
@@ -242,7 +242,6 @@ router
     )
 
     result = await result.json()
-    console.log('result:', result)
     if (!result.ok)
       return res.status(400).json({
         message: 'problem making a new coffeeshop ☹️☹️☹️',
