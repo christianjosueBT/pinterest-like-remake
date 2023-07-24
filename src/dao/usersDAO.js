@@ -105,7 +105,7 @@ export default class UsersDAO {
    * @returns {Object | null} Returns either a single user or nothing
    */
   static async findById(id) {
-    if (typeof id === 'string') id = ObjectId(id)
+    if (typeof id === 'string') id = new ObjectId(id)
     try {
       const pipeline = [
         {

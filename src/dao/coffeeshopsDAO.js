@@ -274,17 +274,18 @@ export default class coffeeShopsDAO {
   }
 
   static async update(id, author, updateObj) {
-    if (typeof author === 'string') author = ObjectId(author)
-    if (typeof id === 'string') id = ObjectId(id)
+    if (typeof author === 'string') author = new ObjectId(author)
+    if (typeof id === 'string') id = new ObjectId(id)
 
     try {
       let coffeeShop = await coffeeShops.updateOne(
         { _id: id, author: author },
         updateObj
       )
-      if (coffeeShop.acknowledged && coffeeShop.matchedCount > 0)
+      if (coffeeShop.acknowledged && coffeeShop.matchedCount > 0) {
+        console.log('coffeeShop from csDAO update function:', coffeeShop)
         return { ok: true }
-      else return { ok: false }
+      } else return { ok: false }
     } catch (e) {
       console.error(`error updating coffee shop, ${e.message}`)
       return { error: e, ok: false }
@@ -355,7 +356,6 @@ export default class coffeeShopsDAO {
 
     try {
       let res = await coffeeShops.aggregate(pipeline).next()
-      console.log('csDAO res:', res)
       if (!res) throw new Error('Coffee shop not found')
       return res
     } catch (e) {
@@ -365,8 +365,8 @@ export default class coffeeShopsDAO {
   }
 
   static async delete(id, userId) {
-    if (!ObjectId.isValid(id)) id = ObjectId(id)
-    if (!ObjectId.isValid(userId)) id = ObjectId(userId)
+    if (!ObjectId.isValid(id)) id = new ObjectId(id)
+    if (!ObjectId.isValid(userId)) id = new ObjectId(userId)
     try {
       let deleteResult = await coffeeShops.deleteOne({
         _id: id,
@@ -405,7 +405,6 @@ export default class coffeeShopsDAO {
       let result = await reviews.insertOne({
         ...reviewInfo,
       })
-      console.log('reviewInfo:', reviewInfo)
       // making the insertedId a valid ObjectId if it isnt
       if (!ObjectId.isValid(result.insertedId))
         result.insertedId = ObjectId(result.insertedId)
@@ -433,9 +432,9 @@ export default class coffeeShopsDAO {
   }
 
   static async deleteReview(id, userId, csId) {
-    if (!ObjectId.isValid(id)) id = ObjectId(id)
-    if (!ObjectId.isValid(userId)) userId = ObjectId(userId)
-    if (!ObjectId.isValid(userId)) csId = ObjectId(csId)
+    if (!ObjectId.isValid(id)) id = new ObjectId(id)
+    if (!ObjectId.isValid(userId)) userId = new ObjectId(userId)
+    if (!ObjectId.isValid(userId)) csId = new ObjectId(csId)
 
     try {
       let deleteResult = await reviews.deleteOne({ _id: id, author: userId })
