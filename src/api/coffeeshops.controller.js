@@ -159,11 +159,11 @@ export default class coffeeShopsController {
     // so we extract the session _id from the session cookie
     let sessionUserId = req.get('user')
     let user = await usersDAO.findById(sessionUserId)
-    if (!user) errors.author = 'The author of this shop does not exist.'
+    if (!user) errors.author = 'The author of this coffee shop does not exist.'
 
     let coffeeShop = await csDAO.findById({ id })
     if (!coffeeShop)
-      errors.coffeeShopError = `A coffee shop with id ${id} does not exist`
+      errors.coffeeShopError = `A coffee shop with id: ${id} does not exist`
 
     if (Object.keys(errors).length > 0) {
       res.status(400).json(errors)
@@ -176,7 +176,7 @@ export default class coffeeShopsController {
     }
 
     if (csFromBody.images && Object.keys(csFromBody.images).length > 0) {
-      updateObj.$push = { images: csFromBody.images }
+      updateObj.$push = { images: { $each: csFromBody.images } }
     }
 
     let updateResult = await csDAO.update(
@@ -185,8 +185,10 @@ export default class coffeeShopsController {
       updateObj
     )
 
-    if (!updateResult.ok)
-      errors.updateUser = 'Problem updating the author of this new coffee shop'
+    if (!updateResult.ok) {
+      errors.updateCS = 'Problem updating coffee shop'
+      errors.error = updateResult
+    }
 
     coffeeShop = await csDAO.findById({ id })
 
