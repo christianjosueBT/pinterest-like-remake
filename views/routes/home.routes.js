@@ -151,8 +151,7 @@ router
         images: files,
       }
 
-      if (Object.keys(files).length > 0) delete coffeeShop.images
-
+      console.log('update object from home routes :id update route', coffeeShop)
       // sending a put request to the update route
       let result = await fetch(
         `http://${req.get('host')}/api/v1/coffeeshops/${id}/update?_method=PUT`,
@@ -174,6 +173,7 @@ router
         })
 
       let coffeeshop = result.coffeeshop
+      console.log('update result from home routes :id update route', coffeeshop)
 
       res.redirect(`/coffeeShops/${coffeeshop._id}`)
     }

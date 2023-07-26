@@ -287,7 +287,7 @@ export default class coffeeShopsDAO {
         return { ok: true }
       } else return { ok: false }
     } catch (e) {
-      console.error(`error updating coffee shop, ${e.message}`)
+      console.error('error updating coffee shop, e: ', e)
       return { error: e, ok: false }
     }
   }
@@ -356,6 +356,7 @@ export default class coffeeShopsDAO {
 
     try {
       let res = await coffeeShops.aggregate(pipeline).next()
+      console.log('csDAO findByID res:', res)
       if (!res) throw new Error('Coffee shop not found')
       return res
     } catch (e) {
